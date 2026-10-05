@@ -19,6 +19,7 @@ const {
 } = Astro.props;
 
 const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
+const REPOSITORIO = 'https://github.com/drocacoin/painel-dos-mandatos';
 const semBarraFinal = (caminho: string) => caminho.replace(/\/$/, '');
 const paginaAtual = semBarraFinal(Astro.url.pathname);
 const geradoEm = formatarDataHora(new Date());
@@ -74,11 +75,14 @@ const geradoEm = formatarDataHora(new Date());
     <footer class="rodape">
       <div class="recipiente">
         <p>
-          Site público, gratuito e apartidário.
-          <a href="https://github.com/drocacoin/painel-dos-mandatos">Código-fonte no GitHub</a>.
-          Código sob licença MIT; conteúdo sob licença CC BY 4.0.
+          Site público, gratuito e apartidário. <a href={`${raiz}/metodologia/`}>Metodologia</a> ·
+          <a href={`${REPOSITORIO}/issues/new?template=correcao.yml`}>Informar um erro</a> ·
+          <a href={REPOSITORIO}>Código-fonte no GitHub</a>.
         </p>
-        <p>Site gerado em {geradoEm} (horário de Brasília).</p>
+        <p>
+          Código sob licença MIT; conteúdo sob licença CC BY 4.0. Site gerado em {geradoEm} (horário
+          de Brasília).
+        </p>
       </div>
     </footer>
   </body>

@@ -11,7 +11,9 @@ Endereço: <https://drocacoin.github.io/painel-dos-mandatos/>
 - **Fase 3 (promessas):** concluída para SP: 30 promessas do plano de governo registrado no TSE, aprovadas em 05/10/2026, com validação no CI, placar, filtros e histórico. As do Brasil aguardam o 2º turno (25/10/2026).
 - **Fase 4 (gastos):** concluída. Despesa liquidada por área de governo (função), no Brasil e em SP, corrigida pela inflação, com coleta automática a cada bimestre publicado.
 - **Fase 5 (Congresso):** concluída, só no painel Brasil. Medidas provisórias editadas pela Presidência e projetos (PL, PLP e PEC) enviados pelo Poder Executivo à Câmara, desde 2023, com a situação atual de cada um.
-- Próxima: metodologia, acessibilidade, desempenho e guia de contribuição (Fase 6). Plano completo: [docs/fase-0-planejamento.md](docs/fase-0-planejamento.md).
+- **Fase 6 (metodologia, acessibilidade, desempenho e contribuição):** concluída. [Página de metodologia](https://drocacoin.github.io/painel-dos-mandatos/metodologia/), auditoria de acessibilidade sem violações (axe-core 4.12, regras WCAG 2.2 AA, temas claro e escuro), gráficos desenhados só quando chegam perto da tela, [guia de contribuição](CONTRIBUTING.md) e formulário para informar erros.
+
+Plano completo: [docs/fase-0-planejamento.md](docs/fase-0-planejamento.md).
 
 O governador de SP foi eleito no 1º turno (04/10/2026) e já aparece no site. A Presidência aguarda o 2º turno, em 25/10/2026; o site só mostra o eleito depois do resultado oficial do TSE. Como o mandato começa em 05/01/2027 (Brasil) e 06/01/2027 (SP), a comparação "desde o início do mandato" só aparece quando sair o primeiro dado de cada indicador a partir dessas datas.
 
@@ -47,25 +49,27 @@ Verificações (as mesmas que o GitHub roda a cada envio):
 
 ## Estrutura
 
-| Pasta ou arquivo             | O que tem                                                                                           |
-| ---------------------------- | --------------------------------------------------------------------------------------------------- |
-| `config/mandatos.json`       | mandatos acompanhados: cargo, datas, pessoa eleita e partido (edição manual)                        |
-| `config/fontes.ts`           | todos os códigos de séries e tabelas verificados, cada um com a data da verificação                 |
-| `config/indicadores.ts`      | o que cada painel mostra: título, unidade, fonte (com link) e como coletar                          |
-| `config/gastos.ts`           | de onde vêm os gastos de cada painel e quais áreas ganham gráfico próprio                           |
-| `config/congresso.ts`        | fontes do Congresso e as regras que resumem a situação de cada medida provisória e projeto          |
-| `data/<painel>/indicadores/` | os dados, um JSON por indicador; o histórico do git é a trilha de auditoria                         |
-| `data/<painel>/gastos/`      | despesa liquidada por função, em reais da época (a correção pela inflação é feita no site)          |
-| `data/brasil/congresso/`     | medidas provisórias e projetos do governo, com a situação no texto oficial                          |
-| `scripts/`                   | coletores (`coletores/`), acesso à internet com novas tentativas (`http.ts`) e `coletar.ts`         |
-| `src/pages/`                 | páginas: início e os painéis `/brasil/` e `/sp/`, cada um com Indicadores, Promessas e Gastos       |
-| `src/components/`            | cartão do indicador, gráfico com tabela e a linha de fonte                                          |
-| `src/scripts/graficos.ts`    | desenho dos gráficos (Chart.js)                                                                     |
-| `src/lib/`                   | validação (Zod), períodos, formatação em pt-BR e comparação com o início do mandato                 |
-| `src/styles/`                | design system: `tokens.css` (cores, tamanhos, espaços) e `base.css`                                 |
-| `tests/`                     | testes automáticos; `tests/fixtures/` tem respostas reais das APIs (não editar à mão)               |
-| `docs/`                      | plano do projeto                                                                                    |
-| `.github/workflows/`         | `ci.yml` (verificação e publicação), `coleta.yml` (coleta diária) e `conexao.yml` (teste de acesso) |
+| Pasta ou arquivo             | O que tem                                                                                                              |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `config/mandatos.json`       | mandatos acompanhados: cargo, datas, pessoa eleita e partido (edição manual)                                           |
+| `config/fontes.ts`           | todos os códigos de séries e tabelas verificados, cada um com a data da verificação                                    |
+| `config/indicadores.ts`      | o que cada painel mostra: título, unidade, fonte (com link) e como coletar                                             |
+| `config/gastos.ts`           | de onde vêm os gastos de cada painel e quais áreas ganham gráfico próprio                                              |
+| `config/congresso.ts`        | fontes do Congresso e as regras que resumem a situação de cada medida provisória e projeto                             |
+| `data/<painel>/indicadores/` | os dados, um JSON por indicador; o histórico do git é a trilha de auditoria                                            |
+| `data/<painel>/gastos/`      | despesa liquidada por função, em reais da época (a correção pela inflação é feita no site)                             |
+| `data/brasil/congresso/`     | medidas provisórias e projetos do governo, com a situação no texto oficial                                             |
+| `scripts/`                   | coletores (`coletores/`), acesso à internet com novas tentativas (`http.ts`) e `coletar.ts`                            |
+| `src/pages/`                 | páginas: início, metodologia e os painéis `/brasil/` e `/sp/` (indicadores, promessas, gastos e, no Brasil, Congresso) |
+| `src/components/`            | cartão do indicador, gráfico com tabela e a linha de fonte                                                             |
+| `src/scripts/graficos.ts`    | desenho dos gráficos (Chart.js)                                                                                        |
+| `src/lib/`                   | validação (Zod), períodos, formatação em pt-BR e comparação com o início do mandato                                    |
+| `src/styles/`                | design system: `tokens.css` (cores, tamanhos, espaços) e `base.css`                                                    |
+| `tests/`                     | testes automáticos; `tests/fixtures/` tem respostas reais das APIs (não editar à mão)                                  |
+| `docs/`                      | plano do projeto                                                                                                       |
+| `.github/workflows/`         | `ci.yml` (verificação e publicação), `coleta.yml` (coleta diária) e `conexao.yml` (teste de acesso)                    |
+| `.github/ISSUE_TEMPLATE/`    | formulário "Correção de dado ou de promessa"                                                                           |
+| `CONTRIBUTING.md`            | como informar erros, propor promessas ou status e mexer no código                                                      |
 
 ## Promessas
 
@@ -164,7 +168,7 @@ Cada indicador mostra no site a fonte (com link), o período de referência e a 
 | Brasil | Congresso       | Medidas provisórias editadas pela Presidência                    | [Senado Federal, Dados Abertos (processos legislativos)](https://legis.senado.leg.br/dadosabertos/)                                                                          | diária                   | automática |
 | Brasil | Congresso       | Projetos (PL, PLP e PEC) enviados pelo Poder Executivo           | [Câmara dos Deputados, Dados Abertos (proposições)](https://dadosabertos.camara.leg.br/)                                                                                     | diária                   | automática |
 
-Cuidados de método, todos explicados também no próprio site:
+Cuidados de método, todos explicados também na [página de metodologia](https://drocacoin.github.io/painel-dos-mandatos/metodologia/):
 
 - **Resultado primário do Brasil:** o Banco Central publica a série como "necessidade de financiamento", em que positivo significa déficit (Manual de Estatísticas Fiscais do BC). No site o sinal é invertido: positivo = superávit.
 - **Meta Selic:** a série do BC é diária; o site mostra o valor vigente no último dia de cada mês (no mês atual, o vigente no dia da coleta).
@@ -221,6 +225,10 @@ Os servidores do GitHub, que rodam a coleta automática, ficam fora do Brasil. O
 ## Segredos
 
 Chaves de API ficam só no arquivo `.env`, que o git ignora, e nos Secrets do GitHub. O modelo é o [`.env.example`](.env.example). A chave do Portal da Transparência (`PORTAL_TRANSPARENCIA_CHAVE`) está guardada nos dois lugares, mas nenhuma coleta a usa hoje.
+
+## Como contribuir
+
+Erros podem ser informados pelo [formulário de correção](https://github.com/drocacoin/painel-dos-mandatos/issues/new?template=correcao.yml). Regras para propor promessas, mudar status e mexer no código: [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licenças
 

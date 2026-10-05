@@ -1,0 +1,33 @@
+---
+// Critérios das promessas (aprovados em 05/10/2026): quais entram, prazo e os 6 status.
+// Mesmo texto na página de promessas e na de metodologia; a fonte é config/promessas.ts.
+import {
+  CRITERIO_DE_SELECAO,
+  CRITERIO_DO_STATUS,
+  FONTE_DOS_TEMAS,
+  ICONE_DO_STATUS,
+  REGRA_DO_PRAZO,
+  ROTULO_DO_STATUS,
+  STATUS,
+} from '../../config/promessas';
+---
+
+<p>{CRITERIO_DE_SELECAO}</p>
+<dl>
+  {STATUS.map((status) => (
+    <>
+      <dt>
+        <span class="selo-icone" data-status={status} aria-hidden="true">
+          {ICONE_DO_STATUS[status]}
+        </span>{' '}
+        {ROTULO_DO_STATUS[status]}
+      </dt>
+      <dd>{CRITERIO_DO_STATUS[status]}</dd>
+    </>
+  ))}
+</dl>
+<p>{REGRA_DO_PRAZO}</p>
+<p>
+  Os temas seguem as funções de governo da classificação oficial do orçamento:{' '}
+  <a href={FONTE_DOS_TEMAS.url}>{FONTE_DOS_TEMAS.nome}</a>.
+</p>

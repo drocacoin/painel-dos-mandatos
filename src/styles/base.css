@@ -14,6 +14,8 @@ body {
   line-height: var(--altura-linha);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* Palavras e endereços longos quebram em vez de empurrar a página para os lados (320 px). */
+  overflow-wrap: break-word;
 }
 
 h1,
@@ -259,6 +261,12 @@ a:hover {
 .grafico-area {
   position: relative;
   height: 13rem;
+}
+
+/* Antes de ser desenhado (só perto da tela), o canvas tem 300 px de largura padrão. */
+.grafico-area canvas {
+  display: block;
+  max-width: 100%;
 }
 
 .grafico figcaption {
@@ -510,4 +518,18 @@ a:hover {
 
 .lista-legislativa p {
   margin: 0 0 var(--espaco-1);
+}
+
+/* ----- Metodologia ----- */
+.lista-fontes li {
+  margin-bottom: var(--espaco-2);
+}
+
+.glossario dt {
+  margin-top: var(--espaco-3);
+  font-weight: var(--peso-forte);
+}
+
+.glossario dd {
+  margin: 0;
 }

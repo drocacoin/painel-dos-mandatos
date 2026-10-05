@@ -1,0 +1,33 @@
+name: Correção de dado ou de promessa
+description: Informe um número, texto ou status diferente da fonte oficial.
+title: 'Correção: '
+labels: ['correcao']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por ajudar. Toda correção precisa de um link de fonte oficial.
+        Mudanças de status de promessa entram por edição humana do arquivo, com justificativa e fonte.
+        Use linguagem neutra, sem adjetivos.
+  - type: input
+    id: pagina
+    attributes:
+      label: Página do site
+      description: Copie o endereço da página onde está o problema.
+      placeholder: https://drocacoin.github.io/painel-dos-mandatos/...
+    validations:
+      required: true
+  - type: textarea
+    id: problema
+    attributes:
+      label: O que está diferente da fonte oficial?
+      description: Diga o que aparece no site e o que a fonte mostra.
+    validations:
+      required: true
+  - type: input
+    id: fonte
+    attributes:
+      label: Link da fonte oficial com o dado correto
+      placeholder: https://
+    validations:
+      required: true

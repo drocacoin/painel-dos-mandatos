@@ -1,0 +1,291 @@
+---
+import CriteriosDasPromessas from '../components/CriteriosDasPromessas.astro';
+import Base from '../layouts/Base.astro';
+import { formatarData } from '../lib/formatar';
+import { mandatos } from '../lib/mandatos';
+import { fontesDoSite } from '../lib/metodologia';
+
+const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
+const REPOSITORIO = 'https://github.com/drocacoin/painel-dos-mandatos';
+const fontes = fontesDoSite();
+const grupos = [...new Set(fontes.map((f) => f.instituicao))].map((nome) => ({
+  nome,
+  itens: fontes.filter((f) => f.instituicao === nome),
+}));
+const primeiroAno = Math.min(...mandatos.map((m) => Number(m.inicio.slice(0, 4)))) - 4;
+const dominio = (url: string) => new URL(url).hostname;
+
+const partes = [
+  ['compromissos', 'Compromissos'],
+  ['mandatos', 'Mandatos'],
+  ['comparacao', 'Comparação'],
+  ['cuidados', 'Cuidados com cada dado'],
+  ['promessas', 'Promessas'],
+  ['gastos', 'Gastos'],
+  ['congresso', 'Congresso'],
+  ['fontes', 'Fontes'],
+  ['glossario', 'Glossário'],
+  ['limitacoes', 'Limitações'],
+  ['correcoes', 'Correções'],
+];
+---
+
+<Base
+  titulo="Metodologia | Painel dos Mandatos"
+  descricao="Como o Painel dos Mandatos coleta, confere e mostra os dados: fontes, regras, critérios e limitações."
+>
+  <h1>Metodologia</h1>
+  <p>
+    Como o painel coleta, confere e mostra os dados. Vale para os dois painéis, salvo quando
+    indicado.
+  </p>
+  <nav aria-label="Partes desta página">
+    <ul class="temas">
+      {partes.map(([ancora, nome]) => (
+        <li>
+          <a href={`#${ancora}`}>{nome}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <section aria-labelledby="compromissos">
+    <h2 id="compromissos">Compromissos</h2>
+    <ul>
+      <li>
+        <strong>Só dados oficiais.</strong> Nenhum número, promessa ou código é inventado. Se uma
+        fonte não pode ser confirmada, o dado não entra.
+      </li>
+      <li>
+        <strong>Fonte em todo número.</strong> Cada número mostra a fonte, com link, o período de
+        referência e a data da última atualização.
+      </li>
+      <li>
+        <strong>Dado bom não é apagado.</strong> A coleta é automática e diária. Se uma fonte falha,
+        responde vazio ou muda de formato, o dado anterior fica como estava e a falha é registrada
+        publicamente.
+      </li>
+      <li>
+        <strong>Status de promessa só por pessoa.</strong> Nenhum robô muda status. Cada mudança tem
+        justificativa e link de fonte e fica no histórico.
+      </li>
+      <li>
+        <strong>Linguagem neutra.</strong> O texto registra fatos ("passou de X para Y"), sem
+        adjetivos de avaliação.
+      </li>
+      <li>
+        <strong>Tudo aberto.</strong> Código, dados e o histórico de cada alteração ficam no
+        <a href={REPOSITORIO}>repositório público do GitHub</a>.
+      </li>
+      <li>
+        <strong>Padrão brasileiro.</strong> Números e datas no formato brasileiro e horários de
+        Brasília.
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="mandatos">
+    <h2 id="mandatos">Mandatos acompanhados</h2>
+    <ul>
+      {mandatos.map((mandato) => (
+        <li>
+          {mandato.cargo}: {formatarData(mandato.inicio)} a {formatarData(mandato.fim)}. Base legal:{' '}
+          <a href={mandato.fonteDatas.url}>{mandato.fonteDatas.nome}</a>.
+        </li>
+      ))}
+    </ul>
+    <p>
+      Brasil e São Paulo são painéis separados, com os mesmos componentes e na mesma ordem. Nenhuma
+      página compara presidente e governador.
+    </p>
+  </section>
+
+  <section aria-labelledby="comparacao">
+    <h2 id="comparacao">Comparação com o início do mandato</h2>
+    <ul>
+      <li>
+        Os gráficos começam em janeiro de {primeiroAno}, quatro anos antes da posse: a mesma duração
+        de um mandato.
+      </li>
+      <li>
+        A referência é o último período completo antes da posse. O valor atual é o último período
+        completo do mandato.
+      </li>
+      <li>
+        Períodos parciais ou preliminares aparecem marcados (por exemplo, "jan-ago" ou "parcial") e
+        não entram na comparação.
+      </li>
+      <li>
+        Taxas variam em pontos percentuais; valores em reais e índices, em porcentagem; contagens,
+        em diferença absoluta.
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="cuidados">
+    <h2 id="cuidados">Cuidados com cada dado</h2>
+    <ul>
+      <li>
+        <strong>Resultado primário do Brasil:</strong> o Banco Central publica a série como
+        necessidade de financiamento, em que positivo significa déficit. No site o sinal é
+        invertido: positivo = superávit.
+      </li>
+      <li>
+        <strong>Meta Selic:</strong> o valor vigente no último dia de cada mês; no mês atual, o
+        vigente no dia da coleta.
+      </li>
+      <li>
+        <strong>Desemprego e renda de SP:</strong> o recorte por estado só existe por trimestre; o
+        do Brasil é por trimestre móvel.
+      </li>
+      <li>
+        <strong>Inflação de SP:</strong> não existe IPCA por estado. O site usa o da Região
+        Metropolitana de São Paulo.
+      </li>
+      <li>
+        <strong>Atividade econômica de SP:</strong> índice do Banco Central (IBCR-SP), e não o PIB,
+        que o IBGE publica com cerca de 3 anos de atraso.
+      </li>
+      <li>
+        <strong>Resultado primário de SP:</strong> acumulado no ano; o ano em curso é parcial.
+      </li>
+      <li>
+        <strong>Segurança e saúde de SP:</strong> dados anuais da Fundação Seade (vítimas de
+        homicídio doloso e mortalidade infantil).
+      </li>
+      <li>
+        <strong>Mortes no trânsito:</strong> soma de 12 meses. O mês mais recente é preliminar,
+        porque uma morte pode ser registrada dias depois do sinistro.
+      </li>
+      <li>
+        <strong>IDEB:</strong> sai a cada 2 anos e é copiado à mão do arquivo oficial do INEP.
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="promessas">
+    <h2 id="promessas">Promessas</h2>
+    <p>
+      Vêm do plano de governo registrado no TSE. O texto de cada promessa é cópia literal do
+      documento, com a página. Critérios aprovados em 05/10/2026:
+    </p>
+    <CriteriosDasPromessas />
+    <p>
+      Cada promessa mostra o histórico de status, com data, justificativa e fonte, e um link para
+      todas as edições do arquivo no GitHub.
+    </p>
+  </section>
+
+  <section aria-labelledby="gastos">
+    <h2 id="gastos">Gastos</h2>
+    <p>
+      Despesa liquidada por função de governo, dos relatórios bimestrais enviados ao Tesouro
+      Nacional, corrigida pela inflação (IPCA). Regras completas no fim das páginas de gastos do
+      <a href={`${raiz}/brasil/gastos/#metodo`}>Brasil</a> e de
+      <a href={`${raiz}/sp/gastos/#metodo`}>São Paulo</a>.
+    </p>
+  </section>
+
+  <section aria-labelledby="congresso">
+    <h2 id="congresso">Congresso</h2>
+    <p>
+      Só no painel Brasil: medidas provisórias (Senado Federal) e projetos enviados pelo Poder
+      Executivo (Câmara dos Deputados), com a situação atual de cada um. Regras completas no fim da
+      <a href={`${raiz}/brasil/congresso/#regras`}>página do Congresso</a>.
+    </p>
+  </section>
+
+  <section aria-labelledby="fontes">
+    <h2 id="fontes">Fontes e códigos verificados</h2>
+    <p>
+      Cada código foi conferido com uma chamada real à fonte, na data indicada. A lista vem do mesmo
+      arquivo que a coleta usa:{' '}
+      <a href={`${REPOSITORIO}/blob/main/config/fontes.ts`}>config/fontes.ts</a>.
+    </p>
+    {grupos.map((grupo) => (
+      <>
+        <h3>{grupo.nome}</h3>
+        <ul class="lista-fontes">
+          {grupo.itens.map((fonte) => (
+            <li>
+              {fonte.descricao}.{' '}
+              {fonte.url ? (
+                <>
+                  Endereço: <a href={fonte.url}>{dominio(fonte.url)}</a>.
+                </>
+              ) : (
+                <>Código: {fonte.codigo}.</>
+              )}{' '}
+              <span class="fonte">Verificado em {formatarData(fonte.verificadoEm)}.</span>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))}
+  </section>
+
+  <section aria-labelledby="glossario">
+    <h2 id="glossario">Glossário</h2>
+    <dl class="glossario">
+      <dt>p.p. (pontos percentuais)</dt>
+      <dd>Diferença entre duas taxas. De 5% para 6%: +1 p.p.</dd>
+      <dt>a.a.</dt>
+      <dd>Ao ano.</dd>
+      <dt>mi, bi, tri</dt>
+      <dd>Milhões, bilhões e trilhões de reais.</dd>
+      <dt>IPCA</dt>
+      <dd>Índice oficial de inflação, calculado pelo IBGE.</dd>
+      <dt>Trimestre móvel</dt>
+      <dd>Três meses seguidos (por exemplo, jun-jul-ago), com um resultado novo a cada mês.</dd>
+      <dt>Despesa liquidada</dt>
+      <dd>
+        O bem ou o serviço foi entregue e a despesa foi reconhecida; o pagamento vem em seguida.
+      </dd>
+      <dt>Despesa intraorçamentária</dt>
+      <dd>Pagamento entre órgãos do próprio governo.</dd>
+      <dt>Função de governo</dt>
+      <dd>
+        Área do orçamento, como saúde ou educação, pela classificação oficial (Portaria nº 42/1999).
+      </dd>
+      <dt>RREO e RGF</dt>
+      <dd>
+        Relatórios fiscais que União, estados e municípios publicam por exigência da Lei de
+        Responsabilidade Fiscal, reunidos pelo Tesouro Nacional no SICONFI.
+      </dd>
+      <dt>Medida provisória (MP)</dt>
+      <dd>
+        Ato do presidente com força de lei, que o Congresso precisa aprovar para continuar valendo.
+      </dd>
+      <dt>PL, PLP e PEC</dt>
+      <dd>Projeto de lei, projeto de lei complementar e proposta de emenda à Constituição.</dd>
+    </dl>
+  </section>
+
+  <section aria-labelledby="limitacoes">
+    <h2 id="limitacoes">Limitações conhecidas</h2>
+    <ul>
+      <li>
+        O site ainda não avisa quando um dado está atrasado em relação ao calendário da fonte. As
+        datas de referência e de atualização ficam sempre visíveis.
+      </li>
+      <li>O IDEB é atualizado à mão, porque o servidor do INEP recusa a coleta automática.</li>
+      <li>O catálogo da Fundação Seade não informa a licença dos arquivos de segurança e saúde.</li>
+      <li>Os gastos aparecem só por função de governo; o valor pago por função não é usado.</li>
+      <li>
+        O Congresso aparece só no painel Brasil. Vetos e projetos do Congresso Nacional (como os de
+        crédito orçamentário) não aparecem.
+      </li>
+      <li>O tema claro ou escuro segue a configuração do aparelho.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="correcoes">
+    <h2 id="correcoes">Correções e contribuições</h2>
+    <p>
+      Encontrou um número, texto ou status diferente da fonte oficial?
+      <a href={`${REPOSITORIO}/issues/new?template=correcao.yml`}>Informe pelo GitHub</a>, com o
+      link da fonte (é preciso ter uma conta). Para propor mudanças no código ou nos dados, veja o
+      <a href={`${REPOSITORIO}/blob/main/CONTRIBUTING.md`}>guia de contribuição</a>.
+    </p>
+  </section>
+</Base>

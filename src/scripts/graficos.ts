@@ -196,11 +196,28 @@ function configuracao(dados: DadosDoGrafico): ChartConfiguration<'line' | 'bar'>
 }
 
 const graficos: { grafico: Chart; dados: DadosDoGrafico }[] = [];
+const pendentes = new Set(document.querySelectorAll<HTMLCanvasElement>('canvas[data-grafico]'));
 
-for (const canvas of document.querySelectorAll<HTMLCanvasElement>('canvas[data-grafico]')) {
+function desenhar(canvas: HTMLCanvasElement) {
+  if (!pendentes.delete(canvas)) return;
   const dados = JSON.parse(canvas.dataset.grafico ?? '{}') as DadosDoGrafico;
   graficos.push({ grafico: new Chart(canvas, configuracao(dados)), dados });
 }
+
+// Cada gráfico é desenhado quando chega perto da tela: páginas com muitos gráficos abrem
+// mais rápido no celular. Para imprimir, desenha os que faltam.
+const observador = new IntersectionObserver(
+  (entradas) => {
+    for (const entrada of entradas) {
+      if (!entrada.isIntersecting) continue;
+      observador.unobserve(entrada.target);
+      desenhar(entrada.target as HTMLCanvasElement);
+    }
+  },
+  { rootMargin: '400px 0px' },
+);
+for (const canvas of pendentes) observador.observe(canvas);
+addEventListener('beforeprint', () => [...pendentes].forEach(desenhar));
 
 // Tema claro/escuro mudou: redesenha com as cores novas.
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
