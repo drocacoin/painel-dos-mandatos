@@ -55,7 +55,11 @@ const detalhesDaFonte = [
     <dt>Tema</dt>
     <dd>{promessa.tema}</dd>
     <dt>Prazo</dt>
-    <dd>{promessa.prazo ? formatarData(promessa.prazo) : 'Sem prazo definido'}</dd>
+    <dd>
+      {promessa.prazo
+        ? formatarData(promessa.prazo)
+        : `Sem prazo no texto; vale o fim do mandato (${formatarData(mandato.fim)})`}
+    </dd>
     <dt>Mensurável</dt>
     <dd>{promessa.mensuravel ? 'Sim' : 'Não'}</dd>
     {promessa.meta && (

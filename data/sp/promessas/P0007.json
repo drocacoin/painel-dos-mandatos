@@ -1,0 +1,27 @@
+{
+  "id": "P0007",
+  "resumo": "Chegar a 90% das crianças alfabetizadas na idade certa até o fim do mandato",
+  "texto": "Pela primeira vez na história, o estado uniu as 645 prefeituras paulistas em torno da missão de garantir que nossas crianças aprendam a ler na idade certa. Hoje são 61% - e vamos fechar o próximo quadriênio com 90%.",
+  "tema": "Educação",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 20
+  },
+  "mensuravel": true,
+  "meta": "90% das crianças alfabetizadas na idade certa; o plano informa 61% hoje",
+  "indicador": null,
+  "prazo": "2031-01-06",
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

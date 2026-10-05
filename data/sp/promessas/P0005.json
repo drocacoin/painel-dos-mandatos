@@ -1,0 +1,27 @@
+{
+  "id": "P0005",
+  "resumo": "Levar o incentivo IGM SUS Paulista à atenção primária dos 645 municípios",
+  "texto": "Também auxiliaremos as prefeituras com a inovação trazida pelo Incentivo à Gestão Municipal – IGM SUS Paulista, para as ações e serviços da Atenção Primária à Saúde (APS) e as relacionadas à vigilância epidemiológica, para todos os 645 municípios do estado.",
+  "tema": "Saúde",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 14
+  },
+  "mensuravel": true,
+  "meta": "IGM SUS Paulista repassado aos 645 municípios",
+  "indicador": null,
+  "prazo": null,
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

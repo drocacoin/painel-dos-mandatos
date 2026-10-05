@@ -1,9 +1,11 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import {
+  CRITERIO_DE_SELECAO,
   CRITERIO_DO_STATUS,
   FONTE_DOS_TEMAS,
   ICONE_DO_STATUS,
+  REGRA_DO_PRAZO,
   ROTULO_DO_STATUS,
   STATUS,
 } from '../../../../config/promessas';
@@ -106,7 +108,8 @@ const promessasNoTexto = (n: number) => `${n} ${n === 1 ? 'promessa' : 'promessa
   )}
 
   <details class="criterios">
-    <summary>Como cada status é definido</summary>
+    <summary>Critérios: quais promessas entram e como cada status é definido</summary>
+    <p>{CRITERIO_DE_SELECAO}</p>
     <dl>
       {STATUS.map((status) => (
         <>
@@ -120,6 +123,7 @@ const promessasNoTexto = (n: number) => `${n} ${n === 1 ? 'promessa' : 'promessa
         </>
       ))}
     </dl>
+    <p>{REGRA_DO_PRAZO}</p>
     <p>
       Os temas seguem as funções de governo da classificação oficial do orçamento:{' '}
       <a href={FONTE_DOS_TEMAS.url}>{FONTE_DOS_TEMAS.nome}</a>.

@@ -1,0 +1,27 @@
+{
+  "id": "P0009",
+  "resumo": "Chegar a 60% dos alunos da rede estadual com acesso ao ensino técnico profissionalizante",
+  "texto": "No início da gestão, apenas 12% dos alunos da rede tinham acesso ao ensino técnico profissionalizante. Hoje, são 45% - e vamos chegar a 60% dos alunos da rede estadual, com cursos conectados às vocações econômicas de cada região, integrando as escolas estaduais, Etecs, Fatecs e Univesp.",
+  "tema": "Educação",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 23
+  },
+  "mensuravel": true,
+  "meta": "60% dos alunos da rede estadual; o plano informa 45% hoje",
+  "indicador": null,
+  "prazo": null,
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

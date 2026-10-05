@@ -62,7 +62,7 @@ export const ROTULO_DO_STATUS: Record<Status, string> = {
   'nao-avaliavel': 'Não avaliável',
 };
 
-// Critérios de cada status (PROPOSTA: aguardando aprovação do responsável pelo projeto).
+// Critérios de cada status, aprovados pelo responsável pelo projeto em 05/10/2026.
 // Aparecem na página de promessas para quem lê saber como a classificação é feita.
 export const CRITERIO_DO_STATUS: Record<Status, string> = {
   'nao-iniciada': 'Não há registro oficial de ação do governo voltada à promessa.',
@@ -76,6 +76,11 @@ export const CRITERIO_DO_STATUS: Record<Status, string> = {
   'nao-avaliavel':
     'A promessa não tem ação, meta ou prazo verificáveis, ou não há fonte oficial que permita avaliar.',
 };
+
+// Regras aprovadas em 05/10/2026; também aparecem na página de promessas.
+export const CRITERIO_DE_SELECAO =
+  'Entram os trechos do plano de governo registrado no TSE que trazem um compromisso com alvo verificável: um número, um prazo ou a cobertura total (por exemplo, "todos os municípios").';
+export const REGRA_DO_PRAZO = 'Quando o texto da promessa não traz prazo, vale o fim do mandato.';
 
 // Formas diferentes para cada status: a cor nunca é o único sinal (design system, seção 6).
 export const ICONE_DO_STATUS: Record<Status, string> = {

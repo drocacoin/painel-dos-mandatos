@@ -1,0 +1,27 @@
+{
+  "id": "P0008",
+  "resumo": "Triplicar o Bolsa Estágio do Ensino Médio (BEEM), para mais de 50 mil alunos",
+  "texto": "O Programa Bolsa Estágio do Ensino Médio, o BEEM, será triplicado, atingindo mais de 50 mil alunos com estágios remunerados, multiplicando as pontes entre a escola e o mercado de trabalho.",
+  "tema": "Educação",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 23
+  },
+  "mensuravel": true,
+  "meta": "Mais de 50 mil alunos com estágio remunerado pelo BEEM",
+  "indicador": null,
+  "prazo": null,
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

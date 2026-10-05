@@ -1,0 +1,27 @@
+{
+  "id": "P0026",
+  "resumo": "Ampliar em 75% a capacidade de tratamento de esgoto da Região Metropolitana de São Paulo e implantar 2.100 km de redes",
+  "texto": "Vamos ampliar e modernizar o sistema de esgotamento sanitário da Região Metropolitana de São Paulo, com o acréscimo de 75% na capacidade de tratamento e a implantação de 2.100 km de redes e coletores de esgoto, fundamental para o alcance da universalização da coleta e tratamento de esgoto até 2029.",
+  "tema": "Saneamento",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 44
+  },
+  "mensuravel": true,
+  "meta": "75% a mais de capacidade de tratamento e 2.100 km de redes e coletores de esgoto",
+  "indicador": null,
+  "prazo": "2029-12-31",
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

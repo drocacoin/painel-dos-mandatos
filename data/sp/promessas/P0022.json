@@ -1,0 +1,27 @@
+{
+  "id": "P0022",
+  "resumo": "Acrescentar 6 mil litros por segundo ao abastecimento da Região Metropolitana de São Paulo e reduzir perdas, com mais de R$ 9 bilhões da Sabesp",
+  "texto": "Em segurança hídrica, por conta do novo contrato da Sabesp, serão mais de R$ 9 bilhões investidos nos próximos anos para reduzir perdas d’água e acrescentar 6 mil litros de água por segundo ao abastecimento de cerca de 22 milhões de pessoas na Região Metropolitana de São Paulo.",
+  "tema": "Saneamento",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 42
+  },
+  "mensuravel": true,
+  "meta": "6 mil litros de água por segundo a mais e mais de R$ 9 bilhões investidos",
+  "indicador": null,
+  "prazo": null,
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

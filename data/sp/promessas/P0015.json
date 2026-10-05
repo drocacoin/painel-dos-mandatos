@@ -1,0 +1,27 @@
+{
+  "id": "P0015",
+  "resumo": "Universalizar água e esgoto até 2029 nos 371 municípios atendidos pela Sabesp (URAE-1)",
+  "texto": "Será feita a universalização do saneamento até 2029, quatro anos antes do estabelecido no novo marco de saneamento, nos 371 municípios que compõem a Unidade Regional de Serviços de Abastecimento de Água Potável e Esgotamento Sanitário - URAE-1 do Estado de São Paulo, operada pela Sabesp, além de melhorar a segurança hídrica dos paulistas. Os investimentos superarão R$ 70 bilhões e alcançarão 10 milhões de pessoas que hoje ou não tem acesso à água ou não tem coleta ou tratamento de esgoto.",
+  "tema": "Saneamento",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 33
+  },
+  "mensuravel": true,
+  "meta": "Água e esgoto universalizados nos 371 municípios da URAE-1, com mais de R$ 70 bilhões investidos e 10 milhões de pessoas alcançadas",
+  "indicador": null,
+  "prazo": "2029-12-31",
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

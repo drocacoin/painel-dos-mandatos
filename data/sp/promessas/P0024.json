@@ -1,0 +1,27 @@
+{
+  "id": "P0024",
+  "resumo": "Construir mais de 400 reservatórios no interior até 2029",
+  "texto": "No interior paulista, mais de 400 reservatórios serão construídos até 2029, com um incremento de volume de 120 milhões de litros.",
+  "tema": "Saneamento",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 43
+  },
+  "mensuravel": true,
+  "meta": "Mais de 400 reservatórios, com 120 milhões de litros a mais",
+  "indicador": null,
+  "prazo": "2029-12-31",
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

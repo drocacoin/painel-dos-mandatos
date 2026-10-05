@@ -1,7 +1,7 @@
 # Fase 0: Planejamento
 
 **Projeto:** painel público de acompanhamento dos mandatos do presidente da República e do governador de São Paulo (2027–2031)
-**Data:** 04/10/2026 · **Situação:** Fases 0, 1 e 2 concluídas; Fase 3 (promessas) com estrutura concluída em 05/10/2026, ver README
+**Data:** 04/10/2026 · **Situação:** Fases 0 a 3 concluídas (promessas de SP aprovadas em 05/10/2026); Fase 4 (gastos) em andamento, ver README
 **Pasta:** `E:\painel-dos-mandatos` · **Repositório:** `drocacoin/painel-dos-mandatos`
 
 Nesta fase não escrevi código. Criei só este documento e as amostras reais das APIs em `tests/fixtures/` (regra 2).

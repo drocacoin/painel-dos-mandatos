@@ -1,0 +1,27 @@
+{
+  "id": "P0006",
+  "resumo": "Chegar a 80% dos municípios com cobertura vacinal de pelo menos 95% até o fim de 2030",
+  "texto": "Nos próximos 4 anos, intensificaremos o apoio aos municípios no aumento da cobertura vacinal. Ao final do quadriênio de 2030, espera-se que 80% dos municípios paulistas atinjam cobertura vacinal mínima de 95% nas vacinas monitoradas pelo IGM SUS Paulista.",
+  "tema": "Saúde",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 15
+  },
+  "mensuravel": true,
+  "meta": "80% dos municípios com cobertura vacinal de pelo menos 95% nas vacinas monitoradas pelo IGM SUS Paulista",
+  "indicador": null,
+  "prazo": "2030-12-31",
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

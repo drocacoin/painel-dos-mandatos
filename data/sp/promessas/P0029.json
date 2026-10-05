@@ -1,0 +1,27 @@
+{
+  "id": "P0029",
+  "resumo": "Implantar o novo Centro Administrativo do Governo de São Paulo nos Campos Elíseos",
+  "texto": "Vamos implantar nos Campos Elíseos o novo Centro Administrativo do Governo de São Paulo, um dos maiores projetos de transformação urbana e de modernização da gestão pública da história do Estado. Com investimentos estimados em R$ 6 bilhões, o complexo terá mais de 250 mil metros quadrados de área construída e reunirá cerca de 22 mil servidores públicos hoje espalhados por mais de 40 endereços na capital.",
+  "tema": "Administração",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 53
+  },
+  "mensuravel": true,
+  "meta": "Complexo em funcionamento, reunindo cerca de 22 mil servidores; o projeto prevê o restauro de 17 imóveis tombados e a ampliação de mais de 40% da área verde do Parque Princesa Isabel",
+  "indicador": null,
+  "prazo": null,
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

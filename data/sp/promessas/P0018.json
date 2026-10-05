@@ -1,0 +1,27 @@
+{
+  "id": "P0018",
+  "resumo": "Mais que triplicar o número de Delegacias de Defesa da Mulher (DDMs) abertas 24 horas",
+  "texto": "Para os próximos 4 anos, o número de DDMs 24 horas/dia aumentará em mais de 3 vezes em todo o estado.",
+  "tema": "Segurança Pública",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 37
+  },
+  "mensuravel": true,
+  "meta": "Número de DDMs abertas 24 horas por dia mais de 3 vezes maior",
+  "indicador": null,
+  "prazo": "2031-01-06",
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

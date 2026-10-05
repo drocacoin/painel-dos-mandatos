@@ -1,0 +1,27 @@
+{
+  "id": "P0021",
+  "resumo": "Investir mais de R$ 25 bilhões em adaptação e resiliência climática até o fim de 2029",
+  "texto": "Vamos investir mais de R$ 25 bilhões, até o final de 2029, em ações de adaptação e resiliência climática - o maior plano da história, com obras e serviços estruturantes de drenagem, desassoreamento, reservatórios, parques, restauração ecológica e ampliação dos sistemas de abastecimento e saneamento.",
+  "tema": "Gestão Ambiental",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 42
+  },
+  "mensuravel": true,
+  "meta": "Mais de R$ 25 bilhões investidos em drenagem, desassoreamento, reservatórios, parques, restauração ecológica, abastecimento e saneamento",
+  "indicador": null,
+  "prazo": "2029-12-31",
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

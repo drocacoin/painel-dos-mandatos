@@ -1,0 +1,27 @@
+{
+  "id": "P0001",
+  "resumo": "Ampliar o Programa Muralha Paulista a todos os municípios, com mais de 160 mil câmeras e sensores, nos 2 primeiros anos",
+  "texto": "O Programa Muralha Paulista será ampliado em 30%, chegando à totalidade de municípios com mais de 160 mil câmeras e sensores interligados já nos primeiros 2 anos de Governo, e integrará o novo Centro de Inteligência e Inovação, o SP CIN.",
+  "tema": "Segurança Pública",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 8
+  },
+  "mensuravel": true,
+  "meta": "Todos os 645 municípios no programa e mais de 160 mil câmeras e sensores interligados (ampliação de 30%)",
+  "indicador": null,
+  "prazo": "2029-01-05",
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

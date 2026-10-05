@@ -1,0 +1,27 @@
+{
+  "id": "P0013",
+  "resumo": "Implantar Centros TEA Paulista e Centros de Cidadania da Pessoa com Deficiência em todas as Regiões Administrativas",
+  "texto": "Vamos implantar novos Centros TEA (Transtorno do Espectro Autista) Paulista em todas as Regiões Administrativas, com abordagem multidisciplinar, intersetorial e humanizada, por meio de serviços especializados, formação continuada, orientação técnica, acesso a benefícios e encaminhamentos a redes de apoio. Junto aos novos Centros TEA, serão também instalados Centros de Cidadania de Pessoas com Deficiência.",
+  "tema": "Assistência Social",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 31
+  },
+  "mensuravel": true,
+  "meta": "Centro TEA Paulista e Centro de Cidadania de Pessoas com Deficiência em todas as Regiões Administrativas",
+  "indicador": null,
+  "prazo": null,
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

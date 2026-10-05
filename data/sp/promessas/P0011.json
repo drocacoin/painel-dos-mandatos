@@ -1,0 +1,27 @@
+{
+  "id": "P0011",
+  "resumo": "Investir mais de R$ 7,2 bilhões em infraestrutura escolar no mandato",
+  "texto": "No próximo quadriênio, chegaremos a mais de R$ 7,2 bilhões em investimentos para melhorias na infraestrutura escolar do estado.",
+  "tema": "Educação",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo SP/2026SP250002541303_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip",
+    "data": "2026-08-17",
+    "pagina": 25
+  },
+  "mensuravel": true,
+  "meta": "Mais de R$ 7,2 bilhões investidos em melhorias na infraestrutura escolar",
+  "indicador": null,
+  "prazo": "2031-01-06",
+  "historico": [
+    {
+      "data": "2026-10-05",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 06/01/2027 (Constituição Federal, art. 28, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

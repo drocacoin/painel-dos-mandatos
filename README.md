@@ -8,10 +8,10 @@ Endereço: <https://drocacoin.github.io/painel-dos-mandatos/>
 
 - **Fase 1 (fundação):** concluída. Estrutura do projeto, verificações automáticas e publicação.
 - **Fase 2 (indicadores):** concluída. 19 indicadores (7 do Brasil, 12 de SP) com gráficos, coleta automática diária e comparação com o início do mandato.
-- **Fase 3 (promessas):** estrutura concluída: validação no CI, páginas com placar, filtros e histórico, e o script de rascunho. As promessas de SP aguardam revisão humana do rascunho; as do Brasil, o 2º turno (25/10/2026).
+- **Fase 3 (promessas):** concluída para SP: 30 promessas do plano de governo registrado no TSE, aprovadas em 05/10/2026, com validação no CI, placar, filtros e histórico. As do Brasil aguardam o 2º turno (25/10/2026).
 - Próximas: gastos (Fase 4), Congresso e Assembleia Legislativa (Fase 5, opcional) e metodologia (Fase 6). Plano completo: [docs/fase-0-planejamento.md](docs/fase-0-planejamento.md).
 
-As pessoas eleitas ainda não aparecem no site. O projeto aguarda o resultado oficial do TSE (1º turno em 04/10/2026; 2º turno, se houver, em 25/10/2026). Como o mandato começa em 05/01/2027 (Brasil) e 06/01/2027 (SP), a comparação "desde o início do mandato" só aparece quando sair o primeiro dado de cada indicador a partir dessas datas.
+O governador de SP foi eleito no 1º turno (04/10/2026) e já aparece no site. A Presidência aguarda o 2º turno, em 25/10/2026; o site só mostra o eleito depois do resultado oficial do TSE. Como o mandato começa em 05/01/2027 (Brasil) e 06/01/2027 (SP), a comparação "desde o início do mandato" só aparece quando sair o primeiro dado de cada indicador a partir dessas datas.
 
 ## Como rodar no seu computador
 
@@ -73,7 +73,11 @@ Cada promessa é um arquivo em `data/<painel>/promessas/` (ex.: `data/sp/promess
 - tema = uma das 28 funções de governo da classificação oficial do orçamento (lista em [`config/promessas.ts`](config/promessas.ts));
 - promessa mensurável precisa de meta; `indicador`, se preenchido, precisa existir (ex.: `"sp/homicidios"`).
 
-Os 6 status e os critérios de cada um (proposta, aguardando aprovação) estão em [`config/promessas.ts`](config/promessas.ts) e aparecem na página de promessas.
+Os critérios aprovados em 05/10/2026 estão em [`config/promessas.ts`](config/promessas.ts) e aparecem na página de promessas:
+
+- **quais promessas entram:** trechos do plano de governo registrado no TSE com um compromisso e alvo verificável (um número, um prazo ou a cobertura total, como "todos os municípios");
+- **prazo:** quando o texto não traz prazo, vale o fim do mandato;
+- **status:** os 6 status, cada um com o seu critério.
 
 ### Como cadastrar uma promessa
 
