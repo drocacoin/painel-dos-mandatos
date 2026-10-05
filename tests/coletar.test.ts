@@ -2,8 +2,11 @@ import { describe, expect, it, vi } from 'vitest';
 import {
   processarGastos,
   processarIndicador,
+  processarLista,
   type Armazenamento,
   type ArmazenamentoDeGastos,
+  type ArmazenamentoDeLista,
+  type ArquivoDeLista,
 } from '../scripts/coletar';
 import type { AnoDeGastos, ArquivoGastos, ArquivoIndicador, Ponto } from '../src/lib/schemas';
 import { indicador, janela } from './ajuda';
@@ -161,5 +164,71 @@ describe('processarGastos (regra 3 para os gastos)', () => {
       motivo: 'HTTP 500',
     });
     expect(armazenamento.gravar).not.toHaveBeenCalled();
+  });
+});
+
+describe('processarLista (regra 3 para medidas provisórias e projetos)', () => {
+  // Itens FICTÍCIOS, só para testar as regras de gravação.
+  type Item = { identificacao: string; situacao: string };
+  const item = (identificacao: string, situacao = 'Em tramitação'): Item => ({
+    identificacao,
+    situacao,
+  });
+  const SALVA: ArquivoDeLista<Item> = {
+    atualizadoEm: '2026-09-30T10:17:00-03:00',
+    itens: [item('MPV 1/2026'), item('MPV 2/2026')],
+  };
+  const disco = (salva: ArquivoDeLista<Item> | null) =>
+    ({
+      ler: vi.fn(async () => salva),
+      gravar: vi.fn(async () => {}),
+    }) satisfies ArmazenamentoDeLista<Item>;
+  const devolve = (itens: Item[]) => async () => itens;
+
+  it('grava quando a situação de um item muda ou entra item novo', async () => {
+    const armazenamento = disco(SALVA);
+    const novos = [item('MPV 1/2026', 'Virou lei'), item('MPV 2/2026'), item('MPV 3/2026')];
+    const resultado = await processarLista(armazenamento, devolve(novos), AGORA);
+    expect(resultado).toEqual({ situacao: 'gravado', ultimo: novos[2] });
+    expect(armazenamento.gravar).toHaveBeenCalledWith({
+      atualizadoEm: '2026-10-05T10:17:00-03:00',
+      itens: novos,
+    });
+  });
+
+  it('não grava quando nada mudou', async () => {
+    const armazenamento = disco(SALVA);
+    await expect(processarLista(armazenamento, devolve(SALVA.itens))).resolves.toEqual({
+      situacao: 'sem-mudanca',
+    });
+    expect(armazenamento.gravar).not.toHaveBeenCalled();
+  });
+
+  it('não grava quando um item salvo some', async () => {
+    const armazenamento = disco(SALVA);
+    const resultado = await processarLista(armazenamento, devolve([item('MPV 2/2026')]));
+    expect(resultado.situacao).toBe('falhou');
+    if (resultado.situacao === 'falhou') expect(resultado.motivo).toContain('MPV 1/2026');
+    expect(armazenamento.gravar).not.toHaveBeenCalled();
+  });
+
+  it('não grava itens repetidos nem lista vazia', async () => {
+    const armazenamento = disco(null);
+    const repetida = [item('MPV 1/2026'), item('MPV 1/2026')];
+    await expect(processarLista(armazenamento, devolve(repetida))).resolves.toEqual({
+      situacao: 'falhou',
+      motivo: 'itens repetidos: MPV 1/2026',
+    });
+    await expect(processarLista(armazenamento, devolve([]))).resolves.toEqual({
+      situacao: 'falhou',
+      motivo: 'nenhum item coletado',
+    });
+    expect(armazenamento.gravar).not.toHaveBeenCalled();
+  });
+
+  it('passa os itens salvos para o coletor (ele evita consultas repetidas)', async () => {
+    const coletor = vi.fn(async () => SALVA.itens);
+    await processarLista(disco(SALVA), coletor);
+    expect(coletor).toHaveBeenCalledWith(SALVA.itens);
   });
 });

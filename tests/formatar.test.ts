@@ -67,3 +67,12 @@ describe('formatarDataHora', () => {
     expect(formatarDataHora(new Date('2026-10-04T17:05:00Z'))).toBe('04/10/2026 às 14:05');
   });
 });
+
+describe('unidades de contagem', () => {
+  it('singular quando o valor é 1', () => {
+    expect(formatarValor(1, 'medidas provisórias', 0)).toBe('1 medida provisória');
+    expect(formatarValor(2, 'medidas provisórias', 0)).toBe('2 medidas provisórias');
+    expect(formatarValor(1, 'projetos', 0)).toBe('1 projeto');
+    expect(formatarValor(1, 'vítimas', 0)).toBe('1 vítima');
+  });
+});

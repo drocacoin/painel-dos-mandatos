@@ -56,7 +56,17 @@ export type Unidade =
   | 'índice'
   | 'vítimas'
   | 'mortes'
+  | 'medidas provisórias'
+  | 'projetos'
   | 'por mil nascidos vivos';
+
+// Unidades de contagem no singular: "1 vítima", e não "1 vítimas".
+const SINGULAR: Partial<Record<Unidade, string>> = {
+  vítimas: 'vítima',
+  mortes: 'morte',
+  'medidas provisórias': 'medida provisória',
+  projetos: 'projeto',
+};
 
 const numero = (casas: number) =>
   new Intl.NumberFormat('pt-BR', { minimumFractionDigits: casas, maximumFractionDigits: casas });
@@ -71,7 +81,8 @@ export function formatarValor(valor: number, unidade: Unidade, casas: number): s
   }
   if (unidade === 'índice') return numero(casas).format(valor);
   if (unidade.startsWith('%')) return `${numero(casas).format(valor)}${unidade}`;
-  return `${numero(casas).format(valor)} ${unidade}`;
+  const nome = valor === 1 ? (SINGULAR[unidade] ?? unidade) : unidade;
+  return `${numero(casas).format(valor)} ${nome}`;
 }
 
 /** Número curto para o eixo dos gráficos: "4%", "R$ 5 bi", "5,9 mil". Sem unidade por extenso. */

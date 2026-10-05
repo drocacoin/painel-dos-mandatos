@@ -1,7 +1,8 @@
 /**
  * Coleta os dados automáticos e grava em data/<abrangencia>/:
  * - indicadores/<id>.json, um arquivo por indicador;
- * - gastos/por-funcao.json, a despesa por função de governo de cada painel.
+ * - gastos/por-funcao.json, a despesa por função de governo de cada painel;
+ * - congresso/ (só Brasil): medidas provisórias e projetos de lei do governo.
  *
  * Regra 3 do projeto: só grava se o dado novo passou na validação, não está vazio e não
  * encolheu. Se uma coleta falhar, as outras continuam, o arquivo dela fica intacto e o
@@ -10,11 +11,13 @@
  * Uso: npm run coletar                     → tudo
  *      npm run coletar -- sp/homicidios    → só os indicados (abrangencia/id)
  *      npm run coletar -- sp/gastos        → só os gastos de um painel
+ *      npm run coletar -- brasil/medidas-provisorias brasil/projetos-de-lei
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import type { z } from 'zod';
+import { ABRANGENCIA_DO_CONGRESSO } from '../config/congresso.ts';
 import { gastos } from '../config/gastos.ts';
 import { indicadores, type Indicador } from '../config/indicadores.ts';
 import { hojeEmBrasilia, isoEmBrasilia } from '../src/lib/formatar.ts';
@@ -22,6 +25,8 @@ import { periodoValido } from '../src/lib/periodos.ts';
 import {
   arquivoGastosSchema,
   arquivoIndicadorSchema,
+  arquivoMedidasSchema,
+  arquivoProjetosSchema,
   mandatosSchema,
   type AnoDeGastos,
   type ArquivoGastos,
@@ -30,10 +35,12 @@ import {
   type Ponto,
 } from '../src/lib/schemas.ts';
 import { coletarBcb } from './coletores/bcb.ts';
+import { coletarProjetosDoGoverno } from './coletores/camara.ts';
 import type { Contexto, Janela } from './coletores/comum.ts';
 import { coletarIbge } from './coletores/ibge.ts';
 import { coletarInfosiga } from './coletores/infosiga.ts';
 import { coletarSeade } from './coletores/seade.ts';
+import { coletarMedidasProvisorias } from './coletores/senado.ts';
 import { coletarGastosPorFuncao, coletarSiconfi } from './coletores/siconfi.ts';
 
 type Coletor = (contexto: Contexto) => Promise<Ponto[]>;
@@ -52,6 +59,9 @@ export const caminhoDoArquivo = (indicador: Indicador) =>
 
 export const caminhoDosGastos = (abrangencia: string) =>
   `data/${abrangencia}/gastos/por-funcao.json`;
+
+const CAMINHO_DAS_MEDIDAS = `data/${ABRANGENCIA_DO_CONGRESSO}/congresso/medidas-provisorias.json`;
+const CAMINHO_DOS_PROJETOS = `data/${ABRANGENCIA_DO_CONGRESSO}/congresso/projetos-de-lei.json`;
 
 /** Histórico: a partir de janeiro do ano 4 anos antes do início do mandato. */
 const janelaDo = (mandato: Mandato, hoje: string): Janela => ({
@@ -113,6 +123,27 @@ export function problemasDosGastos(
   return problemas;
 }
 
+/** Motivos para NÃO gravar uma lista nova (medidas provisórias, projetos). */
+export function problemasDaLista<T extends { identificacao: string }>(
+  novos: T[],
+  anteriores: T[] | null,
+): string[] {
+  const problemas: string[] = [];
+  if (novos.length === 0) problemas.push('nenhum item coletado');
+  const ids = novos.map((item) => item.identificacao);
+  const repetidos = [...new Set(ids.filter((id, i) => ids.indexOf(id) !== i))];
+  if (repetidos.length > 0) problemas.push(`itens repetidos: ${repetidos.join(', ')}`);
+  const sumiram = (anteriores ?? [])
+    .map((item) => item.identificacao)
+    .filter((id) => !ids.includes(id));
+  if (sumiram.length > 0) {
+    problemas.push(
+      `${sumiram.length} itens salvos sumiram da coleta (ex.: ${sumiram.slice(0, 3).join(', ')}): dado bom não é substituído por dado incompleto`,
+    );
+  }
+  return problemas;
+}
+
 export interface Armazenamento {
   ler: (indicador: Indicador) => Promise<ArquivoIndicador | null>;
   gravar: (indicador: Indicador, arquivo: ArquivoIndicador) => Promise<void>;
@@ -128,8 +159,18 @@ export type Resultado =
   | { situacao: 'sem-mudanca' }
   | { situacao: 'falhou'; motivo: string };
 
-export type ResultadoDosGastos =
-  | { situacao: 'gravado'; ultimo: AnoDeGastos }
+export interface ArquivoDeLista<T> {
+  atualizadoEm: string;
+  itens: T[];
+}
+
+export interface ArmazenamentoDeLista<T> {
+  ler: () => Promise<ArquivoDeLista<T> | null>;
+  gravar: (arquivo: ArquivoDeLista<T>) => Promise<void>;
+}
+
+export type ResultadoDaColecao<T> =
+  | { situacao: 'gravado'; ultimo: T }
   | { situacao: 'sem-mudanca' }
   | { situacao: 'falhou'; motivo: string };
 
@@ -161,30 +202,63 @@ export async function processarIndicador(
   }
 }
 
-/** Coleta os gastos de um painel e decide se grava. Nunca lança erro: devolve o resultado. */
-export async function processarGastos(
-  abrangencia: string,
-  armazenamento: ArmazenamentoDeGastos,
-  coletor: () => Promise<AnoDeGastos[]>,
-  agora = new Date(),
-): Promise<ResultadoDosGastos> {
+/**
+ * Fluxo comum aos gastos e às listas: lê o salvo, coleta, confere, compara e grava.
+ * Nunca lança erro: devolve o resultado.
+ */
+async function processarColecao<T>(
+  ler: () => Promise<T[] | null>,
+  coletar: (anteriores: T[] | null) => Promise<T[]>,
+  problemas: (novos: T[], anteriores: T[] | null) => string[],
+  gravar: (novos: T[], atualizadoEm: string) => Promise<void>,
+  agora: Date,
+): Promise<ResultadoDaColecao<T>> {
   try {
-    const anterior = await armazenamento.ler(abrangencia);
-    const anos = await coletor();
-    const problemas = problemasDosGastos(anos, anterior?.anos ?? null);
-    if (problemas.length > 0) return { situacao: 'falhou', motivo: problemas.join('; ') };
-    if (anterior && JSON.stringify(anterior.anos) === JSON.stringify(anos)) {
+    const anteriores = await ler();
+    const novos = await coletar(anteriores);
+    const lista = problemas(novos, anteriores);
+    if (lista.length > 0) return { situacao: 'falhou', motivo: lista.join('; ') };
+    if (anteriores && JSON.stringify(anteriores) === JSON.stringify(novos)) {
       return { situacao: 'sem-mudanca' };
     }
-    const ultimo = anos[anos.length - 1];
-    if (!ultimo) return { situacao: 'falhou', motivo: 'nenhum ano coletado' };
-    const arquivo = arquivoGastosSchema.parse({ atualizadoEm: isoEmBrasilia(agora), anos });
-    await armazenamento.gravar(abrangencia, arquivo);
+    const ultimo = novos[novos.length - 1];
+    if (!ultimo) return { situacao: 'falhou', motivo: 'nada coletado' };
+    await gravar(novos, isoEmBrasilia(agora));
     return { situacao: 'gravado', ultimo };
   } catch (erro) {
     return { situacao: 'falhou', motivo: mensagemDe(erro) };
   }
 }
+
+/** Coleta os gastos de um painel e decide se grava. */
+export const processarGastos = (
+  abrangencia: string,
+  armazenamento: ArmazenamentoDeGastos,
+  coletor: () => Promise<AnoDeGastos[]>,
+  agora = new Date(),
+) =>
+  processarColecao(
+    async () => (await armazenamento.ler(abrangencia))?.anos ?? null,
+    () => coletor(),
+    problemasDosGastos,
+    (anos, atualizadoEm) =>
+      armazenamento.gravar(abrangencia, arquivoGastosSchema.parse({ atualizadoEm, anos })),
+    agora,
+  );
+
+/** Coleta uma lista (medidas provisórias, projetos) e decide se grava. */
+export const processarLista = <T extends { identificacao: string }>(
+  armazenamento: ArmazenamentoDeLista<T>,
+  coletor: (anteriores: T[] | null) => Promise<T[]>,
+  agora = new Date(),
+) =>
+  processarColecao(
+    async () => (await armazenamento.ler())?.itens ?? null,
+    coletor,
+    problemasDaLista,
+    (itens, atualizadoEm) => armazenamento.gravar({ atualizadoEm, itens }),
+    agora,
+  );
 
 /** Lê um arquivo de dados já salvo. null = ainda não existe. Arquivo inválido é erro. */
 async function lerArquivo<T>(caminho: string, schema: z.ZodType<T>): Promise<T | null> {
@@ -214,6 +288,15 @@ const gastosEmDisco: ArmazenamentoDeGastos = {
   gravar: (abrangencia, arquivo) => gravarArquivo(caminhoDosGastos(abrangencia), arquivo),
 };
 
+/** Lista em disco, validada pelo schema ao ler e antes de gravar. */
+const listaEmDisco = <T>(
+  caminho: string,
+  schema: z.ZodType<ArquivoDeLista<T>>,
+): ArmazenamentoDeLista<T> => ({
+  ler: () => lerArquivo(caminho, schema),
+  gravar: (arquivo) => gravarArquivo(caminho, schema.parse(arquivo)),
+});
+
 async function main(pedidos: string[]) {
   const mandatos = mandatosSchema.parse(
     JSON.parse(await readFile('config/mandatos.json', 'utf-8')),
@@ -225,6 +308,7 @@ async function main(pedidos: string[]) {
   );
   const alvosDeGastos = gastos.filter((g) => pedido(`${g.abrangencia}/gastos`));
 
+  let coletas = 0;
   let falhas = 0;
   const falhou = (nome: string, motivo: string) => {
     falhas++;
@@ -232,6 +316,7 @@ async function main(pedidos: string[]) {
   };
 
   for (const indicador of alvos) {
+    coletas++;
     const nome = `${indicador.abrangencia}/${indicador.id}`;
     const mandato = mandatos.find((m) => m.abrangencia === indicador.abrangencia);
     if (!mandato || indicador.coleta.tipo === 'manual') continue;
@@ -254,6 +339,7 @@ async function main(pedidos: string[]) {
   }
 
   for (const { abrangencia, fonte } of alvosDeGastos) {
+    coletas++;
     const nome = `${abrangencia}/gastos`;
     const mandato = mandatos.find((m) => m.abrangencia === abrangencia);
     if (!mandato) continue;
@@ -270,7 +356,40 @@ async function main(pedidos: string[]) {
     }
   }
 
-  console.log(`\n${alvos.length + alvosDeGastos.length} coletas, ${falhas} com falha.`);
+  // Congresso: medidas provisórias (Senado) e projetos do governo (Câmara), só no painel Brasil.
+  const congresso = mandatos.find((m) => m.abrangencia === ABRANGENCIA_DO_CONGRESSO);
+  if (congresso) {
+    const janela = janelaDo(congresso, hoje);
+    const listas = [
+      {
+        nome: `${ABRANGENCIA_DO_CONGRESSO}/medidas-provisorias`,
+        processar: () =>
+          processarLista(listaEmDisco(CAMINHO_DAS_MEDIDAS, arquivoMedidasSchema), () =>
+            coletarMedidasProvisorias(janela),
+          ),
+      },
+      {
+        nome: `${ABRANGENCIA_DO_CONGRESSO}/projetos-de-lei`,
+        processar: () =>
+          processarLista(listaEmDisco(CAMINHO_DOS_PROJETOS, arquivoProjetosSchema), (anteriores) =>
+            coletarProjetosDoGoverno(janela, anteriores),
+          ),
+      },
+    ];
+    for (const { nome, processar } of listas.filter((l) => pedido(l.nome))) {
+      coletas++;
+      const resultado = await processar();
+      if (resultado.situacao === 'gravado') {
+        console.log(`✓ ${nome}: último ${resultado.ultimo.identificacao}`);
+      } else if (resultado.situacao === 'sem-mudanca') {
+        console.log(`= ${nome}: sem mudança`);
+      } else {
+        falhou(nome, resultado.motivo);
+      }
+    }
+  }
+
+  console.log(`\n${coletas} coletas, ${falhas} com falha.`);
   if (falhas > 0) process.exitCode = 1;
 }
 

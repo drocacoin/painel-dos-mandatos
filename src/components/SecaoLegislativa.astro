@@ -1,0 +1,119 @@
+---
+// Uma seção da página do Congresso: contagem por ano (cartão com gráfico), situação atual por
+// ano (tabela), fonte (regra 5) e a lista dos itens apresentados durante o mandato.
+import type { Resultado } from '../../config/congresso';
+import type { LinhaDoQuadro } from '../lib/congresso';
+import { formatarData } from '../lib/formatar';
+import type { Exibivel } from '../lib/indicadores';
+import type { Mandato, Ponto } from '../lib/schemas';
+import CartaoIndicador from './CartaoIndicador.astro';
+import Fonte from './Fonte.astro';
+
+export interface ItemDaLista {
+  identificacao: string;
+  link: string;
+  data: string;
+  ementa: string;
+  resumo: Resultado;
+  /** Texto oficial da situação; null quando a fonte não informa. */
+  situacao: string | null;
+}
+
+interface Props {
+  id: string;
+  titulo: string;
+  /** Nome no plural, em minúsculas: "medidas provisórias", "projetos". */
+  nome: string;
+  exibivel: Exibivel;
+  serie: Ponto[];
+  atualizadoEm: string;
+  colunas: Resultado[];
+  linhas: LinhaDoQuadro[];
+  itensDoMandato: ItemDaLista[];
+  mandato: Mandato;
+}
+
+const {
+  id,
+  titulo,
+  nome,
+  exibivel,
+  serie,
+  atualizadoEm,
+  colunas,
+  linhas,
+  itensDoMandato,
+  mandato,
+} = Astro.props;
+const primeiro = linhas[0]?.ano;
+const ultimo = linhas.at(-1)?.ano;
+const anoParcial = serie.find((p) => p.nota)?.periodo;
+const rotuloDoAno = (ano: number) =>
+  String(ano) === anoParcial ? `${ano} (parcial)` : String(ano);
+const tituloDaLista = `${nome.charAt(0).toUpperCase()}${nome.slice(1)} do mandato`;
+---
+
+<section aria-labelledby={id}>
+  <h2 id={id}>{titulo}</h2>
+  <slot />
+  <div class="indicadores">
+    <CartaoIndicador indicador={exibivel} arquivo={{ atualizadoEm, serie }} mandato={mandato} />
+  </div>
+
+  <h3>Situação atual, por ano</h3>
+  <div
+    class="tabela-rolavel"
+    tabindex="0"
+    role="region"
+    aria-label={`Situação atual das ${nome}, por ano`}
+  >
+    <table class="tabela">
+      <caption>Situação atual, pelo ano do número oficial</caption>
+      <thead>
+        <tr>
+          <th scope="col">Ano</th>
+          <th scope="col">Total</th>
+          {colunas.map((coluna) => (
+            <th scope="col">{coluna}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {linhas.map((linha) => (
+          <tr>
+            <th scope="row">{rotuloDoAno(linha.ano)}</th>
+            <td>{linha.total}</td>
+            {colunas.map((coluna) => (
+              <td>{linha.porResultado[coluna] ?? 0}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <Fonte
+    fonte={exibivel.fonte}
+    referencia={`${primeiro} a ${ultimo}`}
+    atualizadoEm={atualizadoEm}
+  />
+
+  <h3>{tituloDaLista}</h3>
+  {itensDoMandato.length === 0 ? (
+    <p>Aparecem aqui a partir do início do mandato, em {formatarData(mandato.inicio)}.</p>
+  ) : (
+    <ul class="lista-legislativa">
+      {itensDoMandato.map((item) => (
+        <li>
+          <p>
+            <a href={item.link}>{item.identificacao}</a> · {formatarData(item.data)}
+          </p>
+          <p>{item.ementa}</p>
+          <p class="fonte">
+            Situação: {item.resumo}
+            {item.situacao && <> (texto oficial: {item.situacao})</>}
+          </p>
+        </li>
+      ))}
+    </ul>
+  )}
+</section>

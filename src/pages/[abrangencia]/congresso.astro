@@ -1,0 +1,180 @@
+---
+import type { GetStaticPaths } from 'astro';
+import {
+  ABRANGENCIA_DO_CONGRESSO,
+  FONTE_DAS_MEDIDAS,
+  FONTE_DO_PRAZO_DAS_MEDIDAS,
+  FONTE_DOS_PROJETOS,
+  RESULTADOS_DAS_MEDIDAS,
+  RESULTADOS_DOS_PROJETOS,
+} from '../../../config/congresso';
+import SecaoLegislativa from '../../components/SecaoLegislativa.astro';
+import Base from '../../layouts/Base.astro';
+import {
+  carregarMedidas,
+  carregarProjetos,
+  contagemPorAno,
+  doMandato,
+  quadroPorAno,
+  resultadoDaMedida,
+  resultadoDoProjeto,
+} from '../../lib/congresso';
+import { hojeEmBrasilia } from '../../lib/formatar';
+import type { Exibivel } from '../../lib/indicadores';
+import { mandatos } from '../../lib/mandatos';
+import type { Mandato } from '../../lib/schemas';
+
+// Só no painel Brasil: /brasil/congresso/
+export const getStaticPaths = (() =>
+  mandatos
+    .filter((mandato) => mandato.abrangencia === ABRANGENCIA_DO_CONGRESSO)
+    .map((mandato) => ({
+      params: { abrangencia: mandato.abrangencia },
+      props: { mandato },
+    }))) satisfies GetStaticPaths;
+
+interface Props {
+  mandato: Mandato;
+}
+
+const { mandato } = Astro.props;
+const medidas = carregarMedidas();
+const projetos = carregarProjetos();
+
+// Do ano 4 anos antes do mandato (o mesmo histórico dos indicadores) até o ano corrente.
+const anoAtual = Number(hojeEmBrasilia().slice(0, 4));
+const primeiroAno = Number(mandato.inicio.slice(0, 4)) - 4;
+const anos = Array.from({ length: anoAtual - primeiroAno + 1 }, (_, i) => primeiroAno + i);
+
+const contagem = (
+  id: string,
+  titulo: string,
+  descricao: string,
+  unidade: Exibivel['unidade'],
+  fonte: Exibivel['fonte'],
+): Exibivel => ({
+  id,
+  titulo,
+  descricao,
+  unidade,
+  casas: 0,
+  periodicidade: 'anual',
+  variacao: 'diferenca',
+  fonte,
+});
+---
+
+<Base titulo={`Congresso · ${mandato.nomeAbrangencia} | Painel dos Mandatos`} painel={mandato}>
+  <h1>Congresso</h1>
+  <p>
+    Medidas provisórias editadas pela Presidência da República e projetos enviados pelo Poder
+    Executivo à Câmara dos Deputados, desde {primeiroAno}. A situação de cada um vem das fontes
+    oficiais e é conferida todo dia. As regras estão no fim da página.
+  </p>
+
+  {medidas ? (
+    <SecaoLegislativa
+      id="medidas-provisorias"
+      titulo="Medidas provisórias"
+      nome="medidas provisórias"
+      exibivel={contagem(
+        'medidas-provisorias-por-ano',
+        'Medidas provisórias editadas por ano',
+        'Número de medidas provisórias publicadas pela Presidência da República, pelo ano do número oficial. O ano em curso é parcial.',
+        'medidas provisórias',
+        FONTE_DAS_MEDIDAS,
+      )}
+      serie={contagemPorAno(medidas.itens, anos, anoAtual)}
+      atualizadoEm={medidas.atualizadoEm}
+      colunas={RESULTADOS_DAS_MEDIDAS}
+      linhas={quadroPorAno(medidas.itens, resultadoDaMedida, anos)}
+      itensDoMandato={doMandato(medidas.itens, mandato.inicio).map((medida) => ({
+        identificacao: medida.identificacao,
+        link: `https://www.congressonacional.leg.br/materias/medidas-provisorias/-/mpv/${medida.codigoMateria}`,
+        data: medida.data,
+        ementa: medida.ementa,
+        resumo: resultadoDaMedida(medida),
+        situacao: medida.situacao,
+      }))}
+      mandato={mandato}
+    >
+      <p>
+        A medida provisória tem força de lei desde a publicação e perde a eficácia se não for
+        transformada em lei pelo Congresso em 60 dias, prorrogáveis uma vez por mais 60. Base legal:{' '}
+        <a href={FONTE_DO_PRAZO_DAS_MEDIDAS.url}>{FONTE_DO_PRAZO_DAS_MEDIDAS.nome}</a>.
+      </p>
+    </SecaoLegislativa>
+  ) : (
+    <p class="aviso" role="note">
+      Medidas provisórias ainda não coletadas. Fonte:{' '}
+      <a href={FONTE_DAS_MEDIDAS.url}>{FONTE_DAS_MEDIDAS.nome}</a>.
+    </p>
+  )}
+
+  {projetos ? (
+    <SecaoLegislativa
+      id="projetos"
+      titulo="Projetos enviados pelo governo"
+      nome="projetos"
+      exibivel={contagem(
+        'projetos-por-ano',
+        'Projetos enviados por ano',
+        'Projetos de lei (PL), de lei complementar (PLP) e propostas de emenda à Constituição (PEC) do Poder Executivo, pelo ano do número oficial. O ano em curso é parcial.',
+        'projetos',
+        FONTE_DOS_PROJETOS,
+      )}
+      serie={contagemPorAno(projetos.itens, anos, anoAtual)}
+      atualizadoEm={projetos.atualizadoEm}
+      colunas={RESULTADOS_DOS_PROJETOS}
+      linhas={quadroPorAno(projetos.itens, resultadoDoProjeto, anos)}
+      itensDoMandato={doMandato(projetos.itens, mandato.inicio).map((projeto) => ({
+        identificacao: projeto.identificacao,
+        link: `https://www.camara.leg.br/propostas-legislativas/${projeto.id}`,
+        data: projeto.data,
+        ementa: projeto.ementa,
+        resumo: resultadoDoProjeto(projeto),
+        situacao: projeto.situacao,
+      }))}
+      mandato={mandato}
+    >
+      <p>
+        Os projetos começam na Câmara dos Deputados. Um projeto aprovado pela Câmara e enviado ao
+        Senado aparece como "Em tramitação" até a decisão final.
+      </p>
+    </SecaoLegislativa>
+  ) : (
+    <p class="aviso" role="note">
+      Projetos ainda não coletados. Fonte:{' '}
+      <a href={FONTE_DOS_PROJETOS.url}>{FONTE_DOS_PROJETOS.nome}</a>.
+    </p>
+  )}
+
+  <details class="criterios">
+    <summary>Regras: de onde vêm os dados e como a situação é resumida</summary>
+    <ul>
+      <li>
+        <strong>Medidas provisórias:</strong> todas as editadas pela Presidência da República, na
+        lista de processos legislativos do <a href={FONTE_DAS_MEDIDAS.url}>Senado Federal</a>.
+        "Virou lei" = aprovada pelo Congresso, com ou sem mudanças (inclui as sancionadas com veto
+        parcial). "Perdeu a eficácia" = não foi transformada em lei no prazo da Constituição.
+        "Revogada" = o Senado registra a medida como revogada.
+      </li>
+      <li>
+        <strong>Projetos:</strong> PL, PLP e PEC com autor "Poder Executivo" nos dados abertos da
+        <a href={FONTE_DOS_PROJETOS.url}>Câmara dos Deputados</a>. O autor de cada projeto é
+        conferido um a um, porque a busca da Câmara também traz projetos de comissões com "Poder
+        Executivo" no nome. "Virou lei" = "Transformado em Norma Jurídica"; "Arquivado ou retirado"
+        = "Arquivada" ou "Retirado pelo(a) Autor(a)"; as demais situações conhecidas contam como "Em
+        tramitação".
+      </li>
+      <li>
+        <strong>Outra situação:</strong> situação que ainda não estava nas regras ou que a fonte não
+        informou. Na lista do mandato aparece o texto oficial.
+      </li>
+      <li>
+        <strong>Ano:</strong> o do número oficial. O PL 1/2023, por exemplo, foi apresentado em
+        30/12/2022. A lista do mandato usa a data de apresentação.
+      </li>
+    </ul>
+  </details>
+</Base>

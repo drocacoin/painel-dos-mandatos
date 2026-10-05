@@ -87,3 +87,39 @@ export const arquivoGastosSchema = z.object({
 
 export type ArquivoGastos = z.infer<typeof arquivoGastosSchema>;
 export type AnoDeGastos = z.infer<typeof anoDeGastos>;
+
+// Congresso (data/brasil/congresso/): listas copiadas das fontes oficiais, com a situação atual
+// de cada item no texto oficial. O resumo da situação é feito no site (config/congresso.ts).
+const medidaProvisoria = z.object({
+  identificacao: z.string().regex(/^MPV \d+\/\d{4}$/, 'formato "MPV 1333/2026"'),
+  codigoMateria: z.number().int(),
+  data: dataIso,
+  ementa: z.string().min(1),
+  // Texto oficial da situação; o Senado às vezes não informa (null).
+  situacao: z.string().min(1).nullable(),
+  // Só existe depois da decisão: aprovada, perda de eficácia, revogada.
+  deliberacao: z.string().min(1).nullable(),
+  tramitando: z.boolean(),
+});
+
+const projetoDeLei = z.object({
+  identificacao: z.string().regex(/^(PL|PLP|PEC) \d+\/\d{4}$/, 'formato "PL 1087/2025"'),
+  id: z.number().int(),
+  data: dataIso,
+  ementa: z.string().min(1),
+  // A Câmara às vezes não informa a situação (null).
+  codSituacao: z.number().int().nullable(),
+  situacao: z.string().min(1).nullable(),
+});
+
+const listaComData = <T extends z.ZodType>(item: T) =>
+  z.object({
+    atualizadoEm: z.iso.datetime({ offset: true }),
+    itens: z.array(item).min(1, 'a lista não pode estar vazia'),
+  });
+
+export const arquivoMedidasSchema = listaComData(medidaProvisoria);
+export const arquivoProjetosSchema = listaComData(projetoDeLei);
+
+export type MedidaProvisoria = z.infer<typeof medidaProvisoria>;
+export type ProjetoDeLei = z.infer<typeof projetoDeLei>;

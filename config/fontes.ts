@@ -218,8 +218,20 @@ export const fontes = {
     processos: {
       url: 'https://legis.senado.leg.br/dadosabertos/processo',
       descricao:
-        'Processos legislativos do Senado (substituto do endpoint /materia, descontinuado)',
-      verificadoEm: '2026-10-04',
+        'Processos legislativos do Senado (substituto do endpoint /materia, descontinuado); medidas provisórias com ?sigla=MPV&ano=AAAA',
+      nota: 'Responde JSON sem cabeçalho especial; ano sem MPs responde []. siglaTipoDeliberacao só existe depois da decisão.',
+      verificadoEm: '2026-10-05',
+    },
+  },
+
+  // Câmara dos Deputados, API v2 (Fase 5).
+  camara: {
+    proposicoes: {
+      url: 'https://dadosabertos.camara.leg.br/api/v2/proposicoes',
+      descricao:
+        'Proposições da Câmara; projetos do governo com ?siglaTipo=PL|PLP|PEC&ano=AAAA&autor=Poder Executivo&itens=100',
+      nota: 'O filtro autor busca no NOME do autor e traz falsos positivos (ex.: PLP 265/2025, de uma comissão especial): conferir em /proposicoes/{id}/autores o autor codTipo 30000 (Órgão do Poder Executivo). A situação só vem em /proposicoes/{id}. Às vezes responde 504 em texto puro.',
+      verificadoEm: '2026-10-05',
     },
   },
 } as const;

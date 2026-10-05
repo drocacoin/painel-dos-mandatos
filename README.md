@@ -10,7 +10,8 @@ Endereço: <https://drocacoin.github.io/painel-dos-mandatos/>
 - **Fase 2 (indicadores):** concluída. 19 indicadores (7 do Brasil, 12 de SP) com gráficos, coleta automática diária e comparação com o início do mandato.
 - **Fase 3 (promessas):** concluída para SP: 30 promessas do plano de governo registrado no TSE, aprovadas em 05/10/2026, com validação no CI, placar, filtros e histórico. As do Brasil aguardam o 2º turno (25/10/2026).
 - **Fase 4 (gastos):** concluída. Despesa liquidada por área de governo (função), no Brasil e em SP, corrigida pela inflação, com coleta automática a cada bimestre publicado.
-- Próximas: Congresso e Assembleia Legislativa (Fase 5, opcional) e metodologia (Fase 6). Plano completo: [docs/fase-0-planejamento.md](docs/fase-0-planejamento.md).
+- **Fase 5 (Congresso):** concluída, só no painel Brasil. Medidas provisórias editadas pela Presidência e projetos (PL, PLP e PEC) enviados pelo Poder Executivo à Câmara, desde 2023, com a situação atual de cada um.
+- Próxima: metodologia, acessibilidade, desempenho e guia de contribuição (Fase 6). Plano completo: [docs/fase-0-planejamento.md](docs/fase-0-planejamento.md).
 
 O governador de SP foi eleito no 1º turno (04/10/2026) e já aparece no site. A Presidência aguarda o 2º turno, em 25/10/2026; o site só mostra o eleito depois do resultado oficial do TSE. Como o mandato começa em 05/01/2027 (Brasil) e 06/01/2027 (SP), a comparação "desde o início do mandato" só aparece quando sair o primeiro dado de cada indicador a partir dessas datas.
 
@@ -29,6 +30,7 @@ Coleta dos dados (a mesma que o GitHub roda todo dia):
 npm run coletar                    # todos os indicadores automáticos e os gastos
 npm run coletar -- sp/homicidios   # só os indicados (painel/indicador)
 npm run coletar -- sp/gastos       # só os gastos de um painel
+npm run coletar -- brasil/medidas-provisorias brasil/projetos-de-lei
 ```
 
 A primeira coleta do trânsito (Infosiga) baixa cerca de 55 arquivos de 4 MB; depois, só baixa de novo quando sai um mês novo.
@@ -51,8 +53,10 @@ Verificações (as mesmas que o GitHub roda a cada envio):
 | `config/fontes.ts`           | todos os códigos de séries e tabelas verificados, cada um com a data da verificação                 |
 | `config/indicadores.ts`      | o que cada painel mostra: título, unidade, fonte (com link) e como coletar                          |
 | `config/gastos.ts`           | de onde vêm os gastos de cada painel e quais áreas ganham gráfico próprio                           |
+| `config/congresso.ts`        | fontes do Congresso e as regras que resumem a situação de cada medida provisória e projeto          |
 | `data/<painel>/indicadores/` | os dados, um JSON por indicador; o histórico do git é a trilha de auditoria                         |
 | `data/<painel>/gastos/`      | despesa liquidada por função, em reais da época (a correção pela inflação é feita no site)          |
+| `data/brasil/congresso/`     | medidas provisórias e projetos do governo, com a situação no texto oficial                          |
 | `scripts/`                   | coletores (`coletores/`), acesso à internet com novas tentativas (`http.ts`) e `coletar.ts`         |
 | `src/pages/`                 | páginas: início e os painéis `/brasil/` e `/sp/`, cada um com Indicadores, Promessas e Gastos       |
 | `src/components/`            | cartão do indicador, gráfico com tabela e a linha de fonte                                          |
@@ -157,6 +161,8 @@ Cada indicador mostra no site a fonte (com link), o período de referência e a 
 | Brasil | Gastos          | Despesa liquidada por função (União)                             | [Tesouro Nacional, SICONFI (RREO, Anexo 02)](https://apidatalake.tesouro.gov.br/docs/siconfi/)                                                                               | bimestral                | automática |
 | SP     | Gastos          | Despesa liquidada por função (estado de SP)                      | [Tesouro Nacional, SICONFI (RREO, Anexo 02)](https://apidatalake.tesouro.gov.br/docs/siconfi/)                                                                               | bimestral                | automática |
 | Ambos  | Gastos          | IPCA, número-índice (só para corrigir os gastos; sem cartão)     | [IBGE, IPCA (tabela 1737)](https://sidra.ibge.gov.br/tabela/1737)                                                                                                            | mensal                   | automática |
+| Brasil | Congresso       | Medidas provisórias editadas pela Presidência                    | [Senado Federal, Dados Abertos (processos legislativos)](https://legis.senado.leg.br/dadosabertos/)                                                                          | diária                   | automática |
+| Brasil | Congresso       | Projetos (PL, PLP e PEC) enviados pelo Poder Executivo           | [Câmara dos Deputados, Dados Abertos (proposições)](https://dadosabertos.camara.leg.br/)                                                                                     | diária                   | automática |
 
 Cuidados de método, todos explicados também no próprio site:
 
@@ -174,13 +180,17 @@ Cuidados de método, todos explicados também no próprio site:
   - o coletor confere se a soma das funções é igual ao total do relatório; se não for, não grava;
   - correção pela inflação: valor × IPCA do mês de referência ÷ IPCA médio dos meses do período. O mês de referência é o último IPCA publicado, e os arquivos guardam os valores da época, sem correção;
   - o ano em curso é parcial, até o último bimestre publicado (ex.: "jan-ago"), e não entra na comparação com o início do mandato.
+- **Congresso:**
+  - as tabelas agrupam pelo ano do número oficial (o PL 1/2023 foi apresentado em 30/12/2022); a lista do mandato usa a data de apresentação;
+  - a busca da Câmara por autor "Poder Executivo" também traz projetos de comissões com esse texto no nome (ex.: PLP 265/2025). O coletor confere o autor de cada projeto novo e guarda só os do órgão Poder Executivo;
+  - a situação vem no texto oficial e é resumida pelas regras de [`config/congresso.ts`](config/congresso.ts). Situação que ainda não está nas regras aparece como "Outra situação", nunca encaixada à força.
 
 ### Coleta automática
 
 O workflow [`coleta.yml`](.github/workflows/coleta.yml) roda todo dia às 10h17 de Brasília:
 
 1. coleta cada indicador e os gastos de cada painel, com até 4 tentativas e espera crescente entre elas;
-2. valida a resposta (Zod) e só grava se o dado novo não estiver vazio e não tiver encolhido (nos gastos, nenhum ano pode sumir nem voltar para um bimestre anterior). Se algo falhar, o dado anterior fica intacto;
+2. valida a resposta (Zod) e só grava se o dado novo não estiver vazio e não tiver encolhido (nos gastos, nenhum ano pode sumir nem voltar para um bimestre anterior; nas listas do Congresso, nenhum item salvo pode sumir). Se algo falhar, o dado anterior fica intacto;
 3. faz commit só se algum dado mudou, e então publica o site;
 4. se alguma coleta falhou, abre uma issue ("Falha na coleta automática") e termina em vermelho.
 
@@ -188,6 +198,7 @@ O workflow [`coleta.yml`](.github/workflows/coleta.yml) roda todo dia às 10h17 
 
 - Presidência: eleito e promessas aguardam o resultado oficial do 2º turno (25/10/2026).
 - O rascunho de promessas é uma ajuda, não uma lista completa: ele só pega frases com os sinais de compromisso, e páginas do PDF sem texto (imagens) precisam ser conferidas à mão.
+- Congresso: só no painel Brasil. A Assembleia Legislativa de SP publica os dados só em arquivos ZIP com XML (cerca de 26 MB por dia), e ficou de fora por decisão de 05/10/2026. Vetos e projetos do Congresso Nacional (PLN, como os de crédito orçamentário) não aparecem.
 - Gastos: só por função (área). O ano em curso é parcial; o valor pago por função não é usado, porque só sai uma vez por ano. Gastos por ministério não são mostrados (decisão de 05/10/2026): os ministérios mudam a cada governo, o que quebra a comparação no início do mandato.
 - Segurança e saúde de SP usam dados **anuais** da Fundação Seade (vítimas de homicídio doloso e mortalidade infantil). O catálogo da Seade não informa a licença desses arquivos.
 - O site ainda não avisa quando um dado está atrasado em relação ao calendário da fonte; a data de referência e a de atualização ficam sempre visíveis.

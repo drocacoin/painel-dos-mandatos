@@ -4,7 +4,7 @@ import Base from '../../layouts/Base.astro';
 import { formatarData } from '../../lib/formatar';
 import { mandatos } from '../../lib/mandatos';
 import type { Mandato } from '../../lib/schemas';
-import { rotuloFase, secoes } from '../../lib/secoes';
+import { rotuloFase, secoesDoPainel } from '../../lib/secoes';
 
 // Uma página por mandato de config/mandatos.json: /brasil/, /sp/
 export const getStaticPaths = (() =>
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const { mandato } = Astro.props;
-const outrasSecoes = secoes.filter((secao) => secao.slug !== '');
+const outrasSecoes = secoesDoPainel(mandato.abrangencia).filter((secao) => secao.slug !== '');
 const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 

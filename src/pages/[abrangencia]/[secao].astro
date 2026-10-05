@@ -3,13 +3,13 @@ import type { GetStaticPaths } from 'astro';
 import Base from '../../layouts/Base.astro';
 import { mandatos } from '../../lib/mandatos';
 import type { Mandato } from '../../lib/schemas';
-import { rotuloFase, secoes, type Secao } from '../../lib/secoes';
+import { rotuloFase, secoesDoPainel, type Secao } from '../../lib/secoes';
 
 // Páginas provisórias das seções que ainda não foram construídas, em cada painel.
 // Quando uma seção ficar pronta, ela ganha a sua própria página e sai desta lista.
 export const getStaticPaths = (() =>
   mandatos.flatMap((mandato) =>
-    secoes
+    secoesDoPainel(mandato.abrangencia)
       .filter((secao) => !secao.pronta)
       .map((secao) => ({
         params: { abrangencia: mandato.abrangencia, secao: secao.slug },

@@ -3,7 +3,7 @@ import '../styles/tokens.css';
 import '../styles/base.css';
 import { formatarDataHora } from '../lib/formatar';
 import type { Mandato } from '../lib/schemas';
-import { secoes } from '../lib/secoes';
+import { secoesDoPainel } from '../lib/secoes';
 
 interface Props {
   titulo: string;
@@ -45,7 +45,7 @@ const geradoEm = formatarDataHora(new Date());
           <nav aria-label={`Menu do painel ${painel.nomeAbrangencia}`}>
             <p class="painel-nome">Painel {painel.nomeAbrangencia}</p>
             <ul class="menu">
-              {secoes.map((secao) => {
+              {secoesDoPainel(painel.abrangencia).map((secao) => {
                 const href = `${raiz}/${painel.abrangencia}/${secao.slug ? `${secao.slug}/` : ''}`;
                 const caminho = semBarraFinal(href);
                 // "page" na própria página da seção; "true" nas páginas dentro dela (ex.: uma promessa).

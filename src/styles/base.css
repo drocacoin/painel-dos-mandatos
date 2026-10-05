@@ -496,3 +496,18 @@ a:hover {
 .tabela tfoot td {
   font-weight: var(--peso-forte);
 }
+
+/* ----- Congresso ----- */
+.lista-legislativa {
+  padding: 0;
+  list-style: none;
+}
+
+.lista-legislativa li {
+  padding: var(--espaco-3) 0;
+  border-bottom: var(--borda);
+}
+
+.lista-legislativa p {
+  margin: 0 0 var(--espaco-1);
+}
