@@ -1,0 +1,43 @@
+# Teste manual de conexão: os servidores do GitHub ficam fora do Brasil, e algumas fontes
+# podem bloquear esse acesso. Este workflow chama cada fonte uma vez e mostra o resultado.
+# Como rodar: aba Actions → "Teste de conexão com as fontes" → Run workflow.
+name: Teste de conexão com as fontes
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Chamar cada fonte uma vez
+        run: |
+          {
+            echo "| Fonte | HTTP | Tipo de conteúdo | Tempo |"
+            echo "|---|---|---|---|"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # testar <nome> <url> [argumentos extras do curl]
+          testar() {
+            local nome="$1" url="$2"; shift 2
+            local resultado
+            resultado=$(curl -s -o /dev/null -m 30 "$@" -w '%{http_code} | %{content_type} | %{time_total}s' "$url" || true)
+            echo "| $nome | $resultado |" >> "$GITHUB_STEP_SUMMARY"
+            echo "$nome: $resultado"
+            sleep 4  # respeita o limite de pedidos das fontes
+          }
+
+          testar "Banco Central (SGS)" "https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/1?formato=json"
+          testar "IBGE (agregados v3)" "https://servicodados.ibge.gov.br/api/v3/agregados/1737/periodos/-1/variaveis/2265?localidades=N1%5Ball%5D"
+          testar "Tesouro (SICONFI)" "https://apidatalake.tesouro.gov.br/ords/siconfi/tt/rreo?an_exercicio=2025&nr_periodo=6&co_tipo_demonstrativo=RREO&no_anexo=RREO-Anexo%2006&co_esfera=U&id_ente=1"
+          testar "Portal da Transparência (sem chave: o esperado é 401)" "https://api.portaldatransparencia.gov.br/api-de-dados/despesas/por-orgao?ano=2025&pagina=1"
+          testar "Senado" "https://legis.senado.leg.br/dadosabertos/processo?sigla=MPV&ano=2025" -H "Accept: application/json"
+          testar "Câmara" "https://dadosabertos.camara.leg.br/api/v2/proposicoes?itens=1" -H "Accept: application/json"
+          testar "TSE (arquivo, só 1 byte)" "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_SP.zip" -r 0-0
+          testar "Dados Abertos SP (Infosiga)" "https://dadosabertos.sp.gov.br/api/3/action/package_show?id=pessoas-envolvidas-em-sinistros"
+          testar "INEP (IDEB, só 1 byte)" "https://download.inep.gov.br/ideb/resultados/divulgacao_regioes_ufs_ideb_2025.zip" -r 0-0
+          testar "Ministério da Justiça (Sinesp)" "https://dados.mj.gov.br/api/3/action/package_show?id=sistema-nacional-de-estatisticas-de-seguranca-publica"
+          testar "ALESP" "https://www.al.sp.gov.br/dados-abertos/"

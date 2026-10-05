@@ -1,0 +1,10 @@
+dist/
+.astro/
+coverage/
+package-lock.json
+
+# Amostras reais das APIs: precisam ficar idênticas ao que a API devolveu.
+tests/fixtures/
+
+# Plano escrito à mão (tabelas longas).
+docs/

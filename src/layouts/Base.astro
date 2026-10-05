@@ -1,0 +1,80 @@
+---
+import '../styles/tokens.css';
+import '../styles/base.css';
+import { formatarDataHora } from '../lib/formatar';
+import type { Mandato } from '../lib/schemas';
+import { secoes } from '../lib/secoes';
+
+interface Props {
+  titulo: string;
+  descricao?: string;
+  /** Quando presente, mostra o menu deste painel (Brasil ou SP). */
+  painel?: Mandato;
+}
+
+const {
+  titulo,
+  descricao = 'Painel público, gratuito e apartidário de acompanhamento dos mandatos 2027–2031, com dados oficiais.',
+  painel,
+} = Astro.props;
+
+const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
+const semBarraFinal = (caminho: string) => caminho.replace(/\/$/, '');
+const paginaAtual = semBarraFinal(Astro.url.pathname);
+const geradoEm = formatarDataHora(new Date());
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={descricao} />
+    <title>{titulo}</title>
+  </head>
+  <body>
+    <a class="pular" href="#conteudo">
+      Pular para o conteúdo
+    </a>
+    <header class="topo">
+      <div class="recipiente">
+        <a class="marca" href={`${raiz}/`}>
+          Painel dos Mandatos
+        </a>
+        {painel && (
+          <nav aria-label={`Menu do painel ${painel.nomeAbrangencia}`}>
+            <p class="painel-nome">Painel {painel.nomeAbrangencia}</p>
+            <ul class="menu">
+              {secoes.map((secao) => {
+                const href = `${raiz}/${painel.abrangencia}/${secao.slug ? `${secao.slug}/` : ''}`;
+                return (
+                  <li>
+                    <a
+                      href={href}
+                      aria-current={paginaAtual === semBarraFinal(href) ? 'page' : undefined}
+                    >
+                      {secao.titulo}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        )}
+      </div>
+    </header>
+    <main id="conteudo" class="recipiente">
+      <slot />
+    </main>
+    <footer class="rodape">
+      <div class="recipiente">
+        <p>
+          Site público, gratuito e apartidário.
+          <a href="https://github.com/drocacoin/painel-dos-mandatos">Código-fonte no GitHub</a>.
+          Código sob licença MIT; conteúdo sob licença CC BY 4.0.
+        </p>
+        <p>Site gerado em {geradoEm} (horário de Brasília).</p>
+      </div>
+    </footer>
+  </body>
+</html>

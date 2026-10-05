@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import { formatarData } from '../lib/formatar';
+import { mandatos } from '../lib/mandatos';
+
+const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base titulo="Painel dos Mandatos">
+  <h1>Painel dos Mandatos</h1>
+  <p>
+    Acompanhamento público dos mandatos 2027–2031, com dados oficiais. Cada painel é separado.
+    Escolha um:
+  </p>
+  <ul class="cartoes">
+    {mandatos.map((mandato) => (
+      <li class="cartao">
+        <h2>
+          <a href={`${raiz}/${mandato.abrangencia}/`}>Painel {mandato.nomeAbrangencia}</a>
+        </h2>
+        <p>{mandato.cargo}</p>
+        <p>
+          Mandato de {formatarData(mandato.inicio)} a {formatarData(mandato.fim)}
+        </p>
+      </li>
+    ))}
+  </ul>
+</Base>

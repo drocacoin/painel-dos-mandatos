@@ -1,0 +1,66 @@
+/*
+ * Design system: valores básicos (tokens). Origem: docs/fase-0-planejamento.md, seção 6.
+ * Regra: componentes usam estas variáveis, nunca cores ou tamanhos soltos.
+ */
+:root {
+  color-scheme: light dark;
+
+  /* Cores da interface, tema claro (contraste conferido pela fórmula da WCAG) */
+  --cor-fundo: #ffffff;
+  --cor-superficie: #f5f6f7;
+  --cor-borda: #d9dce0;
+  --cor-texto: #1b1f24; /* 16,6:1 sobre o fundo */
+  --cor-texto-suave: #57606a; /* 6,4:1 sobre o fundo */
+  --cor-foco: #1b1f24;
+
+  /* Cores de status das promessas (paleta Okabe-Ito). Sempre acompanhadas de ícone e texto. */
+  --status-cumprida: #009e73;
+  --status-cumprida-em-parte: #56b4e9;
+  --status-em-andamento: #e69f00;
+  --status-nao-iniciada: #8c959f;
+  --status-descumprida: #d55e00;
+  --status-nao-avaliavel: #cc79a7;
+
+  /* Tipografia: fonte do sistema, nada para baixar */
+  --fonte: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+  --tamanho-1: 0.875rem;
+  --tamanho-2: 1rem;
+  --tamanho-3: 1.125rem;
+  --tamanho-4: 1.375rem;
+  --tamanho-5: 1.75rem;
+  --tamanho-6: 2.25rem;
+  --peso-normal: 400;
+  --peso-forte: 600;
+  --altura-linha: 1.5;
+  --altura-linha-titulo: 1.2;
+
+  /* Espaçamento em múltiplos de 4 px */
+  --espaco-1: 0.25rem;
+  --espaco-2: 0.5rem;
+  --espaco-3: 0.75rem;
+  --espaco-4: 1rem;
+  --espaco-5: 1.5rem;
+  --espaco-6: 2rem;
+  --espaco-7: 3rem;
+  --espaco-8: 4rem;
+
+  /* Bordas, larguras e movimento */
+  --borda: 1px solid var(--cor-borda);
+  --raio-1: 4px;
+  --raio-2: 8px;
+  --largura-pagina: 70rem;
+  --largura-texto: 70ch;
+  --transicao: 150ms ease-out;
+}
+
+/* Tema escuro: segue a configuração do aparelho */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cor-fundo: #111418;
+    --cor-superficie: #1a1e23;
+    --cor-borda: #2f353d;
+    --cor-texto: #e6e8eb; /* 15:1 sobre o fundo */
+    --cor-texto-suave: #a3abb5; /* 8:1 sobre o fundo */
+    --cor-foco: #e6e8eb;
+  }
+}

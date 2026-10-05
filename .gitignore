@@ -1,0 +1,18 @@
+# Dependências e arquivos gerados
+node_modules/
+dist/
+.astro/
+coverage/
+
+# Segredos: NUNCA versionar. Use .env.example como modelo.
+.env
+.env.*
+!.env.example
+
+# Sistema e editores
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+

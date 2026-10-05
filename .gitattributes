@@ -1,0 +1,6 @@
+# Quebras de linha sempre no padrão LF (o do Linux), inclusive no Windows.
+# Sem isto, o Git do Windows troca para CRLF e o Prettier acusa erro em tudo.
+* text=auto eol=lf
+
+# Amostras reais das APIs: guardar byte a byte, sem nenhuma conversão.
+tests/fixtures/** -text

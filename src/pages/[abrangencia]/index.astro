@@ -1,0 +1,53 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Base from '../../layouts/Base.astro';
+import { formatarData } from '../../lib/formatar';
+import { mandatos } from '../../lib/mandatos';
+import type { Mandato } from '../../lib/schemas';
+import { rotuloFase, secoes } from '../../lib/secoes';
+
+// Uma página por mandato de config/mandatos.json: /brasil/, /sp/
+export const getStaticPaths = (() =>
+  mandatos.map((mandato) => ({
+    params: { abrangencia: mandato.abrangencia },
+    props: { mandato },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  mandato: Mandato;
+}
+
+const { mandato } = Astro.props;
+const proximasSecoes = secoes.filter((secao) => secao.slug !== '');
+---
+
+<Base titulo={`Painel ${mandato.nomeAbrangencia} | Painel dos Mandatos`} painel={mandato}>
+  <h1>Painel {mandato.nomeAbrangencia}</h1>
+  <dl class="ficha">
+    <dt>Cargo</dt>
+    <dd>{mandato.cargo}</dd>
+    <dt>Mandato</dt>
+    <dd>
+      {formatarData(mandato.inicio)} a {formatarData(mandato.fim)}
+    </dd>
+    <dt>Pessoa eleita</dt>
+    <dd>
+      {mandato.eleito
+        ? `${mandato.eleito} (${mandato.partido})`
+        : 'A definir: aguardando o resultado oficial do TSE'}
+    </dd>
+    <dt>Base legal das datas</dt>
+    <dd>
+      <a href={mandato.fonteDatas.url}>{mandato.fonteDatas.nome}</a>
+    </dd>
+  </dl>
+
+  <h2>Seções deste painel</h2>
+  <ul>
+    {proximasSecoes.map((secao) => (
+      <li>
+        {secao.titulo}: em construção (entra na {rotuloFase(secao)})
+      </li>
+    ))}
+  </ul>
+</Base>
