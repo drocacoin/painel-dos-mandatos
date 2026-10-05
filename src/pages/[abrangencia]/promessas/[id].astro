@@ -1,0 +1,114 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { indicadores } from '../../../../config/indicadores';
+import SeloStatus from '../../../components/SeloStatus.astro';
+import Base from '../../../layouts/Base.astro';
+import { formatarData } from '../../../lib/formatar';
+import { mandatos } from '../../../lib/mandatos';
+import { carregarPromessas, statusAtual, type Promessa } from '../../../lib/promessas';
+import type { Mandato } from '../../../lib/schemas';
+
+// Uma página por promessa publicada: /sp/promessas/P0001/
+export const getStaticPaths = (() =>
+  mandatos.flatMap((mandato) =>
+    carregarPromessas(mandato.abrangencia).map((promessa) => ({
+      params: { abrangencia: mandato.abrangencia, id: promessa.id },
+      props: { mandato, promessa },
+    })),
+  )) satisfies GetStaticPaths;
+
+interface Props {
+  mandato: Mandato;
+  promessa: Promessa;
+}
+
+const { mandato, promessa } = Astro.props;
+const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
+const ultima = promessa.historico[promessa.historico.length - 1];
+const indicador = indicadores.find((i) => `${i.abrangencia}/${i.id}` === promessa.indicador);
+const historicoNoGithub = `https://github.com/drocacoin/painel-dos-mandatos/commits/main/data/${mandato.abrangencia}/promessas/${promessa.id}.json`;
+const dominio = (url: string) => new URL(url).hostname;
+// Montado aqui, e não no HTML, para a formatação não criar espaços extras.
+const detalhesDaFonte = [
+  promessa.fonte.tipo,
+  formatarData(promessa.fonte.data),
+  promessa.fonte.pagina ? `página ${promessa.fonte.pagina}` : null,
+]
+  .filter(Boolean)
+  .join(', ');
+---
+
+<Base
+  titulo={`${promessa.id} · Promessas · ${mandato.nomeAbrangencia} | Painel dos Mandatos`}
+  painel={mandato}
+>
+  <p>
+    <a href={`${raiz}/${mandato.abrangencia}/promessas/`}>Todas as promessas</a>
+  </p>
+  <h1>{promessa.resumo}</h1>
+  <p>
+    <SeloStatus status={statusAtual(promessa)} />
+    {ultima && <> desde {formatarData(ultima.data)}</>}
+  </p>
+
+  <dl class="ficha">
+    <dt>Tema</dt>
+    <dd>{promessa.tema}</dd>
+    <dt>Prazo</dt>
+    <dd>{promessa.prazo ? formatarData(promessa.prazo) : 'Sem prazo definido'}</dd>
+    <dt>Mensurável</dt>
+    <dd>{promessa.mensuravel ? 'Sim' : 'Não'}</dd>
+    {promessa.meta && (
+      <>
+        <dt>Meta</dt>
+        <dd>{promessa.meta}</dd>
+      </>
+    )}
+    {indicador && (
+      <>
+        <dt>Indicador relacionado</dt>
+        <dd>
+          <a href={`${raiz}/${indicador.abrangencia}/indicadores/#${indicador.id}`}>
+            {indicador.titulo}
+          </a>
+        </dd>
+      </>
+    )}
+  </dl>
+
+  <h2>Texto original</h2>
+  <figure class="citacao">
+    <blockquote cite={promessa.fonte.url}>
+      <p>{promessa.texto}</p>
+    </blockquote>
+    <figcaption>
+      <a href={promessa.fonte.url}>{promessa.fonte.titulo}</a> ({detalhesDaFonte})
+    </figcaption>
+  </figure>
+
+  <h2>Histórico</h2>
+  <ol class="linha-do-tempo">
+    {promessa.historico.map((entrada) => (
+      <li>
+        <p>
+          <time datetime={entrada.data}>{formatarData(entrada.data)}</time> ·{' '}
+          <SeloStatus status={entrada.status} />
+        </p>
+        <p>{entrada.justificativa}</p>
+        <p class="fonte">
+          Fontes:{' '}
+          {entrada.fontes.map((url, i) => (
+            <>
+              {i > 0 && ' · '}
+              <a href={url}>{dominio(url)}</a>
+            </>
+          ))}
+        </p>
+      </li>
+    ))}
+  </ol>
+  <p class="fonte">
+    Todas as edições deste registro, com data e autor:{' '}
+    <a href={historicoNoGithub}>histórico no GitHub</a>.
+  </p>
+</Base>

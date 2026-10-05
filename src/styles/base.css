@@ -110,7 +110,7 @@ a:hover {
   text-decoration: none;
 }
 
-.menu a[aria-current='page'] {
+.menu a[aria-current] {
   font-weight: var(--peso-forte);
   text-decoration: underline;
   text-decoration-thickness: 2px;
@@ -306,4 +306,172 @@ a:hover {
   .indicadores {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+/* Elementos com o atributo hidden ficam escondidos mesmo que outra regra defina display. */
+[hidden] {
+  display: none !important;
+}
+
+/* ----- Promessas ----- */
+.aviso {
+  padding: var(--espaco-4);
+  background: var(--cor-superficie);
+  border: var(--borda);
+  border-left-width: 4px;
+  border-radius: var(--raio-1);
+}
+
+/* Cor de cada status: usada só no ícone e na barra do placar. */
+[data-status='nao-iniciada'] {
+  --cor-do-status: var(--status-nao-iniciada);
+}
+[data-status='em-andamento'] {
+  --cor-do-status: var(--status-em-andamento);
+}
+[data-status='cumprida-em-parte'] {
+  --cor-do-status: var(--status-cumprida-em-parte);
+}
+[data-status='cumprida'] {
+  --cor-do-status: var(--status-cumprida);
+}
+[data-status='descumprida'] {
+  --cor-do-status: var(--status-descumprida);
+}
+[data-status='nao-avaliavel'] {
+  --cor-do-status: var(--status-nao-avaliavel);
+}
+
+.selo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-1);
+  white-space: nowrap;
+}
+
+.selo-icone {
+  color: var(--cor-do-status);
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+/* Barra do placar: segmentos separados por 2px de fundo (sem contorno). */
+.barra-placar {
+  display: flex;
+  gap: 2px;
+  height: 0.75rem;
+  margin: var(--espaco-3) 0;
+  max-width: var(--largura-texto);
+}
+
+.barra-placar span {
+  min-width: 4px;
+  background: var(--cor-do-status);
+  border-radius: 2px;
+}
+
+.lista-placar,
+.lista-promessas {
+  display: grid;
+  gap: var(--espaco-2);
+  padding: 0;
+  list-style: none;
+}
+
+.lista-promessas {
+  gap: var(--espaco-3);
+  max-width: none;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--espaco-3) var(--espaco-5);
+  margin-bottom: var(--espaco-4);
+}
+
+.filtros label {
+  display: grid;
+  gap: var(--espaco-1);
+  color: var(--cor-texto-suave);
+  font-size: var(--tamanho-1);
+}
+
+/* Campos com no mínimo 44px de altura: fáceis de tocar no celular. */
+.filtros select {
+  min-height: 44px;
+  padding: var(--espaco-2) var(--espaco-3);
+  color: var(--cor-texto);
+  font: inherit;
+  background: var(--cor-fundo);
+  border: var(--borda);
+  border-radius: var(--raio-1);
+}
+
+.filtros p {
+  margin: 0;
+}
+
+.promessa {
+  padding: var(--espaco-4);
+  background: var(--cor-superficie);
+  border: var(--borda);
+  border-radius: var(--raio-2);
+}
+
+.promessa h3 {
+  margin: 0 0 var(--espaco-2);
+  font-size: var(--tamanho-3);
+}
+
+.promessa-meta {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: var(--tamanho-1);
+}
+
+.citacao {
+  margin: 0 0 var(--espaco-4);
+}
+
+.citacao blockquote {
+  margin: 0;
+  padding-left: var(--espaco-4);
+  border-left: 4px solid var(--cor-borda);
+}
+
+.citacao figcaption {
+  margin-top: var(--espaco-2);
+  color: var(--cor-texto-suave);
+  font-size: var(--tamanho-1);
+}
+
+.linha-do-tempo {
+  padding-left: var(--espaco-5);
+}
+
+.linha-do-tempo li {
+  margin-bottom: var(--espaco-4);
+}
+
+.linha-do-tempo p {
+  margin: 0 0 var(--espaco-1);
+}
+
+.criterios {
+  margin-top: var(--espaco-6);
+}
+
+.criterios summary {
+  cursor: pointer;
+}
+
+.criterios dt {
+  margin-top: var(--espaco-3);
+  font-weight: var(--peso-forte);
+}
+
+.criterios dd {
+  margin: 0;
 }

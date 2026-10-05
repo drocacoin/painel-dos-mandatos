@@ -1,0 +1,17 @@
+---
+// Status de uma promessa: ícone (forma) + texto. A cor fica só no ícone e nunca é o único sinal.
+import { ICONE_DO_STATUS, ROTULO_DO_STATUS, type Status } from '../../config/promessas';
+
+interface Props {
+  status: Status;
+}
+
+const { status } = Astro.props;
+---
+
+<span class="selo" data-status={status}>
+  <span class="selo-icone" aria-hidden="true">
+    {ICONE_DO_STATUS[status]}
+  </span>
+  {ROTULO_DO_STATUS[status]}
+</span>

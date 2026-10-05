@@ -1,0 +1,132 @@
+---
+import type { GetStaticPaths } from 'astro';
+import {
+  CRITERIO_DO_STATUS,
+  FONTE_DOS_TEMAS,
+  ICONE_DO_STATUS,
+  ROTULO_DO_STATUS,
+  STATUS,
+} from '../../../../config/promessas';
+import CartaoPromessa from '../../../components/CartaoPromessa.astro';
+import Base from '../../../layouts/Base.astro';
+import { mandatos } from '../../../lib/mandatos';
+import { carregarPromessas, placar } from '../../../lib/promessas';
+import type { Mandato } from '../../../lib/schemas';
+
+// Uma lista de promessas por painel: /brasil/promessas/, /sp/promessas/
+export const getStaticPaths = (() =>
+  mandatos.map((mandato) => ({
+    params: { abrangencia: mandato.abrangencia },
+    props: { mandato },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  mandato: Mandato;
+}
+
+const { mandato } = Astro.props;
+const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
+const promessas = carregarPromessas(mandato.abrangencia);
+const contagem = placar(promessas);
+const temas = [...new Set(promessas.map((p) => p.tema))].sort((a, b) => a.localeCompare(b));
+const porcentagem = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
+const promessasNoTexto = (n: number) => `${n} ${n === 1 ? 'promessa' : 'promessas'}`;
+---
+
+<Base titulo={`Promessas · ${mandato.nomeAbrangencia} | Painel dos Mandatos`} painel={mandato}>
+  <h1>Promessas</h1>
+  <p>
+    Promessas de campanha com status e histórico. O status só muda por edição humana, sempre com
+    justificativa e link para a fonte, e cada mudança fica registrada.
+  </p>
+
+  {promessas.length === 0 ? (
+    <p class="aviso" role="note">
+      Nenhuma promessa publicada ainda. As promessas entram depois do resultado oficial da eleição e
+      da revisão humana do plano de governo registrado no TSE.
+    </p>
+  ) : (
+    <>
+      <section aria-labelledby="placar">
+        <h2 id="placar">Placar: {promessasNoTexto(promessas.length)}</h2>
+        <div class="barra-placar" aria-hidden="true">
+          {contagem
+            .filter((c) => c.quantidade > 0)
+            .map((c) => (
+              <span data-status={c.status} style={`flex-grow: ${c.quantidade}`} />
+            ))}
+        </div>
+        <ul class="lista-placar">
+          {contagem.map((c) => (
+            <li>
+              <span class="selo-icone" data-status={c.status} aria-hidden="true">
+                {ICONE_DO_STATUS[c.status]}
+              </span>{' '}
+              {ROTULO_DO_STATUS[c.status]}: {c.quantidade} ({porcentagem.format(c.percentual)}%)
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="lista">
+        <h2 id="lista">Lista</h2>
+        <form class="filtros" data-filtros hidden>
+          <label>
+            Tema
+            <select name="tema">
+              <option value="">Todos</option>
+              {temas.map((tema) => (
+                <option value={tema}>{tema}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Status
+            <select name="status">
+              <option value="">Todos</option>
+              {STATUS.map((status) => (
+                <option value={status}>{ROTULO_DO_STATUS[status]}</option>
+              ))}
+            </select>
+          </label>
+          <p aria-live="polite" data-contagem>
+            {promessasNoTexto(promessas.length)}
+          </p>
+        </form>
+        <ul class="lista-promessas" data-promessas>
+          {promessas.map((promessa) => (
+            <CartaoPromessa
+              promessa={promessa}
+              href={`${raiz}/${mandato.abrangencia}/promessas/${promessa.id}/`}
+            />
+          ))}
+        </ul>
+      </section>
+    </>
+  )}
+
+  <details class="criterios">
+    <summary>Como cada status é definido</summary>
+    <dl>
+      {STATUS.map((status) => (
+        <>
+          <dt>
+            <span class="selo-icone" data-status={status} aria-hidden="true">
+              {ICONE_DO_STATUS[status]}
+            </span>{' '}
+            {ROTULO_DO_STATUS[status]}
+          </dt>
+          <dd>{CRITERIO_DO_STATUS[status]}</dd>
+        </>
+      ))}
+    </dl>
+    <p>
+      Os temas seguem as funções de governo da classificação oficial do orçamento:{' '}
+      <a href={FONTE_DOS_TEMAS.url}>{FONTE_DOS_TEMAS.nome}</a>.
+    </p>
+  </details>
+</Base>
+
+<script>
+  import '../../../scripts/filtros';
+</script>

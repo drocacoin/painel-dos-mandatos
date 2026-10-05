@@ -47,12 +47,17 @@ const geradoEm = formatarDataHora(new Date());
             <ul class="menu">
               {secoes.map((secao) => {
                 const href = `${raiz}/${painel.abrangencia}/${secao.slug ? `${secao.slug}/` : ''}`;
+                const caminho = semBarraFinal(href);
+                // "page" na própria página da seção; "true" nas páginas dentro dela (ex.: uma promessa).
+                const atual =
+                  paginaAtual === caminho
+                    ? 'page'
+                    : secao.slug && paginaAtual.startsWith(`${caminho}/`)
+                      ? 'true'
+                      : undefined;
                 return (
                   <li>
-                    <a
-                      href={href}
-                      aria-current={paginaAtual === semBarraFinal(href) ? 'page' : undefined}
-                    >
+                    <a href={href} aria-current={atual}>
                       {secao.titulo}
                     </a>
                   </li>

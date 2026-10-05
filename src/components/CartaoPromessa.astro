@@ -1,0 +1,24 @@
+---
+// Uma promessa na lista. Os atributos data-* são usados pelos filtros (src/scripts/filtros.ts).
+import { formatarData } from '../lib/formatar';
+import { statusAtual, type Promessa } from '../lib/promessas';
+import SeloStatus from './SeloStatus.astro';
+
+interface Props {
+  promessa: Promessa;
+  href: string;
+}
+
+const { promessa, href } = Astro.props;
+const status = statusAtual(promessa);
+---
+
+<li class="promessa" data-tema={promessa.tema} data-status={status}>
+  <h3>
+    <a href={href}>{promessa.resumo}</a>
+  </h3>
+  <p class="promessa-meta">
+    <SeloStatus status={status} /> · {promessa.tema} ·{' '}
+    {promessa.prazo ? `Prazo: ${formatarData(promessa.prazo)}` : 'Sem prazo definido'}
+  </p>
+</li>

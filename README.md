@@ -8,7 +8,8 @@ Endereço: <https://drocacoin.github.io/painel-dos-mandatos/>
 
 - **Fase 1 (fundação):** concluída. Estrutura do projeto, verificações automáticas e publicação.
 - **Fase 2 (indicadores):** concluída. 19 indicadores (7 do Brasil, 12 de SP) com gráficos, coleta automática diária e comparação com o início do mandato.
-- Próximas: promessas (Fase 3), gastos (Fase 4), Congresso e Assembleia Legislativa (Fase 5, opcional) e metodologia (Fase 6). Plano completo: [docs/fase-0-planejamento.md](docs/fase-0-planejamento.md).
+- **Fase 3 (promessas):** estrutura concluída: validação no CI, páginas com placar, filtros e histórico, e o script de rascunho. As promessas de SP aguardam revisão humana do rascunho; as do Brasil, o 2º turno (25/10/2026).
+- Próximas: gastos (Fase 4), Congresso e Assembleia Legislativa (Fase 5, opcional) e metodologia (Fase 6). Plano completo: [docs/fase-0-planejamento.md](docs/fase-0-planejamento.md).
 
 As pessoas eleitas ainda não aparecem no site. O projeto aguarda o resultado oficial do TSE (1º turno em 04/10/2026; 2º turno, se houver, em 25/10/2026). Como o mandato começa em 05/01/2027 (Brasil) e 06/01/2027 (SP), a comparação "desde o início do mandato" só aparece quando sair o primeiro dado de cada indicador a partir dessas datas.
 
@@ -57,6 +58,68 @@ Verificações (as mesmas que o GitHub roda a cada envio):
 | `tests/`                     | testes automáticos; `tests/fixtures/` tem respostas reais das APIs (não editar à mão)               |
 | `docs/`                      | plano do projeto                                                                                    |
 | `.github/workflows/`         | `ci.yml` (verificação e publicação), `coleta.yml` (coleta diária) e `conexao.yml` (teste de acesso) |
+
+## Promessas
+
+Cada promessa é um arquivo em `data/<painel>/promessas/` (ex.: `data/sp/promessas/P0001.json`). O histórico do git de cada arquivo é a trilha de auditoria daquela promessa, e a página da promessa tem um link para ele.
+
+**Regras (regra 6 do projeto), conferidas pelo CI a cada envio:**
+
+- o status só muda por edição humana do arquivo; o robô da coleta nunca mexe em promessas;
+- o status atual é sempre o da **última entrada do histórico**;
+- toda entrada do histórico precisa de data, status, justificativa (pelo menos 20 caracteres) e **pelo menos um link de fonte**;
+- o histórico fica em ordem de data, sem datas no futuro;
+- `id` igual ao nome do arquivo (`P0001` a `P9999`, nunca reaproveitado);
+- tema = uma das 28 funções de governo da classificação oficial do orçamento (lista em [`config/promessas.ts`](config/promessas.ts));
+- promessa mensurável precisa de meta; `indicador`, se preenchido, precisa existir (ex.: `"sp/homicidios"`).
+
+Os 6 status e os critérios de cada um (proposta, aguardando aprovação) estão em [`config/promessas.ts`](config/promessas.ts) e aparecem na página de promessas.
+
+### Como cadastrar uma promessa
+
+1. Gere o rascunho a partir do PDF do plano de governo (próxima seção) e escolha um trecho.
+2. Crie o arquivo com o próximo número livre, seguindo este modelo:
+
+```json
+{
+  "id": "P0001",
+  "resumo": "<frase curta e neutra, sem adjetivos>",
+  "texto": "<cópia exata do trecho, conferida no PDF>",
+  "tema": "<uma das funções de governo>",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026)",
+    "url": "<link oficial do TSE>",
+    "data": "<AAAA-MM-DD>",
+    "pagina": 9
+  },
+  "mensuravel": false,
+  "meta": null,
+  "indicador": null,
+  "prazo": null,
+  "historico": [
+    {
+      "data": "<AAAA-MM-DD de hoje>",
+      "status": "nao-iniciada",
+      "justificativa": "<por que este status, em linguagem neutra>",
+      "fontes": ["<link da fonte que comprova>"]
+    }
+  ]
+}
+```
+
+3. Rode `npm test`: se algo estiver fora das regras, o teste diz qual campo corrigir.
+4. Faça o commit e envie. O CI valida de novo e publica.
+
+**Para mudar o status**, acrescente uma entrada nova no fim do `historico`, com a data, o novo status, a justificativa e as fontes. Não apague nem edite entradas antigas.
+
+### Rascunho a partir do PDF do plano de governo
+
+```bash
+npm run rascunho -- <arquivo.pdf> <painel> [link da fonte]
+```
+
+O script lê o PDF, junta as linhas em frases e lista as que têm sinais de compromisso: verbos no futuro terminados em "-remos" e as palavras de `PALAVRAS_DE_COMPROMISSO` em [`scripts/rascunho-promessas.ts`](scripts/rascunho-promessas.ts). Cada trecho vem com a página e a seção de origem. A saída vai para `rascunhos/`, que o git ignora: **nada do rascunho é publicado sem revisão**.
 
 ## De onde vêm os dados
 
@@ -107,7 +170,9 @@ O workflow [`coleta.yml`](.github/workflows/coleta.yml) roda todo dia às 10h17 
 ## Limitações conhecidas
 
 - Pessoas eleitas ainda não definidas: aguardando o resultado oficial do TSE.
-- Promessas e gastos ainda não publicados (Fases 3 e 4).
+- Nenhuma promessa publicada ainda: as de SP aguardam revisão do rascunho; as do Brasil, o resultado do 2º turno.
+- O rascunho de promessas é uma ajuda, não uma lista completa: ele só pega frases com os sinais de compromisso, e páginas do PDF sem texto (imagens) precisam ser conferidas à mão.
+- Gastos ainda não publicados (Fase 4).
 - Segurança e saúde de SP usam dados **anuais** da Fundação Seade (vítimas de homicídio doloso e mortalidade infantil). O catálogo da Seade não informa a licença desses arquivos.
 - O site ainda não avisa quando um dado está atrasado em relação ao calendário da fonte; a data de referência e a de atualização ficam sempre visíveis.
 - O tema claro ou escuro segue a configuração do aparelho; não há botão de troca.

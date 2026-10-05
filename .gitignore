@@ -16,3 +16,6 @@ Thumbs.db
 .vscode/
 .idea/
 
+
+# Rascunhos de promessas e PDFs de trabalho: só para revisão local, nunca publicados.
+rascunhos/
