@@ -53,8 +53,21 @@ O site ainda não exibe dados. As fontes já verificadas com chamadas reais em 0
 - Pessoas eleitas ainda não definidas: aguardando o resultado oficial do TSE.
 - Indicadores, promessas e gastos ainda não publicados (Fases 2 a 4).
 - Segurança e saúde em SP: ainda sem fonte de resultado com acesso automatizado confirmado; por enquanto, só os gastos.
-- Câmara dos Deputados e Assembleia Legislativa de SP não responderam nos testes de 04/10/2026.
 - O tema claro ou escuro segue a configuração do aparelho; não há botão de troca.
+
+### Teste de conexão a partir do GitHub (04/10/2026)
+
+Os servidores do GitHub, que rodam a coleta automática, ficam fora do Brasil. O workflow [`conexao.yml`](.github/workflows/conexao.yml) chamou cada fonte uma vez:
+
+| Fonte                                | Resultado                                                                               |
+| ------------------------------------ | --------------------------------------------------------------------------------------- |
+| Banco Central, IBGE, SICONFI, Senado | responderam (HTTP 200)                                                                  |
+| TSE e Dados Abertos SP (Infosiga)    | responderam (HTTP 206 e 200)                                                            |
+| Portal da Transparência              | respondeu 401, o esperado sem chave                                                     |
+| INEP (IDEB)                          | recusou a conexão do GitHub (funciona a partir do Brasil); o IDEB será atualizado à mão |
+| Câmara dos Deputados                 | não respondeu (tempo esgotado); também falhou a partir do Brasil                        |
+| Ministério da Justiça (Sinesp)       | não respondeu; também falhou a partir do Brasil                                         |
+| Assembleia Legislativa de SP (ALESP) | respondeu 503 (em manutenção)                                                           |
 
 ## Segredos
 
