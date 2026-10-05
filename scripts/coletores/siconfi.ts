@@ -4,21 +4,27 @@
  * das linhas ("contas") são os mesmos de 2023 a 2026. Valores em reais, como número.
  */
 import { z } from 'zod';
-import type { Ponto } from '../../src/lib/schemas.ts';
+import { TEMAS_PROMESSAS as FUNCOES_DE_GOVERNO } from '../../config/promessas.ts';
+import { MESES_ATE_O_BIMESTRE } from '../../src/lib/periodos.ts';
+import type { AnoDeGastos, Ponto } from '../../src/lib/schemas.ts';
 import { buscarJson, ErroDeColeta, type Dependencias } from '../http.ts';
-import type { Contexto } from './comum.ts';
+import type { Contexto, Janela } from './comum.ts';
 
 const BASE = 'https://apidatalake.tesouro.gov.br/ords/siconfi/tt';
 
 const respostaSiconfi = z.object({
-  items: z.array(z.object({ conta: z.string(), coluna: z.string(), valor: z.number().nullable() })),
+  items: z.array(
+    z.object({
+      rotulo: z.string(),
+      conta: z.string(),
+      coluna: z.string(),
+      valor: z.number().nullable(),
+    }),
+  ),
   hasMore: z.boolean(),
 });
 
 type Item = z.infer<typeof respostaSiconfi>['items'][number];
-
-// Meses cobertos pelo RREO até cada bimestre. O 6º é o ano completo (sem nota).
-const MESES_ATE_O_BIMESTRE = ['jan-fev', 'jan-abr', 'jan-jun', 'jan-ago', 'jan-out'];
 
 async function buscarItens(url: string, deps?: Dependencias): Promise<Item[]> {
   const resposta = await buscarJson(url, respostaSiconfi, deps);
@@ -92,4 +98,57 @@ export async function coletarSiconfi({ indicador, janela, deps }: Contexto): Pro
   if (pontos.length === 0)
     throw new ErroDeColeta(`${indicador.id}: nenhum relatório publicado`, true);
   return pontos;
+}
+
+// Gastos por função (RREO Anexo 02). Verificado em 05/10/2026 com União e SP:
+// - todas as linhas têm o mesmo cod_conta; as funções se reconhecem pelo nome (as 28 da
+//   Portaria 42/1999) e as subfunções ficam de fora;
+// - só vale o bloco "Exceto Intra-Orçamentárias": o outro repete dinheiro que passa entre
+//   órgãos do próprio governo;
+// - a soma das funções é igual ao total do relatório. Se não for, a coleta falha.
+const ROTULO_SEM_INTRA = 'Total das Despesas Exceto Intra-Orçamentárias';
+const COLUNA_LIQUIDADO = 'DESPESAS LIQUIDADAS ATÉ O BIMESTRE (d)';
+const LINHA_DO_TOTAL = 'DESPESAS (EXCETO INTRA-ORÇAMENTÁRIAS) (I)';
+
+/** Despesa liquidada por função em cada ano da janela, do último bimestre publicado no ano. */
+export async function coletarGastosPorFuncao(
+  fonte: { anexo: string; ente: number; esfera: string },
+  janela: Janela,
+  deps?: Dependencias,
+): Promise<AnoDeGastos[]> {
+  const anos: AnoDeGastos[] = [];
+  const anoFinal = Number(janela.hoje.slice(0, 4));
+  for (let ano = Number(janela.inicio.slice(0, 4)); ano <= anoFinal; ano++) {
+    for (let bimestre = 6; bimestre >= 1; bimestre--) {
+      const url =
+        `${BASE}/rreo?an_exercicio=${ano}&nr_periodo=${bimestre}&co_tipo_demonstrativo=RREO` +
+        `&no_anexo=${encodeURIComponent(fonte.anexo)}&co_esfera=${fonte.esfera}&id_ente=${fonte.ente}`;
+      const itens = await buscarItens(url, deps);
+      if (itens.length === 0) continue; // bimestre ainda não publicado
+      const linhas = itens.filter(
+        (i) => i.rotulo === ROTULO_SEM_INTRA && i.coluna === COLUNA_LIQUIDADO,
+      );
+      const total = valorDe(linhas, LINHA_DO_TOTAL, COLUNA_LIQUIDADO, url);
+      const funcoes = FUNCOES_DE_GOVERNO.flatMap((funcao) => {
+        const achadas = linhas.filter((i) => i.conta === funcao);
+        // Função sem linha: o ente não teve despesa nela (ex.: Defesa Nacional em SP).
+        if (achadas.length === 0) return [];
+        const [linha] = achadas;
+        if (achadas.length > 1 || !linha || linha.valor === null) {
+          throw new ErroDeColeta(`${url}: valor da função ${funcao} ausente ou repetido`, true);
+        }
+        return [{ funcao, liquidado: linha.valor }];
+      });
+      const soma = funcoes.reduce((acumulado, f) => acumulado + f.liquidado, 0);
+      if (Math.abs(soma - total) > 1) {
+        throw new ErroDeColeta(
+          `${url}: a soma das funções (${soma}) é diferente do total do relatório (${total})`,
+          true,
+        );
+      }
+      anos.push({ ano, bimestre, total, funcoes });
+      break;
+    }
+  }
+  return anos;
 }

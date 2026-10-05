@@ -1,0 +1,182 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { FONTE_DOS_GASTOS, FUNCOES_EM_DESTAQUE, gastos } from '../../../config/gastos';
+import { indicadores } from '../../../config/indicadores';
+import { FONTE_DOS_TEMAS } from '../../../config/promessas';
+import CartaoIndicador from '../../components/CartaoIndicador.astro';
+import Fonte from '../../components/Fonte.astro';
+import Base from '../../layouts/Base.astro';
+import { gastosDoPainel, type SerieDeGasto } from '../../lib/gastos';
+import { rotuloComNota } from '../../lib/indicadores';
+import { mandatos } from '../../lib/mandatos';
+import type { Mandato } from '../../lib/schemas';
+
+// Uma página de gastos por painel: /brasil/gastos/, /sp/gastos/
+export const getStaticPaths = (() =>
+  mandatos.map((mandato) => ({
+    params: { abrangencia: mandato.abrangencia },
+    props: { mandato },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  mandato: Mandato;
+}
+
+const { mandato } = Astro.props;
+const dados = gastosDoPainel(mandato.abrangencia);
+const ente = gastos.find((g) => g.abrangencia === mandato.abrangencia)?.ente ?? 'governo';
+const ipca = indicadores.find((i) => i.id === 'ipca-indice');
+const anos = dados?.total.serie ?? [];
+const primeiro = anos[0];
+const ultimo = anos.at(-1);
+const destaques = FUNCOES_EM_DESTAQUE.flatMap(
+  (funcao) => dados?.funcoes.filter((f) => f.exibivel.titulo === funcao) ?? [],
+);
+const arquivoDe = (gasto: SerieDeGasto) => ({
+  atualizadoEm: dados?.atualizadoEm ?? '',
+  serie: gasto.serie,
+});
+// Na tabela, tudo em bilhões com 2 casas: números alinhados e comparáveis entre linhas.
+const bilhoes = new Intl.NumberFormat('pt-BR', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+const emBilhoes = (valor: number) => bilhoes.format(valor / 1e9);
+const valorNoAno = (gasto: SerieDeGasto, periodo: string) => {
+  const ponto = gasto.serie.find((p) => p.periodo === periodo);
+  return ponto ? emBilhoes(ponto.valor) : '–';
+};
+---
+
+<Base titulo={`Gastos · ${mandato.nomeAbrangencia} | Painel dos Mandatos`} painel={mandato}>
+  <h1>Gastos</h1>
+  {dados && primeiro && ultimo ? (
+    <>
+      <p>
+        Despesa liquidada do {ente} por área de governo (função), corrigida pela inflação: todos os
+        valores estão em reais de {dados.referencia}. O ano em curso é parcial, até o último
+        bimestre publicado. O método está no fim da página.
+      </p>
+
+      <section aria-labelledby="total">
+        <h2 id="total">Total</h2>
+        <div class="indicadores">
+          <CartaoIndicador
+            indicador={dados.total.exibivel}
+            arquivo={arquivoDe(dados.total)}
+            mandato={mandato}
+          />
+        </div>
+      </section>
+
+      <section aria-labelledby="destaques">
+        <h2 id="destaques">Saúde, educação, segurança pública e transporte</h2>
+        <div class="indicadores">
+          {destaques.map((gasto) => (
+            <CartaoIndicador
+              indicador={gasto.exibivel}
+              arquivo={arquivoDe(gasto)}
+              mandato={mandato}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="todas">
+        <h2 id="todas">Todas as áreas</h2>
+        <p>
+          Valores em bilhões de reais de {dados.referencia}. Traço: sem despesa registrada na função
+          naquele ano. Em telas estreitas, a tabela rola para os lados.
+        </p>
+        <div
+          class="tabela-rolavel"
+          tabindex="0"
+          role="region"
+          aria-label="Tabela com todas as áreas; role para os lados para ver todos os anos"
+        >
+          <table class="tabela">
+            <caption>Despesa liquidada por função</caption>
+            <thead>
+              <tr>
+                <th scope="col">Função</th>
+                {anos.map((p) => (
+                  <th scope="col">{rotuloComNota(p, dados.total.exibivel, 'longo')}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {dados.funcoes.map((gasto) => (
+                <tr>
+                  <th scope="row">{gasto.exibivel.titulo}</th>
+                  {anos.map((p) => (
+                    <td>{valorNoAno(gasto, p.periodo)}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">Total</th>
+                {anos.map((p) => (
+                  <td>{emBilhoes(p.valor)}</td>
+                ))}
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <Fonte
+          fonte={FONTE_DOS_GASTOS}
+          referencia={`${rotuloComNota(primeiro, dados.total.exibivel, 'longo')} a ${rotuloComNota(ultimo, dados.total.exibivel, 'longo')}`}
+          atualizadoEm={dados.atualizadoEm}
+        />
+      </section>
+
+      {dados.anosSemCorrecao.length > 0 && (
+        <p class="aviso" role="note">
+          Ficaram de fora, por falta do IPCA de todos os meses: {dados.anosSemCorrecao.join(', ')}.
+          Eles voltam quando o IBGE publicar os índices.
+        </p>
+      )}
+
+      <details class="criterios">
+        <summary>Como os valores são calculados</summary>
+        <ul>
+          <li>
+            <strong>Despesa liquidada:</strong> o bem ou o serviço foi entregue e a despesa foi
+            reconhecida; o pagamento costuma vir em seguida. O valor pago por função só é publicado
+            uma vez por ano, meses depois do fim do ano.
+          </li>
+          <li>
+            <strong>Funções:</strong> as áreas de governo da classificação oficial do orçamento.
+            Lista oficial: <a href={FONTE_DOS_TEMAS.url}>{FONTE_DOS_TEMAS.nome}</a>.
+          </li>
+          <li>
+            <strong>Sem contar duas vezes:</strong> ficam de fora as despesas intraorçamentárias,
+            que são pagamentos entre órgãos do próprio governo.
+          </li>
+          <li>
+            <strong>Inflação:</strong> cada valor é multiplicado pelo IPCA de {dados.referencia} e
+            dividido pelo IPCA médio dos meses do período.
+            {ipca && (
+              <>
+                Índice usado: <a href={ipca.fonte.url}>{ipca.fonte.nome}</a>.
+              </>
+            )}
+          </li>
+          <li>
+            <strong>Ano em curso:</strong> parcial, até o último bimestre publicado. Não entra na
+            comparação com o início do mandato.
+          </li>
+          <li>
+            <strong>Origem:</strong> relatórios bimestrais (RREO, Anexo 02) que o {ente} envia ao
+            Tesouro Nacional, publicados no <a href={FONTE_DOS_GASTOS.url}>SICONFI</a>.
+          </li>
+        </ul>
+      </details>
+    </>
+  ) : (
+    <p class="aviso" role="note">
+      Dados ainda não coletados. Fonte: <a href={FONTE_DOS_GASTOS.url}>{FONTE_DOS_GASTOS.nome}</a>.
+    </p>
+  )}
+</Base>

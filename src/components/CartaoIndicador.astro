@@ -1,15 +1,19 @@
 ---
 // Cartão de um indicador: valor mais recente, comparação com o início do mandato,
 // gráfico com tabela e a linha de fonte (regra 5). Mesmo componente nos dois painéis.
-import type { Indicador } from '../../config/indicadores';
 import { formatarData, formatarValor } from '../lib/formatar';
-import { compararComInicio, rotuloComNota, textoDaVariacao } from '../lib/indicadores';
+import {
+  compararComInicio,
+  rotuloComNota,
+  textoDaVariacao,
+  type Exibivel,
+} from '../lib/indicadores';
 import type { ArquivoIndicador, Mandato } from '../lib/schemas';
 import Fonte from './Fonte.astro';
 import Grafico from './Grafico.astro';
 
 interface Props {
-  indicador: Indicador;
+  indicador: Exibivel;
   arquivo: ArquivoIndicador | null;
   mandato: Mandato;
 }

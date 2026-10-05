@@ -1,0 +1,481 @@
+{
+  "atualizadoEm": "2026-10-05T17:42:23-03:00",
+  "anos": [
+    {
+      "ano": 2023,
+      "bimestre": 6,
+      "total": 2952134769270,
+      "funcoes": [
+        {
+          "funcao": "Legislativa",
+          "liquidado": 7365919110.97
+        },
+        {
+          "funcao": "Judiciária",
+          "liquidado": 37498906081.34
+        },
+        {
+          "funcao": "Essencial à Justiça",
+          "liquidado": 7997296716.72
+        },
+        {
+          "funcao": "Administração",
+          "liquidado": 24683586387.41
+        },
+        {
+          "funcao": "Defesa Nacional",
+          "liquidado": 82384193685.14
+        },
+        {
+          "funcao": "Segurança Pública",
+          "liquidado": 12396574410.46
+        },
+        {
+          "funcao": "Relações Exteriores",
+          "liquidado": 3735087919.8
+        },
+        {
+          "funcao": "Assistência Social",
+          "liquidado": 265421364461.85
+        },
+        {
+          "funcao": "Previdência Social",
+          "liquidado": 973468875639.89
+        },
+        {
+          "funcao": "Saúde",
+          "liquidado": 160708457465.12
+        },
+        {
+          "funcao": "Trabalho",
+          "liquidado": 95331575774.23
+        },
+        {
+          "funcao": "Educação",
+          "liquidado": 125343336867.07
+        },
+        {
+          "funcao": "Cultura",
+          "liquidado": 2287317111.85
+        },
+        {
+          "funcao": "Direitos da Cidadania",
+          "liquidado": 792226875.52
+        },
+        {
+          "funcao": "Urbanismo",
+          "liquidado": 1194443819.55
+        },
+        {
+          "funcao": "Habitação",
+          "liquidado": 13333.34
+        },
+        {
+          "funcao": "Saneamento",
+          "liquidado": 150018510.97
+        },
+        {
+          "funcao": "Gestão Ambiental",
+          "liquidado": 3826500138.2
+        },
+        {
+          "funcao": "Ciência e Tecnologia",
+          "liquidado": 12482162673.42
+        },
+        {
+          "funcao": "Agricultura",
+          "liquidado": 21063515747.56
+        },
+        {
+          "funcao": "Organização Agrária",
+          "liquidado": 2493668756.79
+        },
+        {
+          "funcao": "Indústria",
+          "liquidado": 1838294841.04
+        },
+        {
+          "funcao": "Comércio e Serviços",
+          "liquidado": 2084563771.93
+        },
+        {
+          "funcao": "Comunicações",
+          "liquidado": 2371206088.25
+        },
+        {
+          "funcao": "Energia",
+          "liquidado": 1019393999.3
+        },
+        {
+          "funcao": "Transporte",
+          "liquidado": 12739417044.4
+        },
+        {
+          "funcao": "Desporto e Lazer",
+          "liquidado": 350661477.98
+        },
+        {
+          "funcao": "Encargos Especiais",
+          "liquidado": 1091106190559.9
+        }
+      ]
+    },
+    {
+      "ano": 2024,
+      "bimestre": 6,
+      "total": 3436387598159.8,
+      "funcoes": [
+        {
+          "funcao": "Legislativa",
+          "liquidado": 8178991878.97
+        },
+        {
+          "funcao": "Judiciária",
+          "liquidado": 42933162422.86
+        },
+        {
+          "funcao": "Essencial à Justiça",
+          "liquidado": 8608048088.81
+        },
+        {
+          "funcao": "Administração",
+          "liquidado": 24607858581.18
+        },
+        {
+          "funcao": "Defesa Nacional",
+          "liquidado": 87214770427.39
+        },
+        {
+          "funcao": "Segurança Pública",
+          "liquidado": 16048872521.62
+        },
+        {
+          "funcao": "Relações Exteriores",
+          "liquidado": 4617569597.71
+        },
+        {
+          "funcao": "Assistência Social",
+          "liquidado": 283135479748.49
+        },
+        {
+          "funcao": "Previdência Social",
+          "liquidado": 1046815954954.8
+        },
+        {
+          "funcao": "Saúde",
+          "liquidado": 194760685717.97
+        },
+        {
+          "funcao": "Trabalho",
+          "liquidado": 108934063605.78
+        },
+        {
+          "funcao": "Educação",
+          "liquidado": 132550503564.8
+        },
+        {
+          "funcao": "Cultura",
+          "liquidado": 2017287001.62
+        },
+        {
+          "funcao": "Direitos da Cidadania",
+          "liquidado": 1231333400.69
+        },
+        {
+          "funcao": "Urbanismo",
+          "liquidado": 1686223193.06
+        },
+        {
+          "funcao": "Habitação",
+          "liquidado": 13502908.46
+        },
+        {
+          "funcao": "Saneamento",
+          "liquidado": 249591490.11
+        },
+        {
+          "funcao": "Gestão Ambiental",
+          "liquidado": 14151913604.63
+        },
+        {
+          "funcao": "Ciência e Tecnologia",
+          "liquidado": 14758895062.3
+        },
+        {
+          "funcao": "Agricultura",
+          "liquidado": 20355544889.64
+        },
+        {
+          "funcao": "Organização Agrária",
+          "liquidado": 2612525828.81
+        },
+        {
+          "funcao": "Indústria",
+          "liquidado": 1928364887.02
+        },
+        {
+          "funcao": "Comércio e Serviços",
+          "liquidado": 3030040906.7
+        },
+        {
+          "funcao": "Comunicações",
+          "liquidado": 2266372800.34
+        },
+        {
+          "funcao": "Energia",
+          "liquidado": 988778059.88
+        },
+        {
+          "funcao": "Transporte",
+          "liquidado": 14897674234.24
+        },
+        {
+          "funcao": "Desporto e Lazer",
+          "liquidado": 267665661.29
+        },
+        {
+          "funcao": "Encargos Especiais",
+          "liquidado": 1397525923120.63
+        }
+      ]
+    },
+    {
+      "ano": 2025,
+      "bimestre": 6,
+      "total": 3705420381699.76,
+      "funcoes": [
+        {
+          "funcao": "Legislativa",
+          "liquidado": 9087468482.22
+        },
+        {
+          "funcao": "Judiciária",
+          "liquidado": 45122845308.36
+        },
+        {
+          "funcao": "Essencial à Justiça",
+          "liquidado": 9214785553.79
+        },
+        {
+          "funcao": "Administração",
+          "liquidado": 29386621883.39
+        },
+        {
+          "funcao": "Defesa Nacional",
+          "liquidado": 91610839896.51
+        },
+        {
+          "funcao": "Segurança Pública",
+          "liquidado": 13893085286.47
+        },
+        {
+          "funcao": "Relações Exteriores",
+          "liquidado": 4494917291.72
+        },
+        {
+          "funcao": "Assistência Social",
+          "liquidado": 289214723819.35
+        },
+        {
+          "funcao": "Previdência Social",
+          "liquidado": 1101481486049.03
+        },
+        {
+          "funcao": "Saúde",
+          "liquidado": 217074077120.24
+        },
+        {
+          "funcao": "Trabalho",
+          "liquidado": 115796522387.42
+        },
+        {
+          "funcao": "Educação",
+          "liquidado": 156969408083.35
+        },
+        {
+          "funcao": "Cultura",
+          "liquidado": 2335393115.27
+        },
+        {
+          "funcao": "Direitos da Cidadania",
+          "liquidado": 1354041157.66
+        },
+        {
+          "funcao": "Urbanismo",
+          "liquidado": 1922939085.94
+        },
+        {
+          "funcao": "Habitação",
+          "liquidado": 424906391.58
+        },
+        {
+          "funcao": "Saneamento",
+          "liquidado": 260496677.09
+        },
+        {
+          "funcao": "Gestão Ambiental",
+          "liquidado": 20109849588.19
+        },
+        {
+          "funcao": "Ciência e Tecnologia",
+          "liquidado": 19213181028.22
+        },
+        {
+          "funcao": "Agricultura",
+          "liquidado": 40467051594.55
+        },
+        {
+          "funcao": "Organização Agrária",
+          "liquidado": 4104447069.59
+        },
+        {
+          "funcao": "Indústria",
+          "liquidado": 2151930269.51
+        },
+        {
+          "funcao": "Comércio e Serviços",
+          "liquidado": 1599108845.01
+        },
+        {
+          "funcao": "Comunicações",
+          "liquidado": 2390124690.55
+        },
+        {
+          "funcao": "Energia",
+          "liquidado": 1153163658.2
+        },
+        {
+          "funcao": "Transporte",
+          "liquidado": 12970246170.32
+        },
+        {
+          "funcao": "Desporto e Lazer",
+          "liquidado": 524963650.13
+        },
+        {
+          "funcao": "Encargos Especiais",
+          "liquidado": 1511091757546.1
+        }
+      ]
+    },
+    {
+      "ano": 2026,
+      "bimestre": 4,
+      "total": 2928524270047.22,
+      "funcoes": [
+        {
+          "funcao": "Legislativa",
+          "liquidado": 6454645689.61
+        },
+        {
+          "funcao": "Judiciária",
+          "liquidado": 30340508513.68
+        },
+        {
+          "funcao": "Essencial à Justiça",
+          "liquidado": 8092462368.28
+        },
+        {
+          "funcao": "Administração",
+          "liquidado": 18653699619.31
+        },
+        {
+          "funcao": "Defesa Nacional",
+          "liquidado": 58783274843.2
+        },
+        {
+          "funcao": "Segurança Pública",
+          "liquidado": 9124703282.9
+        },
+        {
+          "funcao": "Relações Exteriores",
+          "liquidado": 2833663530.8
+        },
+        {
+          "funcao": "Assistência Social",
+          "liquidado": 198879803774.92
+        },
+        {
+          "funcao": "Previdência Social",
+          "liquidado": 807620760645.23
+        },
+        {
+          "funcao": "Saúde",
+          "liquidado": 156797278111.98
+        },
+        {
+          "funcao": "Trabalho",
+          "liquidado": 86164287368.15
+        },
+        {
+          "funcao": "Educação",
+          "liquidado": 116414822435.4
+        },
+        {
+          "funcao": "Cultura",
+          "liquidado": 1604883449.15
+        },
+        {
+          "funcao": "Direitos da Cidadania",
+          "liquidado": 998057995.15
+        },
+        {
+          "funcao": "Urbanismo",
+          "liquidado": 1418306718.76
+        },
+        {
+          "funcao": "Habitação",
+          "liquidado": 1123311045.03
+        },
+        {
+          "funcao": "Saneamento",
+          "liquidado": 222003552.44
+        },
+        {
+          "funcao": "Gestão Ambiental",
+          "liquidado": 32324715344.08
+        },
+        {
+          "funcao": "Ciência e Tecnologia",
+          "liquidado": 11743780282.99
+        },
+        {
+          "funcao": "Agricultura",
+          "liquidado": 20033132584.63
+        },
+        {
+          "funcao": "Organização Agrária",
+          "liquidado": 3101282211.46
+        },
+        {
+          "funcao": "Indústria",
+          "liquidado": 1638348835.21
+        },
+        {
+          "funcao": "Comércio e Serviços",
+          "liquidado": 1202772619.58
+        },
+        {
+          "funcao": "Comunicações",
+          "liquidado": 598220698.87
+        },
+        {
+          "funcao": "Energia",
+          "liquidado": 902792493.31
+        },
+        {
+          "funcao": "Transporte",
+          "liquidado": 8035704169.23
+        },
+        {
+          "funcao": "Desporto e Lazer",
+          "liquidado": 392949119.86
+        },
+        {
+          "funcao": "Encargos Especiais",
+          "liquidado": 1343024098744.01
+        }
+      ]
+    }
+  ]
+}

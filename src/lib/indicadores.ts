@@ -51,6 +51,20 @@ export function carregarArquivo(indicador: Indicador): ArquivoIndicador | null {
   return resultado.data;
 }
 
+/** O que um cartão precisa para mostrar uma série: um indicador ou os gastos de uma área. */
+export type Exibivel = Pick<
+  Indicador,
+  | 'id'
+  | 'titulo'
+  | 'descricao'
+  | 'nota'
+  | 'unidade'
+  | 'casas'
+  | 'periodicidade'
+  | 'variacao'
+  | 'fonte'
+>;
+
 export interface Comparacao {
   /** Último ponto cujo período terminou antes do início do mandato. */
   referencia: Ponto | null;
@@ -60,7 +74,7 @@ export interface Comparacao {
 
 export function compararComInicio(
   serie: Ponto[],
-  indicador: Indicador,
+  indicador: Exibivel,
   inicioMandato: string,
 ): Comparacao {
   const completos = serie.filter((p) => !p.nota);
@@ -74,7 +88,7 @@ export function compararComInicio(
 }
 
 /** Texto da variação entre a referência e o ponto atual, ou null se ainda não há o que comparar. */
-export function textoDaVariacao(indicador: Indicador, comparacao: Comparacao): string | null {
+export function textoDaVariacao(indicador: Exibivel, comparacao: Comparacao): string | null {
   const { referencia, atual } = comparacao;
   if (!referencia || !atual) return null;
   let variacao = atual.valor - referencia.valor;
@@ -89,7 +103,7 @@ export function textoDaVariacao(indicador: Indicador, comparacao: Comparacao): s
 }
 
 /** Rótulo do período com a nota, se houver: "2026 (jan-ago)". */
-export const rotuloComNota = (ponto: Ponto, indicador: Indicador, formato: 'longo' | 'curto') =>
+export const rotuloComNota = (ponto: Ponto, indicador: Exibivel, formato: 'longo' | 'curto') =>
   `${rotuloPeriodo(ponto.periodo, indicador.periodicidade, formato)}${ponto.nota ? ` (${ponto.nota})` : ''}`;
 
 export interface ItemDoPainel {
@@ -100,7 +114,7 @@ export interface ItemDoPainel {
 /** Indicadores de um painel, agrupados por tema na ordem fixa de TEMAS. */
 export function indicadoresDoPainel(mandato: Mandato) {
   const doPainel = indicadores
-    .filter((i) => i.abrangencia === mandato.abrangencia)
+    .filter((i) => i.abrangencia === mandato.abrangencia && !i.apoio)
     .map((indicador): ItemDoPainel => ({ indicador, arquivo: carregarArquivo(indicador) }));
   return TEMAS.map((tema) => ({
     tema,

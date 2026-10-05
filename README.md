@@ -9,7 +9,8 @@ Endereço: <https://drocacoin.github.io/painel-dos-mandatos/>
 - **Fase 1 (fundação):** concluída. Estrutura do projeto, verificações automáticas e publicação.
 - **Fase 2 (indicadores):** concluída. 19 indicadores (7 do Brasil, 12 de SP) com gráficos, coleta automática diária e comparação com o início do mandato.
 - **Fase 3 (promessas):** concluída para SP: 30 promessas do plano de governo registrado no TSE, aprovadas em 05/10/2026, com validação no CI, placar, filtros e histórico. As do Brasil aguardam o 2º turno (25/10/2026).
-- Próximas: gastos (Fase 4), Congresso e Assembleia Legislativa (Fase 5, opcional) e metodologia (Fase 6). Plano completo: [docs/fase-0-planejamento.md](docs/fase-0-planejamento.md).
+- **Fase 4 (gastos):** despesa liquidada por área de governo (função), no Brasil e em SP, corrigida pela inflação, com coleta automática a cada bimestre publicado.
+- Próximas: Congresso e Assembleia Legislativa (Fase 5, opcional) e metodologia (Fase 6). Plano completo: [docs/fase-0-planejamento.md](docs/fase-0-planejamento.md).
 
 O governador de SP foi eleito no 1º turno (04/10/2026) e já aparece no site. A Presidência aguarda o 2º turno, em 25/10/2026; o site só mostra o eleito depois do resultado oficial do TSE. Como o mandato começa em 05/01/2027 (Brasil) e 06/01/2027 (SP), a comparação "desde o início do mandato" só aparece quando sair o primeiro dado de cada indicador a partir dessas datas.
 
@@ -25,8 +26,9 @@ npm run dev  # abre o site em http://localhost:4321/painel-dos-mandatos/
 Coleta dos dados (a mesma que o GitHub roda todo dia):
 
 ```bash
-npm run coletar                    # todos os indicadores automáticos
+npm run coletar                    # todos os indicadores automáticos e os gastos
 npm run coletar -- sp/homicidios   # só os indicados (painel/indicador)
+npm run coletar -- sp/gastos       # só os gastos de um painel
 ```
 
 A primeira coleta do trânsito (Infosiga) baixa cerca de 55 arquivos de 4 MB; depois, só baixa de novo quando sai um mês novo.
@@ -48,9 +50,11 @@ Verificações (as mesmas que o GitHub roda a cada envio):
 | `config/mandatos.json`       | mandatos acompanhados: cargo, datas, pessoa eleita e partido (edição manual)                        |
 | `config/fontes.ts`           | todos os códigos de séries e tabelas verificados, cada um com a data da verificação                 |
 | `config/indicadores.ts`      | o que cada painel mostra: título, unidade, fonte (com link) e como coletar                          |
+| `config/gastos.ts`           | de onde vêm os gastos de cada painel e quais áreas ganham gráfico próprio                           |
 | `data/<painel>/indicadores/` | os dados, um JSON por indicador; o histórico do git é a trilha de auditoria                         |
+| `data/<painel>/gastos/`      | despesa liquidada por função, em reais da época (a correção pela inflação é feita no site)          |
 | `scripts/`                   | coletores (`coletores/`), acesso à internet com novas tentativas (`http.ts`) e `coletar.ts`         |
-| `src/pages/`                 | páginas: início e os painéis `/brasil/` e `/sp/`, cada um com Indicadores                           |
+| `src/pages/`                 | páginas: início e os painéis `/brasil/` e `/sp/`, cada um com Indicadores, Promessas e Gastos       |
 | `src/components/`            | cartão do indicador, gráfico com tabela e a linha de fonte                                          |
 | `src/scripts/graficos.ts`    | desenho dos gráficos (Chart.js)                                                                     |
 | `src/lib/`                   | validação (Zod), períodos, formatação em pt-BR e comparação com o início do mandato                 |
@@ -150,6 +154,9 @@ Cada indicador mostra no site a fonte (com link), o período de referência e a 
 | SP     | Educação        | IDEB da rede estadual: anos iniciais do fundamental              | [INEP, IDEB 2025, resultados por UF (rede estadual)](https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb/resultados)                    | a cada 2 anos            | manual     |
 | SP     | Educação        | IDEB da rede estadual: anos finais do fundamental                | [INEP, IDEB 2025, resultados por UF (rede estadual)](https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb/resultados)                    | a cada 2 anos            | manual     |
 | SP     | Educação        | IDEB da rede estadual: ensino médio                              | [INEP, IDEB 2025, resultados por UF (rede estadual)](https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb/resultados)                    | a cada 2 anos            | manual     |
+| Brasil | Gastos          | Despesa liquidada por função (União)                             | [Tesouro Nacional, SICONFI (RREO, Anexo 02)](https://apidatalake.tesouro.gov.br/docs/siconfi/)                                                                               | bimestral                | automática |
+| SP     | Gastos          | Despesa liquidada por função (estado de SP)                      | [Tesouro Nacional, SICONFI (RREO, Anexo 02)](https://apidatalake.tesouro.gov.br/docs/siconfi/)                                                                               | bimestral                | automática |
+| Ambos  | Gastos          | IPCA, número-índice (só para corrigir os gastos; sem cartão)     | [IBGE, IPCA (tabela 1737)](https://sidra.ibge.gov.br/tabela/1737)                                                                                                            | mensal                   | automática |
 
 Cuidados de método, todos explicados também no próprio site:
 
@@ -161,22 +168,27 @@ Cuidados de método, todos explicados também no próprio site:
 - **Resultado primário de SP:** acumulado no ano; o ano corrente é parcial e aparece marcado (ex.: "jan-ago").
 - **Mortes no trânsito:** soma de 12 meses; o mês mais recente é preliminar, porque mortes podem ser registradas dias depois do sinistro.
 - **IDEB:** sai a cada 2 anos e é copiado à mão do arquivo oficial do INEP (o servidor do INEP recusa os servidores do GitHub).
+- **Gastos:**
+  - valor **liquidado** (o bem ou serviço foi entregue e a despesa reconhecida). Decisão de 05/10/2026: o valor pago por função só é publicado uma vez por ano, meses depois do fim do ano, enquanto o liquidado sai a cada 2 meses;
+  - as áreas são as funções de governo da Portaria nº 42/1999; ficam de fora as despesas intraorçamentárias (pagamentos entre órgãos do próprio governo), que contariam o mesmo dinheiro duas vezes;
+  - o coletor confere se a soma das funções é igual ao total do relatório; se não for, não grava;
+  - correção pela inflação: valor × IPCA do mês de referência ÷ IPCA médio dos meses do período. O mês de referência é o último IPCA publicado, e os arquivos guardam os valores da época, sem correção;
+  - o ano em curso é parcial, até o último bimestre publicado (ex.: "jan-ago"), e não entra na comparação com o início do mandato.
 
 ### Coleta automática
 
 O workflow [`coleta.yml`](.github/workflows/coleta.yml) roda todo dia às 10h17 de Brasília:
 
-1. coleta cada indicador, com até 4 tentativas e espera crescente entre elas;
-2. valida a resposta (Zod) e só grava se a série nova não estiver vazia e não tiver encolhido. Se algo falhar, o dado anterior daquele indicador fica intacto;
+1. coleta cada indicador e os gastos de cada painel, com até 4 tentativas e espera crescente entre elas;
+2. valida a resposta (Zod) e só grava se o dado novo não estiver vazio e não tiver encolhido (nos gastos, nenhum ano pode sumir nem voltar para um bimestre anterior). Se algo falhar, o dado anterior fica intacto;
 3. faz commit só se algum dado mudou, e então publica o site;
-4. se algum indicador falhou, abre uma issue ("Falha na coleta automática") e termina em vermelho.
+4. se alguma coleta falhou, abre uma issue ("Falha na coleta automática") e termina em vermelho.
 
 ## Limitações conhecidas
 
-- Pessoas eleitas ainda não definidas: aguardando o resultado oficial do TSE.
-- Nenhuma promessa publicada ainda: as de SP aguardam revisão do rascunho; as do Brasil, o resultado do 2º turno.
+- Presidência: eleito e promessas aguardam o resultado oficial do 2º turno (25/10/2026).
 - O rascunho de promessas é uma ajuda, não uma lista completa: ele só pega frases com os sinais de compromisso, e páginas do PDF sem texto (imagens) precisam ser conferidas à mão.
-- Gastos ainda não publicados (Fase 4).
+- Gastos: só por função (área). O ano em curso é parcial; o valor pago por função não é usado, porque só sai uma vez por ano.
 - Segurança e saúde de SP usam dados **anuais** da Fundação Seade (vítimas de homicídio doloso e mortalidade infantil). O catálogo da Seade não informa a licença desses arquivos.
 - O site ainda não avisa quando um dado está atrasado em relação ao calendário da fonte; a data de referência e a de atualização ficam sempre visíveis.
 - O tema claro ou escuro segue a configuração do aparelho; não há botão de troca.

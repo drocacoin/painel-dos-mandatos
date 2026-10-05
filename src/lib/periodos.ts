@@ -13,6 +13,9 @@ const FORMATOS: Record<Periodicidade, RegExp> = {
   bienal: /^\d{4}$/,
 };
 
+/** Meses cobertos pelos relatórios bimestrais (RREO) até cada bimestre; o 6º é o ano inteiro. */
+export const MESES_ATE_O_BIMESTRE = ['jan-fev', 'jan-abr', 'jan-jun', 'jan-ago', 'jan-out'];
+
 const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
 const nomeDoMes = (mes: number) => MESES[(mes + 11) % 12] ?? '?';
 

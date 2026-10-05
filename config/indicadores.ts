@@ -44,6 +44,8 @@ export interface Indicador {
   variacao: 'pontos-percentuais' | 'percentual' | 'diferenca';
   fonte: { nome: string; url: string };
   nota?: string;
+  /** Série de apoio (ex.: índice para corrigir valores pela inflação): coletada, sem cartão. */
+  apoio?: boolean;
   coleta: Coleta;
 }
 
@@ -89,6 +91,21 @@ export const indicadores: Indicador[] = [
     variacao: 'pontos-percentuais',
     fonte: { nome: 'IBGE, IPCA (tabela 1737)', url: `${SIDRA}1737` },
     coleta: { tipo: 'ibge', fonte: fontes.ibge.ipca12mBrasil },
+  },
+  {
+    id: 'ipca-indice',
+    abrangencia: 'brasil',
+    tema: 'Economia',
+    titulo: 'IPCA, número-índice',
+    descricao:
+      'Número-índice do IPCA (dezembro de 1993 = 100). Usado para corrigir os gastos pela inflação nos dois painéis.',
+    unidade: 'índice',
+    casas: 2,
+    periodicidade: 'mensal',
+    variacao: 'percentual',
+    fonte: { nome: 'IBGE, IPCA (tabela 1737)', url: `${SIDRA}1737` },
+    apoio: true,
+    coleta: { tipo: 'ibge', fonte: fontes.ibge.ipcaNumeroIndice },
   },
   {
     id: 'desocupacao',

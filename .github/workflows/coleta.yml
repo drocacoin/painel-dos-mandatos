@@ -1,5 +1,5 @@
 # Coleta diária: roda os coletores, valida, faz commit só se algum dado mudou e publica.
-# Se algum indicador falhar, os outros são gravados, os dados antigos daquele ficam intactos,
+# Se alguma coleta falhar, as outras são gravadas, os dados antigos daquela ficam intactos,
 # uma issue é aberta e o workflow termina em vermelho (regra 3).
 # Para rodar na hora: aba Actions → "Coleta diária" → Run workflow.
 name: Coleta diária
@@ -32,7 +32,7 @@ jobs:
           cache: npm
       - run: npm ci
 
-      - name: Coletar os indicadores
+      - name: Coletar os indicadores e os gastos
         id: coleta
         continue-on-error: true
         run: npm run coletar
@@ -42,8 +42,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Só os dados dos indicadores. O robô nunca mexe em promessas.
-          git add data/*/indicadores
+          # Só os dados coletados (indicadores e gastos). O robô nunca mexe em promessas.
+          git add data/*/indicadores data/*/gastos
           if git diff --cached --quiet; then
             echo "Nenhum dado mudou."
             echo "mudou=nao" >> "$GITHUB_OUTPUT"
@@ -73,7 +73,7 @@ jobs:
           if [ "$abertas" = "0" ]; then
             gh issue create --label coleta \
               --title "Falha na coleta automática" \
-              --body "A coleta de $(TZ=America/Sao_Paulo date '+%d/%m/%Y') falhou em pelo menos um indicador. Os dados anteriores desse indicador foram mantidos. Detalhes: $DETALHES"
+              --body "A coleta de $(TZ=America/Sao_Paulo date '+%d/%m/%Y') falhou em pelo menos uma fonte. Os dados anteriores dela foram mantidos. Detalhes: $DETALHES"
           else
             echo "Já existe uma issue aberta sobre falha na coleta; não abro outra."
           fi

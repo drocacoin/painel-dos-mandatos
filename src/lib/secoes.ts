@@ -4,7 +4,7 @@ export const secoes = [
   { slug: '', titulo: 'Visão geral', fase: 1, pronta: true },
   { slug: 'indicadores', titulo: 'Indicadores', fase: 2, pronta: true },
   { slug: 'promessas', titulo: 'Promessas', fase: 3, pronta: true },
-  { slug: 'gastos', titulo: 'Gastos', fase: 4, pronta: false },
+  { slug: 'gastos', titulo: 'Gastos', fase: 4, pronta: true },
 ] as const;
 
 export type Secao = (typeof secoes)[number];

@@ -1,15 +1,14 @@
 ---
 // Gráfico de uma série (linha para mensal/trimestral, colunas para anual) + tabela equivalente.
 // O gráfico é desenhado no navegador por src/scripts/graficos.ts; a tabela funciona sem ele.
-import type { Indicador } from '../../config/indicadores';
 import { formatarData, formatarValor } from '../lib/formatar';
-import { rotuloComNota } from '../lib/indicadores';
+import { rotuloComNota, type Exibivel } from '../lib/indicadores';
 import { fimDoPeriodo, rotuloPeriodo } from '../lib/periodos';
 import type { Mandato, Ponto } from '../lib/schemas';
 import type { DadosDoGrafico } from '../scripts/graficos';
 
 interface Props {
-  indicador: Indicador;
+  indicador: Exibivel;
   serie: Ponto[];
   mandato: Mandato;
 }

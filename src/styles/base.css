@@ -274,26 +274,31 @@ a:hover {
   cursor: pointer;
 }
 
-.grafico table {
+.grafico table,
+.tabela {
   width: 100%;
   margin-top: var(--espaco-2);
   border-collapse: collapse;
 }
 
-.grafico caption {
+.grafico caption,
+.tabela caption {
   text-align: left;
   color: var(--cor-texto-suave);
 }
 
 .grafico th,
-.grafico td {
+.grafico td,
+.tabela th,
+.tabela td {
   padding: var(--espaco-1) var(--espaco-2);
   border-bottom: var(--borda);
   text-align: left;
   font-weight: var(--peso-normal);
 }
 
-.grafico td {
+.grafico td,
+.tabela td {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
@@ -474,4 +479,20 @@ a:hover {
 
 .criterios dd {
   margin: 0;
+}
+
+/* ----- Gastos ----- */
+/* A tabela com todos os anos pode ser mais larga que o celular: rola para os lados. */
+.tabela-rolavel {
+  overflow-x: auto;
+  margin-bottom: var(--espaco-2);
+}
+
+.tabela td {
+  white-space: nowrap;
+}
+
+.tabela tfoot th,
+.tabela tfoot td {
+  font-weight: var(--peso-forte);
 }
