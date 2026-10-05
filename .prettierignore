@@ -8,3 +8,6 @@ tests/fixtures/
 
 # Plano escrito à mão (tabelas longas).
 docs/
+
+# Dados gravados pelo robô (validados pelo Zod; formato definido pelo coletor).
+data/

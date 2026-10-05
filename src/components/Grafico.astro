@@ -1,0 +1,82 @@
+---
+// Gráfico de uma série (linha para mensal/trimestral, colunas para anual) + tabela equivalente.
+// O gráfico é desenhado no navegador por src/scripts/graficos.ts; a tabela funciona sem ele.
+import type { Indicador } from '../../config/indicadores';
+import { formatarData, formatarValor } from '../lib/formatar';
+import { rotuloComNota } from '../lib/indicadores';
+import { fimDoPeriodo, rotuloPeriodo } from '../lib/periodos';
+import type { Mandato, Ponto } from '../lib/schemas';
+import type { DadosDoGrafico } from '../scripts/graficos';
+
+interface Props {
+  indicador: Indicador;
+  serie: Ponto[];
+  mandato: Mandato;
+}
+
+const { indicador, serie, mandato } = Astro.props;
+const { unidade, casas, periodicidade } = indicador;
+const anual = periodicidade === 'anual' || periodicidade === 'bienal';
+
+// Primeiro período que termina depois do início do mandato (null = ainda não há).
+const indiceDoMandato = serie.findIndex(
+  (p) => fimDoPeriodo(p.periodo, periodicidade) >= mandato.inicio,
+);
+
+const dados: DadosDoGrafico = {
+  tipo: anual ? 'colunas' : 'linha',
+  unidade,
+  casas,
+  rotulos: serie.map((p) => {
+    const curto = rotuloPeriodo(p.periodo, periodicidade, 'curto');
+    return p.nota ? [curto, `(${p.nota})`] : curto;
+  }),
+  rotulosLongos: serie.map((p) => rotuloComNota(p, indicador, 'longo')),
+  valores: serie.map((p) => p.valor),
+  textos: serie.map((p) => formatarValor(p.valor, unidade, casas)),
+  parciais: serie.map((p) => Boolean(p.nota)),
+  marcador: indiceDoMandato === -1 ? null : indiceDoMandato,
+};
+
+const primeiro = serie[0];
+const ultimo = serie.at(-1);
+const descricao =
+  primeiro && ultimo
+    ? `Gráfico de ${anual ? 'colunas' : 'linha'}: ${indicador.titulo}, de ${rotuloComNota(primeiro, indicador, 'longo')} a ${rotuloComNota(ultimo, indicador, 'longo')}. Os valores estão na tabela abaixo.`
+    : indicador.titulo;
+---
+
+<figure class="grafico">
+  <div class="grafico-area">
+    <canvas data-grafico={JSON.stringify(dados)} role="img" aria-label={descricao}></canvas>
+  </div>
+  <figcaption>
+    {dados.marcador === null
+      ? `O mandato começa em ${formatarData(mandato.inicio)}. A marca de início aparece no gráfico quando houver dados a partir dessa data.`
+      : 'A linha vertical marca o início do mandato.'}
+  </figcaption>
+  <details>
+    <summary>Ver os dados em tabela</summary>
+    <table>
+      <caption>{indicador.titulo}</caption>
+      <thead>
+        <tr>
+          <th scope="col">Período</th>
+          <th scope="col">Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        {serie.map((p) => (
+          <tr>
+            <th scope="row">{rotuloComNota(p, indicador, 'longo')}</th>
+            <td>{formatarValor(p.valor, unidade, casas)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </details>
+</figure>
+
+<script>
+  import '../scripts/graficos';
+</script>

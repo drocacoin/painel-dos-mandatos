@@ -10,7 +10,7 @@ import { rotuloFase, secoes, type Secao } from '../../lib/secoes';
 export const getStaticPaths = (() =>
   mandatos.flatMap((mandato) =>
     secoes
-      .filter((secao) => secao.slug !== '')
+      .filter((secao) => !secao.pronta)
       .map((secao) => ({
         params: { abrangencia: mandato.abrangencia, secao: secao.slug },
         props: { mandato, secao },

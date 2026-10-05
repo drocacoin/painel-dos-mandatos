@@ -1,0 +1,52 @@
+---
+import type { GetStaticPaths } from 'astro';
+import CartaoIndicador from '../../components/CartaoIndicador.astro';
+import Base from '../../layouts/Base.astro';
+import { formatarData } from '../../lib/formatar';
+import { ANCORA_DO_TEMA, indicadoresDoPainel } from '../../lib/indicadores';
+import { mandatos } from '../../lib/mandatos';
+import type { Mandato } from '../../lib/schemas';
+
+// Uma página de indicadores por painel: /brasil/indicadores/, /sp/indicadores/
+export const getStaticPaths = (() =>
+  mandatos.map((mandato) => ({
+    params: { abrangencia: mandato.abrangencia },
+    props: { mandato },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  mandato: Mandato;
+}
+
+const { mandato } = Astro.props;
+const grupos = indicadoresDoPainel(mandato);
+---
+
+<Base titulo={`Indicadores · ${mandato.nomeAbrangencia} | Painel dos Mandatos`} painel={mandato}>
+  <h1>Indicadores</h1>
+  <p>
+    Dados oficiais desde janeiro de {Number(mandato.inicio.slice(0, 4)) - 4}, quatro anos antes do
+    início do mandato ({formatarData(mandato.inicio)}). Cada número mostra a fonte, o período de
+    referência e a data da última atualização.
+  </p>
+  <nav aria-label="Temas desta página">
+    <ul class="temas">
+      {grupos.map((grupo) => (
+        <li>
+          <a href={`#${ANCORA_DO_TEMA[grupo.tema]}`}>{grupo.tema}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  {grupos.map((grupo) => (
+    <section aria-labelledby={ANCORA_DO_TEMA[grupo.tema]}>
+      <h2 id={ANCORA_DO_TEMA[grupo.tema]}>{grupo.tema}</h2>
+      <div class="indicadores">
+        {grupo.itens.map((item) => (
+          <CartaoIndicador indicador={item.indicador} arquivo={item.arquivo} mandato={mandato} />
+        ))}
+      </div>
+    </section>
+  ))}
+</Base>

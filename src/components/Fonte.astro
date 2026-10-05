@@ -1,0 +1,19 @@
+---
+// Regra 5: todo número mostra fonte (com link), período de referência e data da última
+// atualização. As três propriedades são obrigatórias; sem elas o build não passa.
+import { formatarDataHora } from '../lib/formatar';
+
+interface Props {
+  fonte: { nome: string; url: string };
+  referencia: string;
+  /** ISO com fuso, ex.: 2026-10-05T07:55:20-03:00 */
+  atualizadoEm: string;
+}
+
+const { fonte, referencia, atualizadoEm } = Astro.props;
+---
+
+<p class="fonte">
+  Fonte: <a href={fonte.url}>{fonte.nome}</a> · Referência: {referencia} · Atualizado em{' '}
+  {formatarDataHora(new Date(atualizadoEm))}
+</p>

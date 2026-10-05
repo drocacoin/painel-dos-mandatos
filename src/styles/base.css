@@ -198,3 +198,112 @@ a:hover {
     transition: none !important;
   }
 }
+
+/* ----- Página de indicadores ----- */
+.temas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2) var(--espaco-4);
+  padding: 0;
+  list-style: none;
+}
+
+.indicadores {
+  display: grid;
+  gap: var(--espaco-5);
+}
+
+.indicador {
+  min-width: 0; /* deixa o gráfico encolher dentro da grade */
+  padding: var(--espaco-5);
+  background: var(--cor-superficie);
+  border: var(--borda);
+  border-radius: var(--raio-2);
+}
+
+.indicador h3 {
+  margin: 0 0 var(--espaco-3);
+  font-size: var(--tamanho-3);
+}
+
+/* Valor em destaque: algarismos proporcionais (tabular só em colunas de números). */
+.indicador-valor {
+  margin: 0;
+  font-size: var(--tamanho-5);
+  font-weight: var(--peso-forte);
+  line-height: var(--altura-linha-titulo);
+}
+
+.indicador-periodo,
+.indicador-descricao,
+.indicador-nota,
+.fonte,
+.grafico figcaption {
+  color: var(--cor-texto-suave);
+  font-size: var(--tamanho-1);
+}
+
+.indicador-periodo {
+  margin-bottom: var(--espaco-3);
+}
+
+.indicador-comparacao {
+  font-size: var(--tamanho-1);
+}
+
+.grafico {
+  margin: var(--espaco-4) 0;
+}
+
+/* Altura fixa que já inclui o eixo: nada de rolagem dentro do cartão. */
+.grafico-area {
+  position: relative;
+  height: 13rem;
+}
+
+.grafico figcaption {
+  margin-top: var(--espaco-2);
+}
+
+.grafico details {
+  margin-top: var(--espaco-2);
+  font-size: var(--tamanho-1);
+}
+
+.grafico summary {
+  cursor: pointer;
+}
+
+.grafico table {
+  width: 100%;
+  margin-top: var(--espaco-2);
+  border-collapse: collapse;
+}
+
+.grafico caption {
+  text-align: left;
+  color: var(--cor-texto-suave);
+}
+
+.grafico th,
+.grafico td {
+  padding: var(--espaco-1) var(--espaco-2);
+  border-bottom: var(--borda);
+  text-align: left;
+  font-weight: var(--peso-normal);
+}
+
+.grafico td {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.fonte {
+  margin: 0;
+}
+
+@media (min-width: 64rem) {
+  .indicadores {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

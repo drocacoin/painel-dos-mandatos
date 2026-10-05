@@ -193,6 +193,23 @@ export const fontes = {
     },
   },
 
+  // Fundação Seade (SP): CSVs anuais do plano plurianual do estado. Separador ;, decimal com
+  // vírgula. A linha do estado inteiro tem código 35. O catálogo não informa a licença.
+  seade: {
+    homicidioDoloso: {
+      url: 'https://repositorio.seade.gov.br/dataset/18d61dcd-9ce4-4339-aba0-27e887f77ba9/resource/33de3e09-4d5f-4080-9ec4-9249fac960e9/download/oe03_homicidio_doloso.csv',
+      descricao:
+        'Vítimas de homicídio doloso por ano, estado de SP (coluna n_homic_dol; fonte primária: Secretaria da Segurança Pública)',
+      verificadoEm: '2026-10-05',
+    },
+    mortalidadeInfantil: {
+      url: 'https://repositorio.seade.gov.br/dataset/3cf704c8-3d13-4adb-a4a8-619b1c1d8b3c/resource/dfb48425-11b7-404f-b6a7-7641c4feed20/download/oe02_mortalidade_infantil.csv',
+      descricao:
+        'Taxa de mortalidade infantil por mil nascidos vivos, por ano, estado de SP (coluna tx_mtdd_i_tot)',
+      verificadoEm: '2026-10-05',
+    },
+  },
+
   // Senado: processos legislativos (Fase 5).
   senado: {
     processos: {

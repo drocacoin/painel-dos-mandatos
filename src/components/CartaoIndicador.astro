@@ -1,0 +1,50 @@
+---
+// Cartão de um indicador: valor mais recente, comparação com o início do mandato,
+// gráfico com tabela e a linha de fonte (regra 5). Mesmo componente nos dois painéis.
+import type { Indicador } from '../../config/indicadores';
+import { formatarData, formatarValor } from '../lib/formatar';
+import { compararComInicio, rotuloComNota, textoDaVariacao } from '../lib/indicadores';
+import type { ArquivoIndicador, Mandato } from '../lib/schemas';
+import Fonte from './Fonte.astro';
+import Grafico from './Grafico.astro';
+
+interface Props {
+  indicador: Indicador;
+  arquivo: ArquivoIndicador | null;
+  mandato: Mandato;
+}
+
+const { indicador, arquivo, mandato } = Astro.props;
+const ultimo = arquivo?.serie.at(-1);
+const variacao = arquivo
+  ? textoDaVariacao(indicador, compararComInicio(arquivo.serie, indicador, mandato.inicio))
+  : null;
+---
+
+<article class="indicador" id={indicador.id}>
+  <h3>{indicador.titulo}</h3>
+  {arquivo && ultimo ? (
+    <>
+      <p class="indicador-valor">
+        {formatarValor(ultimo.valor, indicador.unidade, indicador.casas)}
+      </p>
+      <p class="indicador-periodo">{rotuloComNota(ultimo, indicador, 'longo')}</p>
+      <p class="indicador-comparacao">
+        {variacao ??
+          `Comparação com o início do mandato (${formatarData(mandato.inicio)}): aparece quando houver o primeiro dado do mandato.`}
+      </p>
+      <p class="indicador-descricao">{indicador.descricao}</p>
+      {indicador.nota && <p class="indicador-nota">{indicador.nota}</p>}
+      <Grafico indicador={indicador} serie={arquivo.serie} mandato={mandato} />
+      <Fonte
+        fonte={indicador.fonte}
+        referencia={rotuloComNota(ultimo, indicador, 'longo')}
+        atualizadoEm={arquivo.atualizadoEm}
+      />
+    </>
+  ) : (
+    <p class="indicador-descricao">
+      Dados ainda não coletados. Fonte: <a href={indicador.fonte.url}>{indicador.fonte.nome}</a>.
+    </p>
+  )}
+</article>

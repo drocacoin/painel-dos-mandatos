@@ -1,0 +1,83 @@
+# Coleta diária: roda os coletores, valida, faz commit só se algum dado mudou e publica.
+# Se algum indicador falhar, os outros são gravados, os dados antigos daquele ficam intactos,
+# uma issue é aberta e o workflow termina em vermelho (regra 3).
+# Para rodar na hora: aba Actions → "Coleta diária" → Run workflow.
+name: Coleta diária
+
+on:
+  schedule:
+    # Todo dia às 10h17 de Brasília: depois das divulgações do IBGE, que costumam sair às 9h.
+    # O minuto 17 evita o pico do início da hora, quando o GitHub pode atrasar execuções.
+    - cron: '17 10 * * *'
+      timezone: 'America/Sao_Paulo'
+  workflow_dispatch:
+
+permissions:
+  contents: write # gravar os dados no repositório
+  issues: write # abrir issue quando falhar
+  actions: write # disparar o CI depois do commit
+
+concurrency:
+  group: coleta
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+
+      - name: Coletar os indicadores
+        id: coleta
+        continue-on-error: true
+        run: npm run coletar
+
+      - name: Gravar no repositório (só se algum dado mudou)
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Só os dados dos indicadores. O robô nunca mexe em promessas.
+          git add data/*/indicadores
+          if git diff --cached --quiet; then
+            echo "Nenhum dado mudou."
+            echo "mudou=nao" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Coleta automática de $(TZ=America/Sao_Paulo date +%d/%m/%Y)"
+            git pull --rebase
+            git push
+            echo "mudou=sim" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Commits feitos pelo robô não disparam outros workflows sozinhos; por isso o CI
+      # (que testa e publica o site) é chamado aqui.
+      - name: Testar e publicar o site
+        if: steps.commit.outputs.mudou == 'sim'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run ci.yml --ref main
+
+      - name: Abrir issue se a coleta falhou
+        if: steps.coleta.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DETALHES: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create coleta --color B60205 --description "Falhas da coleta automática" --force
+          abertas=$(gh issue list --state open --label coleta --json number --jq length)
+          if [ "$abertas" = "0" ]; then
+            gh issue create --label coleta \
+              --title "Falha na coleta automática" \
+              --body "A coleta de $(TZ=America/Sao_Paulo date '+%d/%m/%Y') falhou em pelo menos um indicador. Os dados anteriores desse indicador foram mantidos. Detalhes: $DETALHES"
+          else
+            echo "Já existe uma issue aberta sobre falha na coleta; não abro outra."
+          fi
+
+      - name: Terminar em vermelho se a coleta falhou
+        if: steps.coleta.outcome == 'failure'
+        run: exit 1

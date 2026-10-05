@@ -44,3 +44,24 @@ export const mandatosSchema = z
   });
 
 export type Mandato = z.infer<typeof mandatoSchema>;
+
+// Arquivo de dados de um indicador (data/<abrangencia>/indicadores/<id>.json).
+// Só dados: nome, unidade e fonte ficam em config/indicadores.ts.
+export const arquivoIndicadorSchema = z.object({
+  // Quando o valor mudou pela última vez (horário de Brasília, com fuso).
+  atualizadoEm: z.iso.datetime({ offset: true }),
+  serie: z
+    .array(
+      z.object({
+        periodo: z.string(),
+        valor: z.number(),
+        // Ex.: "jan-ago" (ano incompleto) ou "preliminar". Pontos com nota não entram na
+        // comparação com o início do mandato.
+        nota: z.string().min(1).optional(),
+      }),
+    )
+    .min(1, 'a série não pode estar vazia'),
+});
+
+export type ArquivoIndicador = z.infer<typeof arquivoIndicadorSchema>;
+export type Ponto = ArquivoIndicador['serie'][number];
