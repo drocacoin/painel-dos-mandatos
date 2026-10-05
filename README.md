@@ -9,7 +9,7 @@ Endereço: <https://drocacoin.github.io/painel-dos-mandatos/>
 - **Fase 1 (fundação):** concluída. Estrutura do projeto, verificações automáticas e publicação.
 - **Fase 2 (indicadores):** concluída. 19 indicadores (7 do Brasil, 12 de SP) com gráficos, coleta automática diária e comparação com o início do mandato.
 - **Fase 3 (promessas):** concluída para SP: 30 promessas do plano de governo registrado no TSE, aprovadas em 05/10/2026, com validação no CI, placar, filtros e histórico. As do Brasil aguardam o 2º turno (25/10/2026).
-- **Fase 4 (gastos):** despesa liquidada por área de governo (função), no Brasil e em SP, corrigida pela inflação, com coleta automática a cada bimestre publicado.
+- **Fase 4 (gastos):** concluída. Despesa liquidada por área de governo (função), no Brasil e em SP, corrigida pela inflação, com coleta automática a cada bimestre publicado.
 - Próximas: Congresso e Assembleia Legislativa (Fase 5, opcional) e metodologia (Fase 6). Plano completo: [docs/fase-0-planejamento.md](docs/fase-0-planejamento.md).
 
 O governador de SP foi eleito no 1º turno (04/10/2026) e já aparece no site. A Presidência aguarda o 2º turno, em 25/10/2026; o site só mostra o eleito depois do resultado oficial do TSE. Como o mandato começa em 05/01/2027 (Brasil) e 06/01/2027 (SP), a comparação "desde o início do mandato" só aparece quando sair o primeiro dado de cada indicador a partir dessas datas.
@@ -188,7 +188,7 @@ O workflow [`coleta.yml`](.github/workflows/coleta.yml) roda todo dia às 10h17 
 
 - Presidência: eleito e promessas aguardam o resultado oficial do 2º turno (25/10/2026).
 - O rascunho de promessas é uma ajuda, não uma lista completa: ele só pega frases com os sinais de compromisso, e páginas do PDF sem texto (imagens) precisam ser conferidas à mão.
-- Gastos: só por função (área). O ano em curso é parcial; o valor pago por função não é usado, porque só sai uma vez por ano.
+- Gastos: só por função (área). O ano em curso é parcial; o valor pago por função não é usado, porque só sai uma vez por ano. Gastos por ministério não são mostrados (decisão de 05/10/2026): os ministérios mudam a cada governo, o que quebra a comparação no início do mandato.
 - Segurança e saúde de SP usam dados **anuais** da Fundação Seade (vítimas de homicídio doloso e mortalidade infantil). O catálogo da Seade não informa a licença desses arquivos.
 - O site ainda não avisa quando um dado está atrasado em relação ao calendário da fonte; a data de referência e a de atualização ficam sempre visíveis.
 - O tema claro ou escuro segue a configuração do aparelho; não há botão de troca.
@@ -209,7 +209,7 @@ Os servidores do GitHub, que rodam a coleta automática, ficam fora do Brasil. O
 
 ## Segredos
 
-Chaves de API ficam só no arquivo `.env`, que o git ignora, e nos Secrets do GitHub. O modelo é o [`.env.example`](.env.example).
+Chaves de API ficam só no arquivo `.env`, que o git ignora, e nos Secrets do GitHub. O modelo é o [`.env.example`](.env.example). A chave do Portal da Transparência (`PORTAL_TRANSPARENCIA_CHAVE`) está guardada nos dois lugares, mas nenhuma coleta a usa hoje.
 
 ## Licenças
 

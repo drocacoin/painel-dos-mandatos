@@ -145,13 +145,16 @@ export const fontes = {
     },
   },
 
-  // Portal da Transparência: exige chave no cabeçalho HTTP `chave-api-dados` (Fase 4).
+  // Portal da Transparência: exige chave no cabeçalho HTTP `chave-api-dados`. Verificado com a
+  // chave, mas NÃO usado no site: em 05/10/2026 ficou decidido mostrar os gastos só por função
+  // (os ministérios mudam a cada governo; ver docs/fase-0-planejamento.md, pergunta 15).
   transparencia: {
     despesasPorOrgao: {
       url: 'https://api.portaldatransparencia.gov.br/api-de-dados/despesas/por-orgao',
-      descricao: 'Despesas anuais por órgão do Poder Executivo Federal',
-      nota: 'Os valores vêm como texto; o formato exato só será confirmado com a chave.',
-      verificadoEm: '2026-10-04',
+      descricao:
+        'Despesas anuais (empenhado, liquidado e pago) por órgão do Poder Executivo Federal',
+      nota: 'Exige o ano e mais um filtro (orgaoSuperior ou orgao, código SIAFI), senão responde 400. Valores como texto no formato 1.234,56. Não informa até que data vai o ano em curso.',
+      verificadoEm: '2026-10-05',
     },
   },
 

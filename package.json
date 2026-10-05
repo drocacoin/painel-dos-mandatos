@@ -16,7 +16,7 @@
     "format": "prettier --write .",
     "typecheck": "astro check --minimumFailingSeverity warning",
     "test": "vitest run",
-    "coletar": "node --env-file-if-exists=.env scripts/coletar.ts",
+    "coletar": "node scripts/coletar.ts",
     "rascunho": "node scripts/rascunho-promessas.ts"
   },
   "dependencies": {

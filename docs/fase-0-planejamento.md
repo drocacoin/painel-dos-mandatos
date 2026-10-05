@@ -1,7 +1,7 @@
 # Fase 0: Planejamento
 
 **Projeto:** painel público de acompanhamento dos mandatos do presidente da República e do governador de São Paulo (2027–2031)
-**Data:** 04/10/2026 · **Situação:** Fases 0 a 3 concluídas (promessas de SP aprovadas em 05/10/2026); Fase 4 (gastos) em andamento, ver README
+**Data:** 04/10/2026 · **Situação:** Fases 0 a 4 concluídas (promessas de SP e gastos aprovados em 05/10/2026), ver README
 **Pasta:** `E:\painel-dos-mandatos` · **Repositório:** `drocacoin/painel-dos-mandatos`
 
 Nesta fase não escrevi código. Criei só este documento e as amostras reais das APIs em `tests/fixtures/` (regra 2).
@@ -483,6 +483,8 @@ No tema claro, o laranja e o azul-claro ficam abaixo de 3:1 contra o branco. É 
 | 12 | Nível de detalhe de SP | (a) o estado inteiro |
 | 13 | Temas de SP | os temas base, mais segurança, saúde, educação e transporte |
 | n/a | Organização do painel | visões de Brasil e SP separadas |
+| 11 | Gastos: pago ou liquidado (05/10/2026) | **liquidado**: o pago por função só sai uma vez por ano (DCA); o liquidado sai a cada 2 meses (RREO) |
+| 15 | Gastos por órgão (05/10/2026) | **não mostrar**: só por função. Os ministérios mudam a cada governo, a Fazenda soma R$ 2,6 trilhões sem detalhe e o ano em curso não tem data de corte |
 
 As perguntas originais seguem abaixo como registro.
 
