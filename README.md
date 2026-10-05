@@ -192,7 +192,7 @@ O workflow [`coleta.yml`](.github/workflows/coleta.yml) roda todo dia às 10h17 
 1. coleta cada indicador e os gastos de cada painel, com até 4 tentativas e espera crescente entre elas;
 2. valida a resposta (Zod) e só grava se o dado novo não estiver vazio e não tiver encolhido (nos gastos, nenhum ano pode sumir nem voltar para um bimestre anterior; nas listas do Congresso, nenhum item salvo pode sumir). Se algo falhar, o dado anterior fica intacto;
 3. faz commit só se algum dado mudou, e então publica o site;
-4. se alguma coleta falhou, abre uma issue ("Falha na coleta automática") e termina em vermelho.
+4. se alguma coleta falhou, abre a issue "Falha na coleta automática" com a lista das fontes que falharam e o motivo (ou comenta na issue que já estiver aberta) e termina em vermelho. Quando tudo volta a funcionar, a issue é fechada.
 
 ## Limitações conhecidas
 

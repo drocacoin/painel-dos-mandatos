@@ -1,6 +1,7 @@
 # Coleta diária: roda os coletores, valida, faz commit só se algum dado mudou e publica.
 # Se alguma coleta falhar, as outras são gravadas, os dados antigos daquela ficam intactos,
-# uma issue é aberta e o workflow termina em vermelho (regra 3).
+# a issue "Falha na coleta automática" recebe a lista das fontes que falharam e o workflow
+# termina em vermelho (regra 3). Quando tudo volta a funcionar, a issue é fechada.
 # Para rodar na hora: aba Actions → "Coleta diária" → Run workflow.
 name: Coleta diária
 
@@ -35,7 +36,8 @@ jobs:
       - name: Coletar os indicadores, os gastos e o Congresso
         id: coleta
         continue-on-error: true
-        run: npm run coletar
+        # O log fica salvo para a issue dizer qual fonte falhou (o log do GitHub só abre com login).
+        run: npm run coletar 2>&1 | tee coleta.log
 
       - name: Gravar no repositório (só se algum dado mudou)
         id: commit
@@ -68,15 +70,30 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           DETALHES: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
+          # Linhas que começam com ✗ = fontes que falharam, com o motivo.
+          falhas=$(grep '^✗' coleta.log | sed 's/^/- /' || true)
+          [ -n "$falhas" ] || falhas="- O erro aconteceu antes da lista de fontes; veja os detalhes."
+          corpo=$(printf 'Coleta de %s. Os dados anteriores destas fontes foram mantidos:\n\n%s\n\nDetalhes (com login): %s' \
+            "$(TZ=America/Sao_Paulo date '+%d/%m/%Y')" "$falhas" "$DETALHES")
+          printf '### Fontes que falharam\n\n%s\n' "$falhas" >> "$GITHUB_STEP_SUMMARY"
           gh label create coleta --color B60205 --description "Falhas da coleta automática" --force
-          abertas=$(gh issue list --state open --label coleta --json number --jq length)
-          if [ "$abertas" = "0" ]; then
-            gh issue create --label coleta \
-              --title "Falha na coleta automática" \
-              --body "A coleta de $(TZ=America/Sao_Paulo date '+%d/%m/%Y') falhou em pelo menos uma fonte. Os dados anteriores dela foram mantidos. Detalhes: $DETALHES"
+          aberta=$(gh issue list --state open --label coleta --json number --jq '.[0].number // empty')
+          if [ -z "$aberta" ]; then
+            gh issue create --label coleta --title "Falha na coleta automática" --body "$corpo"
           else
-            echo "Já existe uma issue aberta sobre falha na coleta; não abro outra."
+            # Uma issue só, com um comentário por dia de falha (histórico sem duplicar issues).
+            gh issue comment "$aberta" --body "$corpo"
           fi
+
+      # Issue aberta = coleta falhando agora. Quando tudo volta a funcionar, ela é fechada.
+      - name: Fechar a issue de falha quando a coleta volta a funcionar
+        if: steps.coleta.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for numero in $(gh issue list --state open --label coleta --json number --jq '.[].number' || true); do
+            gh issue close "$numero" --comment "A coleta de $(TZ=America/Sao_Paulo date '+%d/%m/%Y') funcionou em todas as fontes."
+          done
 
       - name: Terminar em vermelho se a coleta falhou
         if: steps.coleta.outcome == 'failure'
