@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-05T18:19:52-03:00",
+  "atualizadoEm": "2026-10-06T15:57:36-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -1896,9 +1896,9 @@
       "codigoMateria": 174454,
       "data": "2026-06-08",
       "ementa": "Abre crédito extraordinário, em favor de Operações Oficiais de Crédito, no valor de R$ 1.000.000.000,00, para o fim que especifica.",
-      "situacao": "AGUARDANDO DESIGNAÇÃO DO RELATOR",
+      "situacao": "SEM EFICÁCIA",
       "deliberacao": null,
-      "tramitando": true
+      "tramitando": false
     },
     {
       "identificacao": "MPV 1366/2026",
