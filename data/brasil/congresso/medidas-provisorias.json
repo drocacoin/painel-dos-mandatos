@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-06T15:57:36-03:00",
+  "atualizadoEm": "2026-10-09T15:52:40-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -2167,6 +2167,15 @@
       "data": "2026-09-25",
       "ementa": "Proíbe a exploração, a oferta, a intermediação e a publicidade de loterias de apostas de quota fixa no território nacional, institui o Comitê Interinstitucional de Fiscalização\r\nda Exploração e da Publicidade Ilegal de Apostas de Quota Fixa, e altera a Lei nº 14.790, de 29 de dezembro de 2023.",
       "situacao": "AGUARDANDO RECEBIMENTO DE EMENDAS",
+      "deliberacao": null,
+      "tramitando": true
+    },
+    {
+      "identificacao": "MPV 1395/2026",
+      "codigoMateria": 175930,
+      "data": "2026-10-09",
+      "ementa": "Abre crédito extraordinário, em favor do Ministério de Minas e Energia, no valor de R$ 7.520.000.000,00, para o fim que especifica.",
+      "situacao": "AGUARDANDO DESPACHO",
       "deliberacao": null,
       "tramitando": true
     }
