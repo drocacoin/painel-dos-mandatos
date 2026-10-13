@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-09T15:52:40-03:00",
+  "atualizadoEm": "2026-10-13T16:54:35-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -1878,9 +1878,9 @@
       "codigoMateria": 174397,
       "data": "2026-05-30",
       "ementa": "Autoriza a concessão de subvenção econômica aos produtores e importadores de óleo diesel de uso rodoviário no País, no valor de R$ 1,12 (um real e doze centavos) por litro comercializado, com o objetivo de estabilizar preço e oferta, de modo a garantir o abastecimento nacional do referido combustível, em decorrência do choque de oferta derivado do conflito bélico no Oriente Médio.",
-      "situacao": "MATÉRIA DESPACHADA",
+      "situacao": "SEM EFICÁCIA",
       "deliberacao": null,
-      "tramitando": true
+      "tramitando": false
     },
     {
       "identificacao": "MPV 1364/2026",
@@ -1914,9 +1914,9 @@
       "codigoMateria": 174624,
       "data": "2026-06-15",
       "ementa": "Abre crédito extraordinário, em favor do Ministério do Meio Ambiente e Mudança do Clima, no valor de R$ 337.483.432,00, para os fins que especifica.",
-      "situacao": "AGUARDANDO LEITURA",
+      "situacao": "SEM EFICÁCIA",
       "deliberacao": null,
-      "tramitando": true
+      "tramitando": false
     },
     {
       "identificacao": "MPV 1368/2026",
@@ -2175,7 +2175,16 @@
       "codigoMateria": 175930,
       "data": "2026-10-09",
       "ementa": "Abre crédito extraordinário, em favor do Ministério de Minas e Energia, no valor de R$ 7.520.000.000,00, para o fim que especifica.",
-      "situacao": "AGUARDANDO DESPACHO",
+      "situacao": "AGUARDANDO RECEBIMENTO DE EMENDAS",
+      "deliberacao": null,
+      "tramitando": true
+    },
+    {
+      "identificacao": "MPV 1396/2026",
+      "codigoMateria": 175932,
+      "data": "2026-10-13",
+      "ementa": "Dispõe sobre a autenticação, a identificação e o bloqueio de chamadas telefônicas e mensagens nas redes de telecomunicações e institui base de dados centralizada de recursos de numeração.",
+      "situacao": "AGUARDANDO DESIGNAÇÃO MEMBROS COMISSÃO",
       "deliberacao": null,
       "tramitando": true
     }
