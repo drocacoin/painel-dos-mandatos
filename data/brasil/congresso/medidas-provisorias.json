@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-15T14:54:23-03:00",
+  "atualizadoEm": "2026-10-16T14:26:14-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -1941,9 +1941,9 @@
       "codigoMateria": 174819,
       "data": "2026-06-19",
       "ementa": "Altera a Lei nº 12.871, de 22 de outubro de 2013, a Lei nº 3.268, de 30 de setembro de 1957, a Lei nº 6.932, de 7 de julho de 1981, a Lei nº 13.959, de 18 de dezembro de 2019, e a Lei nº 10.861, de 14 de abril de 2004, para dispor sobre o Exame Nacional de Avaliação da  Formação Médica.",
-      "situacao": "APROVADO PARECER NA COMISSÃO",
-      "deliberacao": null,
-      "tramitando": true
+      "situacao": "APROVADA",
+      "deliberacao": "APROVADO_PLV",
+      "tramitando": false
     },
     {
       "identificacao": "MPV 1371/2026",
@@ -2175,7 +2175,7 @@
       "codigoMateria": 175930,
       "data": "2026-10-09",
       "ementa": "Abre crédito extraordinário, em favor do Ministério de Minas e Energia, no valor de R$ 7.520.000.000,00, para o fim que especifica.",
-      "situacao": "AGUARDANDO RECEBIMENTO DE EMENDAS",
+      "situacao": "AGUARDANDO DESIGNAÇÃO DO RELATOR",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2184,7 +2184,7 @@
       "codigoMateria": 175932,
       "data": "2026-10-13",
       "ementa": "Dispõe sobre a autenticação, a identificação e o bloqueio de chamadas telefônicas e mensagens nas redes de telecomunicações e institui base de dados centralizada de recursos de numeração.",
-      "situacao": "AGUARDANDO DESIGNAÇÃO MEMBROS COMISSÃO",
+      "situacao": "MATÉRIA DESPACHADA",
       "deliberacao": null,
       "tramitando": true
     }
