@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-17T13:26:48-03:00",
+  "atualizadoEm": "2026-10-19T16:22:33-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -1923,9 +1923,9 @@
       "codigoMateria": 174784,
       "data": "2026-06-19",
       "ementa": "Abre crédito extraordinário, em favor do Ministério de Portos e Aeroportos, no valor de R$ 8.000.000.000,00, para o fim que especifica.",
-      "situacao": "MATÉRIA COM A RELATORIA",
+      "situacao": "SEM EFICÁCIA",
       "deliberacao": null,
-      "tramitando": true
+      "tramitando": false
     },
     {
       "identificacao": "MPV 1369/2026",
