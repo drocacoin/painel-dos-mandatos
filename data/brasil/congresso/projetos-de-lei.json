@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-16T14:26:18-03:00",
+  "atualizadoEm": "2026-10-22T15:09:50-03:00",
   "itens": [
     {
       "identificacao": "PL 1/2023",
@@ -798,8 +798,8 @@
       "id": 2635476,
       "data": "2026-06-29",
       "ementa": "Altera a Lei Complementar nº 123, de 14 de dezembro de 2006, para dispor sobre o limite de receita bruta anual e o número de empregados do Microempreendedor Individual.",
-      "codSituacao": 1150,
-      "situacao": "Aguardando Sanção"
+      "codSituacao": 1140,
+      "situacao": "Transformado em Norma Jurídica"
     },
     {
       "identificacao": "PL 4951/2026",
@@ -832,6 +832,14 @@
       "ementa": "Concede remissão de créditos inscritos em Dívida Ativa da União de responsabilidade de microempreendedores individuais, dispõe sobre a sua aplicação, e dá outras providências.",
       "codSituacao": 923,
       "situacao": "Arquivada"
+    },
+    {
+      "identificacao": "PEC 18/2026",
+      "id": 2648653,
+      "data": "2026-10-21",
+      "ementa": "Altera o art. 166 da Constituição, para prever a destinação de parcela das programações de execução obrigatória provenientes de emendas parlamentares ao custeio da gratuidade de serviços de transporte público coletivo urbano ou de caráter urbano.",
+      "codSituacao": 905,
+      "situacao": "Aguardando Despacho do Presidente da Câmara dos Deputados"
     }
   ]
 }
