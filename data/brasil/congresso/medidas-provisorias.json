@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-21T15:05:17-03:00",
+  "atualizadoEm": "2026-10-23T15:02:29-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -1951,7 +1951,7 @@
       "data": "2026-06-23",
       "ementa": "Altera a Medida Provisória nº 1.354, de 30 de abril de 2026, que abre crédito extraordinário em favor de Encargos Financeiros da União e de Operações Oficiais de Crédito, para dar nova redação ao título de ação orçamentária constante de seu Anexo.",
       "situacao": "SEM EFICÁCIA",
-      "deliberacao": null,
+      "deliberacao": "PERDA_EFICACIA",
       "tramitando": false
     },
     {
@@ -2193,7 +2193,7 @@
       "codigoMateria": 176004,
       "data": "2026-10-21",
       "ementa": "Abre crédito extraordinário, em favor de Encargos Financeiros da União, no valor de R$6.494.296.446,00, para o fim que especifica.",
-      "situacao": "AGUARDANDO DESPACHO",
+      "situacao": "AGUARDANDO RECEBIMENTO DE EMENDAS",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2202,7 +2202,7 @@
       "codigoMateria": 176006,
       "data": "2026-10-21",
       "ementa": "Abre crédito extraordinário, em favor do Ministério da Integração e do Desenvolvimento Regional, no valor de R$ 300.000.000,00, para o fim que especifica.",
-      "situacao": "AGUARDANDO DESPACHO",
+      "situacao": "AGUARDANDO RECEBIMENTO DE EMENDAS",
       "deliberacao": null,
       "tramitando": true
     }
