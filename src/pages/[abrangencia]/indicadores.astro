@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import CartaoIndicador from '../../components/CartaoIndicador.astro';
+import AvisoAntesDaPosse from '../../components/AvisoAntesDaPosse.astro';
 import Base from '../../layouts/Base.astro';
 import { formatarData } from '../../lib/formatar';
 import { ANCORA_DO_TEMA, indicadoresDoPainel } from '../../lib/indicadores';
@@ -29,6 +30,7 @@ const grupos = indicadoresDoPainel(mandato);
     início do mandato ({formatarData(mandato.inicio)}). Cada número mostra a fonte, o período de
     referência e a data da última atualização.
   </p>
+  <AvisoAntesDaPosse mandato={mandato} />
   <nav aria-label="Temas desta página">
     <ul class="temas">
       {grupos.map((grupo) => (

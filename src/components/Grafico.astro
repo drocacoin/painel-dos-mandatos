@@ -1,7 +1,7 @@
 ---
 // Gráfico de uma série (linha para mensal/trimestral, colunas para anual) + tabela equivalente.
 // O gráfico é desenhado no navegador por src/scripts/graficos.ts; a tabela funciona sem ele.
-import { formatarData, formatarValor } from '../lib/formatar';
+import { formatarValor } from '../lib/formatar';
 import { rotuloComNota, type Exibivel } from '../lib/indicadores';
 import { fimDoPeriodo, rotuloPeriodo } from '../lib/periodos';
 import type { Mandato, Ponto } from '../lib/schemas';
@@ -49,11 +49,7 @@ const descricao =
   <div class="grafico-area">
     <canvas data-grafico={JSON.stringify(dados)} role="img" aria-label={descricao}></canvas>
   </div>
-  <figcaption>
-    {dados.marcador === null
-      ? `O mandato começa em ${formatarData(mandato.inicio)}. A marca de início aparece no gráfico quando houver dados a partir dessa data.`
-      : 'A linha vertical marca o início do mandato.'}
-  </figcaption>
+  {dados.marcador !== null && <figcaption>A linha vertical marca o início do mandato.</figcaption>}
   <details>
     <summary>Ver os dados em tabela</summary>
     <table>

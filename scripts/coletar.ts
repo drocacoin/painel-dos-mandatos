@@ -39,6 +39,7 @@ import { coletarProjetosDoGoverno } from './coletores/camara.ts';
 import type { Contexto, Janela } from './coletores/comum.ts';
 import { coletarIbge } from './coletores/ibge.ts';
 import { coletarInfosiga } from './coletores/infosiga.ts';
+import { coletarProdes } from './coletores/prodes.ts';
 import { coletarSeade } from './coletores/seade.ts';
 import { coletarMedidasProvisorias } from './coletores/senado.ts';
 import { coletarGastosPorFuncao, coletarSiconfi } from './coletores/siconfi.ts';
@@ -52,6 +53,7 @@ const COLETORES: Record<Exclude<Indicador['coleta']['tipo'], 'manual'>, Coletor>
   'siconfi-divida-rcl': coletarSiconfi,
   seade: coletarSeade,
   infosiga: coletarInfosiga,
+  prodes: coletarProdes,
 };
 
 export const caminhoDoArquivo = (indicador: Indicador) =>

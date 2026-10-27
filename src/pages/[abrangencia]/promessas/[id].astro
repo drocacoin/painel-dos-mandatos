@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { indicadores } from '../../../../config/indicadores';
+import { ROTULO_DO_STATUS } from '../../../../config/promessas';
 import SeloStatus from '../../../components/SeloStatus.astro';
 import Base from '../../../layouts/Base.astro';
 import { formatarData } from '../../../lib/formatar';
@@ -41,11 +42,12 @@ const detalhesDaFonte = [
 <Base
   titulo={`${promessa.id} · Promessas · ${mandato.nomeAbrangencia} | Painel dos Mandatos`}
   painel={mandato}
+  descricao={`${promessa.resumo}. Status: ${ROTULO_DO_STATUS[statusAtual(promessa)]}. Promessa do plano de governo (${mandato.cargo}), com fonte oficial.`}
 >
   <p>
     <a href={`${raiz}/${mandato.abrangencia}/promessas/`}>Todas as promessas</a>
   </p>
-  <h1>{promessa.resumo}</h1>
+  <h1 class="titulo-frase">{promessa.resumo}</h1>
   <p>
     <SeloStatus status={statusAtual(promessa)} />
     {ultima && <> desde {formatarData(ultima.data)}</>}

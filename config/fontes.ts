@@ -196,6 +196,20 @@ export const fontes = {
     },
   },
 
+  // INPE, PRODES: os arquivos JSON que o painel TerraBrasilis carrega (sem chave). Ano PRODES de
+  // agosto a julho; área por estado em km² (type 1). Verificado no navegador e por chamada direta.
+  inpe: {
+    prodesAmazoniaLegal: {
+      url: 'https://terrabrasilis.dpi.inpe.br/app/prodes/dashboard/deforestation/files/rates2026.json',
+      atualizacao:
+        'https://terrabrasilis.dpi.inpe.br/app/prodes/dashboard/deforestation/files/last_update_date.json',
+      descricao:
+        'Taxas anuais de desmatamento da Amazônia Legal (PRODES), por estado, desde 1988 (km²)',
+      nota: 'O nome do arquivo traz o ano (rates2026.json): quando o INPE publicar a taxa de 2027, conferir se o nome muda.',
+      verificadoEm: '2026-10-26',
+    },
+  },
+
   // Fundação Seade (SP): CSVs anuais do plano plurianual do estado. Separador ;, decimal com
   // vírgula. A linha do estado inteiro tem código 35. O catálogo não informa a licença.
   seade: {

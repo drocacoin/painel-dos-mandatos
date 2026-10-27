@@ -1,14 +1,17 @@
 ---
+import '@fontsource/source-serif-4/latin-400.css';
+import '@fontsource/source-serif-4/latin-600.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import { formatarDataHora } from '../lib/formatar';
+import { mandatos } from '../lib/mandatos';
 import type { Mandato } from '../lib/schemas';
 import { secoesDoPainel } from '../lib/secoes';
 
 interface Props {
   titulo: string;
   descricao?: string;
-  /** Quando presente, mostra o menu deste painel (Brasil ou SP). */
+  /** Quando presente, mostra o seletor de painel e as abas deste painel (Brasil ou SP). */
   painel?: Mandato;
 }
 
@@ -23,6 +26,19 @@ const REPOSITORIO = 'https://github.com/drocacoin/painel-dos-mandatos';
 const semBarraFinal = (caminho: string) => caminho.replace(/\/$/, '');
 const paginaAtual = semBarraFinal(Astro.url.pathname);
 const geradoEm = formatarDataHora(new Date());
+// Prévia ao compartilhar o link (WhatsApp, LinkedIn, X): endereços completos, com o domínio.
+const imagemDePrevia = new URL(`${raiz}/compartilhar.png`, Astro.site).href;
+const enderecoCompleto = new URL(Astro.url.pathname, Astro.site).href;
+
+// Seção atual (ex.: "gastos" em /sp/gastos/), para o seletor levar à mesma seção do outro
+// painel. Se o outro painel não tem a seção (Congresso), leva à visão geral dele.
+const secaoAtual = painel
+  ? (paginaAtual.slice(`${raiz}/${painel.abrangencia}`.length).split('/')[1] ?? '')
+  : '';
+const enderecoNoPainel = (abrangencia: string) => {
+  const temASecao = secoesDoPainel(abrangencia).some((s) => s.slug === secaoAtual);
+  return `${raiz}/${abrangencia}/${secaoAtual && temASecao ? `${secaoAtual}/` : ''}`;
+};
 ---
 
 <!doctype html>
@@ -31,51 +47,126 @@ const geradoEm = formatarDataHora(new Date());
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={descricao} />
+    <meta name="theme-color" content="#111214" />
     <title>{titulo}</title>
+    <link rel="canonical" href={enderecoCompleto} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Painel dos Mandatos" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:url" content={enderecoCompleto} />
+    <meta property="og:image" content={imagemDePrevia} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Painel dos Mandatos: promessas, gastos e números oficiais dos mandatos de 2027 a 2031"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Painel dos Mandatos: o que mudou"
+      href={`${raiz}/o-que-mudou.xml`}
+    />
+    <script is:inline>
+      try {
+        if (localStorage.getItem('tema') === 'claro')
+          document.documentElement.dataset.tema = 'claro';
+      } catch {
+        /* sem armazenamento: fica o tema escuro */
+      }
+    </script>
   </head>
   <body>
     <a class="pular" href="#conteudo">
       Pular para o conteúdo
     </a>
     <header class="topo">
-      <div class="recipiente">
+      <div class="recipiente topo-linha">
         <a class="marca" href={`${raiz}/`}>
           Painel dos Mandatos
         </a>
-        {painel && (
-          <nav aria-label={`Menu do painel ${painel.nomeAbrangencia}`}>
-            <p class="painel-nome">Painel {painel.nomeAbrangencia}</p>
-            <ul class="menu">
-              {secoesDoPainel(painel.abrangencia).map((secao) => {
-                const href = `${raiz}/${painel.abrangencia}/${secao.slug ? `${secao.slug}/` : ''}`;
-                const caminho = semBarraFinal(href);
-                // "page" na própria página da seção; "true" nas páginas dentro dela (ex.: uma promessa).
-                const atual =
-                  paginaAtual === caminho
-                    ? 'page'
-                    : secao.slug && paginaAtual.startsWith(`${caminho}/`)
-                      ? 'true'
-                      : undefined;
-                return (
+        <div class="topo-acoes">
+          {painel && (
+            <nav aria-label="Trocar de painel">
+              <ul class="pilulas">
+                {mandatos.map((m) => (
                   <li>
-                    <a href={href} aria-current={atual}>
-                      {secao.titulo}
+                    <a
+                      href={enderecoNoPainel(m.abrangencia)}
+                      aria-current={m.abrangencia === painel.abrangencia ? 'true' : undefined}
+                    >
+                      {m.nomeAbrangencia}
                     </a>
                   </li>
-                );
-              })}
-            </ul>
-          </nav>
-        )}
+                ))}
+              </ul>
+            </nav>
+          )}
+          <button
+            type="button"
+            class="botao-tema"
+            data-botao-tema
+            aria-pressed="false"
+            title="Tema claro"
+            hidden
+          >
+            <span class="so-leitor">Tema claro</span>
+            <svg class="sol" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path>
+              </g>
+            </svg>
+            <svg class="lua" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </header>
+    {painel && (
+      <nav class="abas-faixa" aria-label={`Seções do painel ${painel.nomeAbrangencia}`}>
+        <div class="recipiente">
+          <ul class="pilulas">
+            {secoesDoPainel(painel.abrangencia).map((secao) => {
+              const href = `${raiz}/${painel.abrangencia}/${secao.slug ? `${secao.slug}/` : ''}`;
+              const caminho = semBarraFinal(href);
+              // "page" na própria página da seção; "true" nas páginas dentro dela (ex.: uma promessa).
+              const atual =
+                paginaAtual === caminho
+                  ? 'page'
+                  : secao.slug && paginaAtual.startsWith(`${caminho}/`)
+                    ? 'true'
+                    : undefined;
+              return (
+                <li>
+                  <a href={href} aria-current={atual}>
+                    {secao.titulo}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </nav>
+    )}
     <main id="conteudo" class="recipiente">
       <slot />
     </main>
     <footer class="rodape">
       <div class="recipiente">
         <p>
-          Site público, gratuito e apartidário. <a href={`${raiz}/metodologia/`}>Metodologia</a> ·
+          Site público, gratuito e apartidário. <a href={`${raiz}/o-que-mudou/`}>O que mudou</a> ·
+          <a href={`${raiz}/metodologia/`}>Metodologia</a> ·
           <a href={`${REPOSITORIO}/issues/new?template=correcao.yml`}>Informar um erro</a> ·
           <a href={REPOSITORIO}>Código-fonte no GitHub</a>.
         </p>
@@ -85,5 +176,8 @@ const geradoEm = formatarDataHora(new Date());
         </p>
       </div>
     </footer>
+    <script>
+      import '../scripts/tema';
+    </script>
   </body>
 </html>

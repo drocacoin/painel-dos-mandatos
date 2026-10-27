@@ -8,7 +8,13 @@ import type { Periodicidade } from '../src/lib/periodos.ts';
 import { fontes } from './fontes.ts';
 
 export type Tema =
-  'Economia' | 'Contas públicas' | 'Segurança' | 'Saúde' | 'Educação' | 'Transporte';
+  | 'Economia'
+  | 'Contas públicas'
+  | 'Segurança'
+  | 'Saúde'
+  | 'Educação'
+  | 'Transporte'
+  | 'Meio ambiente';
 
 export type Coleta =
   | {
@@ -29,6 +35,7 @@ export type Coleta =
     }
   | { tipo: 'seade'; fonte: { url: string }; colunaFiltro: string; colunaValor: string }
   | { tipo: 'infosiga'; fonte: { url: string } }
+  | { tipo: 'prodes'; fonte: { url: string; atualizacao: string } }
   // Atualizado à mão: o robô não mexe no arquivo.
   | { tipo: 'manual' };
 
@@ -187,6 +194,25 @@ export const indicadores: Indicador[] = [
       amostragem: 'mensal',
       inverterSinal: true,
     },
+  },
+
+  {
+    id: 'desmatamento-amazonia',
+    abrangencia: 'brasil',
+    tema: 'Meio ambiente',
+    titulo: 'Desmatamento na Amazônia Legal',
+    descricao:
+      'Área de floresta derrubada por corte raso na Amazônia Legal, em km², no ano PRODES (agosto a julho).',
+    unidade: 'km²',
+    casas: 0,
+    periodicidade: 'anual',
+    variacao: 'percentual',
+    fonte: {
+      nome: 'INPE, PRODES (TerraBrasilis)',
+      url: 'https://terrabrasilis.dpi.inpe.br/app/dashboard/deforestation/biomes/legal_amazon/rates',
+    },
+    nota: 'O ano PRODES vai de agosto a julho: "2026" vai de agosto de 2025 a julho de 2026. A taxa mais nova sai como estimativa e é consolidada no ano seguinte. Mede a derrubada de floresta; não desconta áreas recuperadas.',
+    coleta: { tipo: 'prodes', fonte: fontes.inpe.prodesAmazoniaLegal },
   },
 
   // ----- São Paulo -----

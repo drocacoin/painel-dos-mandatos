@@ -58,7 +58,8 @@ export type Unidade =
   | 'mortes'
   | 'medidas provisórias'
   | 'projetos'
-  | 'por mil nascidos vivos';
+  | 'por mil nascidos vivos'
+  | 'km²';
 
 // Unidades de contagem no singular: "1 vítima", e não "1 vítimas".
 const SINGULAR: Partial<Record<Unidade, string>> = {

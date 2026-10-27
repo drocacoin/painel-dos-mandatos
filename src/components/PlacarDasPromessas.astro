@@ -1,0 +1,30 @@
+---
+// Placar das promessas: barra proporcional e a quantidade em cada status (todos aparecem,
+// mesmo com zero). Usado na lista de promessas e na visão geral do painel.
+import { ROTULO_DO_STATUS } from '../../config/promessas';
+import { placar, type Promessa } from '../lib/promessas';
+import IconeStatus from './IconeStatus.astro';
+
+interface Props {
+  promessas: Promessa[];
+}
+
+const contagem = placar(Astro.props.promessas);
+const porcentagem = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
+---
+
+<div class="barra-placar" aria-hidden="true">
+  {contagem
+    .filter((c) => c.quantidade > 0)
+    .map((c) => (
+      <span data-status={c.status} style={`flex-grow: ${c.quantidade}`} />
+    ))}
+</div>
+<ul class="lista-placar">
+  {contagem.map((c) => (
+    <li>
+      <IconeStatus status={c.status} />
+      {ROTULO_DO_STATUS[c.status]}: {c.quantidade} ({porcentagem.format(c.percentual)}%)
+    </li>
+  ))}
+</ul>

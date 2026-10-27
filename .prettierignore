@@ -11,3 +11,6 @@ docs/
 
 # Dados gravados pelo robô (validados pelo Zod; formato definido pelo coletor).
 data/
+
+# Arquivos gravados pela ferramenta de design (impeccable), no formato dela.
+.impeccable/

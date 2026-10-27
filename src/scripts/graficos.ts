@@ -219,12 +219,12 @@ const observador = new IntersectionObserver(
 for (const canvas of pendentes) observador.observe(canvas);
 addEventListener('beforeprint', () => [...pendentes].forEach(desenhar));
 
-// Tema claro/escuro mudou: redesenha com as cores novas.
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+// Tema trocado pelo botão do cabeçalho: redesenha com as cores novas.
+new MutationObserver(() => {
   for (const item of graficos) {
     const nova = configuracao(item.dados);
     item.grafico.data = nova.data;
     item.grafico.options = nova.options ?? {};
     item.grafico.update();
   }
-});
+}).observe(document.documentElement, { attributes: true, attributeFilter: ['data-tema'] });

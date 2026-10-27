@@ -1,0 +1,44 @@
+---
+// Minigráfico de uma série, para as linhas da visão geral. Desenhado no build, sem JavaScript.
+// É decorativo (aria-hidden): o número e o período estão escritos ao lado, e o gráfico
+// completo, com tabela, fica na página de indicadores.
+interface Props {
+  valores: number[];
+}
+
+const LARGURA = 96;
+const ALTURA = 28;
+const MARGEM = 3;
+
+const valores = Astro.props.valores.slice(-24);
+const minimo = Math.min(...valores);
+const amplitude = Math.max(...valores) - minimo || 1;
+const pontos = valores.map((valor, i) => ({
+  x: MARGEM + (i / Math.max(valores.length - 1, 1)) * (LARGURA - 2 * MARGEM),
+  y: ALTURA - MARGEM - ((valor - minimo) / amplitude) * (ALTURA - 2 * MARGEM),
+}));
+const ultimo = pontos.at(-1);
+---
+
+{ultimo && (
+  <svg
+    class="mini-grafico"
+    viewBox={`0 0 ${LARGURA} ${ALTURA}`}
+    width={LARGURA}
+    height={ALTURA}
+    aria-hidden="true"
+    focusable="false"
+  >
+    {pontos.length > 1 && (
+      <polyline
+        points={pontos.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ')}
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+      />
+    )}
+    <circle class="mini-grafico-ponto" cx={ultimo.x.toFixed(1)} cy={ultimo.y.toFixed(1)} r="2.5" />
+  </svg>
+)}

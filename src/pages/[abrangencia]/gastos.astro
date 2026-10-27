@@ -5,6 +5,7 @@ import { indicadores } from '../../../config/indicadores';
 import { FONTE_DOS_TEMAS } from '../../../config/promessas';
 import CartaoIndicador from '../../components/CartaoIndicador.astro';
 import Fonte from '../../components/Fonte.astro';
+import AvisoAntesDaPosse from '../../components/AvisoAntesDaPosse.astro';
 import Base from '../../layouts/Base.astro';
 import { gastosDoPainel, type SerieDeGasto } from '../../lib/gastos';
 import { rotuloComNota } from '../../lib/indicadores';
@@ -57,6 +58,7 @@ const valorNoAno = (gasto: SerieDeGasto, periodo: string) => {
         valores estão em reais de {dados.referencia}. O ano em curso é parcial, até o último
         bimestre publicado. O método está no fim da página.
       </p>
+      <AvisoAntesDaPosse mandato={mandato} />
 
       <section aria-labelledby="total">
         <h2 id="total">Total</h2>

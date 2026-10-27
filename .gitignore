@@ -19,3 +19,6 @@ Thumbs.db
 
 # Rascunhos de promessas e PDFs de trabalho: só para revisão local, nunca publicados.
 rascunhos/
+
+# Capturas de tela da revisão de design: geradas a cada revisão, não versionadas.
+.impeccable/review/

@@ -1,19 +1,23 @@
 /*
- * Design system: valores básicos (tokens). Origem: docs/fase-0-planejamento.md, seção 6.
- * Regra: componentes usam estas variáveis, nunca cores ou tamanhos soltos.
+ * Design system: valores básicos (tokens). Componentes usam estas variáveis, nunca cores ou
+ * tamanhos soltos. Tema escuro é o padrão (decisão de 05/10/2026, referência visual
+ * seuimposto.com); o claro é escolhido pelo botão do cabeçalho e fica salvo no aparelho.
  */
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
 
-  /* Cores da interface, tema claro (contraste conferido pela fórmula da WCAG) */
-  --cor-fundo: #ffffff;
-  --cor-superficie: #f5f6f7;
-  --cor-borda: #d9dce0;
-  --cor-texto: #1b1f24; /* 16,6:1 sobre o fundo */
-  --cor-texto-suave: #57606a; /* 6,4:1 sobre o fundo */
-  --cor-foco: #1b1f24;
+  /* Interface em grafite neutro. Contraste conferido pela fórmula da WCAG. */
+  --cor-fundo: #111214;
+  --cor-superficie: #18191c;
+  --cor-superficie-2: #212327; /* abas ativas, linhas em destaque, botões */
+  --cor-borda: #2a2c31;
+  --cor-borda-forte: #3b3e45;
+  --cor-texto: #ecedef; /* 16:1 sobre o fundo */
+  --cor-texto-suave: #a3a7ae; /* 7,6:1 sobre o fundo; 6,6:1 sobre a superfície 2 */
+  --cor-foco: #ecedef;
+  --cor-selecao: #3b3e45;
 
-  /* Cores de status das promessas (paleta Okabe-Ito). Sempre acompanhadas de ícone e texto. */
+  /* Cores de status das promessas (paleta Okabe-Ito). Só no ícone, sempre com texto. */
   --status-cumprida: #009e73;
   --status-cumprida-em-parte: #56b4e9;
   --status-em-andamento: #e69f00;
@@ -21,18 +25,21 @@
   --status-descumprida: #d55e00;
   --status-nao-avaliavel: #cc79a7;
 
-  /* Tipografia: fonte do sistema, nada para baixar */
+  /* Tipografia: títulos em Source Serif 4 (servida pelo próprio site); o resto na fonte
+     do aparelho. */
   --fonte: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+  --fonte-titulo: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --tamanho-1: 0.875rem;
   --tamanho-2: 1rem;
   --tamanho-3: 1.125rem;
   --tamanho-4: 1.375rem;
   --tamanho-5: 1.75rem;
   --tamanho-6: 2.25rem;
+  --tamanho-7: clamp(2.25rem, 1.6rem + 2.6vw, 3.25rem);
   --peso-normal: 400;
   --peso-forte: 600;
   --altura-linha: 1.5;
-  --altura-linha-titulo: 1.2;
+  --altura-linha-titulo: 1.15;
 
   /* Espaçamento em múltiplos de 4 px */
   --espaco-1: 0.25rem;
@@ -46,21 +53,26 @@
 
   /* Bordas, larguras e movimento */
   --borda: 1px solid var(--cor-borda);
-  --raio-1: 4px;
-  --raio-2: 8px;
-  --largura-pagina: 70rem;
-  --largura-texto: 70ch;
-  --transicao: 150ms ease-out;
+  --raio-1: 6px;
+  --raio-2: 10px;
+  --raio-3: 16px;
+  --raio-pilula: 999px;
+  --largura-pagina: 72rem;
+  --largura-texto: 68ch;
+  --transicao: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --saida-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Tema escuro: segue a configuração do aparelho */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --cor-fundo: #111418;
-    --cor-superficie: #1a1e23;
-    --cor-borda: #2f353d;
-    --cor-texto: #e6e8eb; /* 15:1 sobre o fundo */
-    --cor-texto-suave: #a3abb5; /* 8:1 sobre o fundo */
-    --cor-foco: #e6e8eb;
-  }
+/* Tema claro, escolhido pelo botão do cabeçalho */
+:root[data-tema='claro'] {
+  color-scheme: light;
+  --cor-fundo: #ffffff;
+  --cor-superficie: #f6f6f7;
+  --cor-superficie-2: #ebecee;
+  --cor-borda: #e0e1e4;
+  --cor-borda-forte: #c6c8cd;
+  --cor-texto: #16171a; /* 17:1 sobre o fundo */
+  --cor-texto-suave: #5a5e66; /* 6,6:1 sobre o fundo; 5,6:1 sobre a superfície 2 */
+  --cor-foco: #16171a;
+  --cor-selecao: #d6d8dc;
 }

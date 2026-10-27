@@ -1,0 +1,469 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-06T02:51:34+00:00",
+  "title": "Design System: Painel dos Mandatos",
+  "extensions": {
+    "colorMeta": {
+      "grafite-fundo": {
+        "role": "neutral",
+        "displayName": "Grafite Quase Preto",
+        "canonical": "#111214",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 264.5)",
+          "oklch(26.4% 0.004 264.5)",
+          "oklch(37.9% 0.004 264.5)",
+          "oklch(49.3% 0.004 264.5)",
+          "oklch(60.7% 0.004 264.5)",
+          "oklch(72.1% 0.004 264.5)",
+          "oklch(83.6% 0.004 264.5)",
+          "oklch(95.0% 0.004 264.5)"
+        ]
+      },
+      "grafite-superficie": {
+        "role": "neutral",
+        "displayName": "Grafite Superfície",
+        "canonical": "#18191c",
+        "tonalRamp": [
+          "oklch(15.0% 0.006 271.1)",
+          "oklch(26.4% 0.006 271.1)",
+          "oklch(37.9% 0.006 271.1)",
+          "oklch(49.3% 0.006 271.1)",
+          "oklch(60.7% 0.006 271.1)",
+          "oklch(72.1% 0.006 271.1)",
+          "oklch(83.6% 0.006 271.1)",
+          "oklch(95.0% 0.006 271.1)"
+        ]
+      },
+      "grafite-superficie-2": {
+        "role": "neutral",
+        "displayName": "Grafite Destaque",
+        "canonical": "#212327",
+        "tonalRamp": [
+          "oklch(15.0% 0.008 264.4)",
+          "oklch(26.4% 0.008 264.4)",
+          "oklch(37.9% 0.008 264.4)",
+          "oklch(49.3% 0.008 264.4)",
+          "oklch(60.7% 0.008 264.4)",
+          "oklch(72.1% 0.008 264.4)",
+          "oklch(83.6% 0.008 264.4)",
+          "oklch(95.0% 0.008 264.4)"
+        ]
+      },
+      "grafite-borda": {
+        "role": "neutral",
+        "displayName": "Borda Fina",
+        "canonical": "#2a2c31",
+        "tonalRamp": [
+          "oklch(15.0% 0.010 268.3)",
+          "oklch(26.4% 0.010 268.3)",
+          "oklch(37.9% 0.010 268.3)",
+          "oklch(49.3% 0.010 268.3)",
+          "oklch(60.7% 0.010 268.3)",
+          "oklch(72.1% 0.010 268.3)",
+          "oklch(83.6% 0.010 268.3)",
+          "oklch(95.0% 0.010 268.3)"
+        ]
+      },
+      "grafite-borda-forte": {
+        "role": "neutral",
+        "displayName": "Borda Forte",
+        "canonical": "#3b3e45",
+        "tonalRamp": [
+          "oklch(15.0% 0.013 267.2)",
+          "oklch(26.4% 0.013 267.2)",
+          "oklch(37.9% 0.013 267.2)",
+          "oklch(49.3% 0.013 267.2)",
+          "oklch(60.7% 0.013 267.2)",
+          "oklch(72.1% 0.013 267.2)",
+          "oklch(83.6% 0.013 267.2)",
+          "oklch(95.0% 0.013 267.2)"
+        ]
+      },
+      "tinta-clara": {
+        "role": "neutral",
+        "displayName": "Tinta Clara",
+        "canonical": "#ecedef",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 264.5)",
+          "oklch(26.4% 0.003 264.5)",
+          "oklch(37.9% 0.003 264.5)",
+          "oklch(49.3% 0.003 264.5)",
+          "oklch(60.7% 0.003 264.5)",
+          "oklch(72.1% 0.003 264.5)",
+          "oklch(83.6% 0.003 264.5)",
+          "oklch(95.0% 0.003 264.5)"
+        ]
+      },
+      "tinta-clara-suave": {
+        "role": "neutral",
+        "displayName": "Tinta Suave",
+        "canonical": "#a3a7ae",
+        "tonalRamp": [
+          "oklch(15.0% 0.011 261.8)",
+          "oklch(26.4% 0.011 261.8)",
+          "oklch(37.9% 0.011 261.8)",
+          "oklch(49.3% 0.011 261.8)",
+          "oklch(60.7% 0.011 261.8)",
+          "oklch(72.1% 0.011 261.8)",
+          "oklch(83.6% 0.011 261.8)",
+          "oklch(95.0% 0.011 261.8)"
+        ]
+      },
+      "papel-fundo": {
+        "role": "neutral",
+        "displayName": "Papel",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.4% 0.000 89.9)",
+          "oklch(37.9% 0.000 89.9)",
+          "oklch(49.3% 0.000 89.9)",
+          "oklch(60.7% 0.000 89.9)",
+          "oklch(72.1% 0.000 89.9)",
+          "oklch(83.6% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "papel-superficie": {
+        "role": "neutral",
+        "displayName": "Papel Superfície",
+        "canonical": "#f6f6f7",
+        "tonalRamp": [
+          "oklch(15.0% 0.001 286.4)",
+          "oklch(26.4% 0.001 286.4)",
+          "oklch(37.9% 0.001 286.4)",
+          "oklch(49.3% 0.001 286.4)",
+          "oklch(60.7% 0.001 286.4)",
+          "oklch(72.1% 0.001 286.4)",
+          "oklch(83.6% 0.001 286.4)",
+          "oklch(95.0% 0.001 286.4)"
+        ]
+      },
+      "papel-superficie-2": {
+        "role": "neutral",
+        "displayName": "Papel Destaque",
+        "canonical": "#ebecee",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 264.5)",
+          "oklch(26.4% 0.003 264.5)",
+          "oklch(37.9% 0.003 264.5)",
+          "oklch(49.3% 0.003 264.5)",
+          "oklch(60.7% 0.003 264.5)",
+          "oklch(72.1% 0.003 264.5)",
+          "oklch(83.6% 0.003 264.5)",
+          "oklch(95.0% 0.003 264.5)"
+        ]
+      },
+      "papel-borda": {
+        "role": "neutral",
+        "displayName": "Borda Fina (claro)",
+        "canonical": "#e0e1e4",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 271.4)",
+          "oklch(26.4% 0.004 271.4)",
+          "oklch(37.9% 0.004 271.4)",
+          "oklch(49.3% 0.004 271.4)",
+          "oklch(60.7% 0.004 271.4)",
+          "oklch(72.1% 0.004 271.4)",
+          "oklch(83.6% 0.004 271.4)",
+          "oklch(95.0% 0.004 271.4)"
+        ]
+      },
+      "papel-borda-forte": {
+        "role": "neutral",
+        "displayName": "Borda Forte (claro)",
+        "canonical": "#c6c8cd",
+        "tonalRamp": [
+          "oklch(15.0% 0.007 268.5)",
+          "oklch(26.4% 0.007 268.5)",
+          "oklch(37.9% 0.007 268.5)",
+          "oklch(49.3% 0.007 268.5)",
+          "oklch(60.7% 0.007 268.5)",
+          "oklch(72.1% 0.007 268.5)",
+          "oklch(83.6% 0.007 268.5)",
+          "oklch(95.0% 0.007 268.5)"
+        ]
+      },
+      "tinta-escura": {
+        "role": "neutral",
+        "displayName": "Tinta Escura",
+        "canonical": "#16171a",
+        "tonalRamp": [
+          "oklch(15.0% 0.006 271.1)",
+          "oklch(26.4% 0.006 271.1)",
+          "oklch(37.9% 0.006 271.1)",
+          "oklch(49.3% 0.006 271.1)",
+          "oklch(60.7% 0.006 271.1)",
+          "oklch(72.1% 0.006 271.1)",
+          "oklch(83.6% 0.006 271.1)",
+          "oklch(95.0% 0.006 271.1)"
+        ]
+      },
+      "tinta-escura-suave": {
+        "role": "neutral",
+        "displayName": "Tinta Escura Suave",
+        "canonical": "#5a5e66",
+        "tonalRamp": [
+          "oklch(15.0% 0.014 264.4)",
+          "oklch(26.4% 0.014 264.4)",
+          "oklch(37.9% 0.014 264.4)",
+          "oklch(49.3% 0.014 264.4)",
+          "oklch(60.7% 0.014 264.4)",
+          "oklch(72.1% 0.014 264.4)",
+          "oklch(83.6% 0.014 264.4)",
+          "oklch(95.0% 0.014 264.4)"
+        ]
+      },
+      "status-cumprida": {
+        "role": "tertiary",
+        "displayName": "Status: cumprida",
+        "canonical": "#009e73",
+        "tonalRamp": [
+          "oklch(15.0% 0.130 165.5)",
+          "oklch(26.4% 0.130 165.5)",
+          "oklch(37.9% 0.130 165.5)",
+          "oklch(49.3% 0.130 165.5)",
+          "oklch(60.7% 0.130 165.5)",
+          "oklch(72.1% 0.130 165.5)",
+          "oklch(83.6% 0.130 165.5)",
+          "oklch(95.0% 0.130 165.5)"
+        ]
+      },
+      "status-cumprida-em-parte": {
+        "role": "tertiary",
+        "displayName": "Status: cumprida em parte",
+        "canonical": "#56b4e9",
+        "tonalRamp": [
+          "oklch(15.0% 0.117 236.2)",
+          "oklch(26.4% 0.117 236.2)",
+          "oklch(37.9% 0.117 236.2)",
+          "oklch(49.3% 0.117 236.2)",
+          "oklch(60.7% 0.117 236.2)",
+          "oklch(72.1% 0.117 236.2)",
+          "oklch(83.6% 0.117 236.2)",
+          "oklch(95.0% 0.117 236.2)"
+        ]
+      },
+      "status-em-andamento": {
+        "role": "tertiary",
+        "displayName": "Status: em andamento",
+        "canonical": "#e69f00",
+        "tonalRamp": [
+          "oklch(15.0% 0.158 76.8)",
+          "oklch(26.4% 0.158 76.8)",
+          "oklch(37.9% 0.158 76.8)",
+          "oklch(49.3% 0.158 76.8)",
+          "oklch(60.7% 0.158 76.8)",
+          "oklch(72.1% 0.158 76.8)",
+          "oklch(83.6% 0.158 76.8)",
+          "oklch(95.0% 0.158 76.8)"
+        ]
+      },
+      "status-nao-iniciada": {
+        "role": "tertiary",
+        "displayName": "Status: não iniciada",
+        "canonical": "#8c959f",
+        "tonalRamp": [
+          "oklch(15.0% 0.018 250.9)",
+          "oklch(26.4% 0.018 250.9)",
+          "oklch(37.9% 0.018 250.9)",
+          "oklch(49.3% 0.018 250.9)",
+          "oklch(60.7% 0.018 250.9)",
+          "oklch(72.1% 0.018 250.9)",
+          "oklch(83.6% 0.018 250.9)",
+          "oklch(95.0% 0.018 250.9)"
+        ]
+      },
+      "status-descumprida": {
+        "role": "tertiary",
+        "displayName": "Status: descumprida",
+        "canonical": "#d55e00",
+        "tonalRamp": [
+          "oklch(15.0% 0.170 47.5)",
+          "oklch(26.4% 0.170 47.5)",
+          "oklch(37.9% 0.170 47.5)",
+          "oklch(49.3% 0.170 47.5)",
+          "oklch(60.7% 0.170 47.5)",
+          "oklch(72.1% 0.170 47.5)",
+          "oklch(83.6% 0.170 47.5)",
+          "oklch(95.0% 0.170 47.5)"
+        ]
+      },
+      "status-nao-avaliavel": {
+        "role": "tertiary",
+        "displayName": "Status: não avaliável",
+        "canonical": "#cc79a7",
+        "tonalRamp": [
+          "oklch(15.0% 0.118 346.3)",
+          "oklch(26.4% 0.118 346.3)",
+          "oklch(37.9% 0.118 346.3)",
+          "oklch(49.3% 0.118 346.3)",
+          "oklch(60.7% 0.118 346.3)",
+          "oklch(72.1% 0.118 346.3)",
+          "oklch(83.6% 0.118 346.3)",
+          "oklch(95.0% 0.118 346.3)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Título da página inicial e nome do painel."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Título das páginas internas."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Títulos de seção e de bloco; contagem da régua."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto corrido, até 68 caracteres por linha."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Rótulos, períodos, notas, pílulas e rodapé."
+      },
+      "numero": {
+        "displayName": "Número",
+        "purpose": "Valores com algarismos tabulares."
+      }
+    },
+    "shadows": [
+      {
+        "name": "pilula-atual",
+        "value": "0 1px 2px rgb(0 0 0 / 0.25)",
+        "purpose": "Destaca a pílula atual do trilho."
+      }
+    ],
+    "motion": [
+      {
+        "name": "transicao",
+        "value": "150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Hover e troca de estado."
+      },
+      {
+        "name": "saida-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Régua: parte decorrida (900 ms) e anos e prazos pousando (500 ms, atraso pela posição)."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "medio",
+        "value": "40rem"
+      },
+      {
+        "name": "largo",
+        "value": "56rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botão principal",
+      "kind": "button",
+      "refersTo": "botao-principal",
+      "description": "Única ação de destaque por bloco: abrir um painel.",
+      "html": "<a class=\"ds-botao\" href=\"#\">Abrir o painel Brasil <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14m-5-5 5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>",
+      "css": ".ds-botao { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 24px; color: var(--cor-fundo, #111214); background: var(--cor-texto, #ecedef); font: 600 1rem/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif; text-decoration: none; border-radius: 999px; transition: opacity 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-botao:hover { opacity: 0.88; } .ds-botao:focus-visible { outline: 2px solid var(--cor-texto, #ecedef); outline-offset: 2px; }"
+    },
+    {
+      "name": "Pílulas de navegação",
+      "kind": "nav",
+      "refersTo": "pilula",
+      "description": "Troca de painel no cabeçalho e seções na faixa fixa; aria-current marca a atual.",
+      "html": "<nav aria-label=\"Seções\"><ul class=\"ds-pilulas\"><li><a href=\"#\" aria-current=\"page\">Visão geral</a></li><li><a href=\"#\">Indicadores</a></li><li><a href=\"#\">Promessas</a></li><li><a href=\"#\">Gastos</a></li></ul></nav>",
+      "css": ".ds-pilulas { display: flex; gap: 2px; width: max-content; margin: 0; padding: 3px; list-style: none; background: var(--cor-superficie, #18191c); border: 1px solid var(--cor-borda, #2a2c31); border-radius: 999px; } .ds-pilulas a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; color: var(--cor-texto-suave, #a3a7ae); font: 400 0.875rem/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif; text-decoration: none; border-radius: 999px; transition: background-color 150ms cubic-bezier(0.16, 1, 0.3, 1), color 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-pilulas a:hover { color: var(--cor-texto, #ecedef); } .ds-pilulas a[aria-current] { color: var(--cor-texto, #ecedef); font-weight: 600; background: var(--cor-superficie-2, #212327); box-shadow: 0 1px 2px rgb(0 0 0 / 0.25); } .ds-pilulas a:focus-visible { outline: 2px solid var(--cor-texto, #ecedef); outline-offset: 2px; }"
+    },
+    {
+      "name": "Bloco com linhas compactas",
+      "kind": "card",
+      "refersTo": "bloco",
+      "description": "Resumo de uma seção: título serifado, link discreto e linhas nome · número.",
+      "html": "<section class=\"ds-bloco\"><div class=\"ds-bloco-cabecalho\"><h2>Gastos</h2><a href=\"#\">Ver todas as áreas</a></div><ul class=\"ds-linhas\"><li><span>Todas as áreas</span><strong>R$ 371,62 bi</strong></li><li><span>Saúde<small>11,9% do total</small></span><strong>R$ 44,07 bi</strong><span class=\"ds-barra\"><span style=\"--parte: 0.119\"></span></span></li></ul></section>",
+      "css": ".ds-bloco { padding: 24px; color: var(--cor-texto, #ecedef); background: var(--cor-superficie, #18191c); border: 1px solid var(--cor-borda, #2a2c31); border-radius: 16px; font: 400 1rem/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif; } .ds-bloco-cabecalho { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin-bottom: 12px; } .ds-bloco h2 { margin: 0; font: 600 1.375rem/1.15 'Source Serif 4', Georgia, 'Times New Roman', serif; letter-spacing: -0.01em; } .ds-bloco-cabecalho a { color: var(--cor-texto-suave, #a3a7ae); font-size: 0.875rem; text-decoration-color: var(--cor-borda-forte, #3b3e45); text-underline-offset: 0.2em; } .ds-linhas { margin: 0; padding: 0; list-style: none; } .ds-linhas li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 16px; padding-block: 12px; border-top: 1px solid var(--cor-borda, #2a2c31); } .ds-linhas small { display: block; color: var(--cor-texto-suave, #a3a7ae); font-size: 0.875rem; } .ds-linhas strong { font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; } .ds-barra { grid-column: 1 / -1; height: 4px; background: var(--cor-superficie-2, #212327); border-radius: 999px; overflow: hidden; } .ds-barra span { display: block; width: calc(var(--parte) * 100%); height: 100%; background: var(--cor-texto-suave, #a3a7ae); border-radius: inherit; }"
+    },
+    {
+      "name": "Aviso da página",
+      "kind": "custom",
+      "refersTo": "aviso",
+      "description": "Nota única que vale para todos os cartões da página, em vez de repetir em cada um.",
+      "html": "<p class=\"ds-aviso\" role=\"note\">O mandato começa em 05/01/2027. Até lá, todos os números são de antes da posse.</p>",
+      "css": ".ds-aviso { margin: 0; padding: 16px 24px; color: var(--cor-texto, #ecedef); background: var(--cor-superficie, #18191c); border: 1px solid var(--cor-borda, #2a2c31); border-radius: 10px; font: 400 1rem/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif; max-width: 68ch; }"
+    },
+    {
+      "name": "Campo de escolha",
+      "kind": "input",
+      "refersTo": "campo-de-escolha",
+      "description": "Filtros da lista de promessas; 44 px de altura para o toque.",
+      "html": "<label class=\"ds-campo\">Status<select><option>Todos</option><option>Não iniciada</option></select></label>",
+      "css": ".ds-campo { display: grid; gap: 4px; color: var(--cor-texto-suave, #a3a7ae); font: 400 0.875rem/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif; } .ds-campo select { min-height: 44px; padding: 8px 12px; color: var(--cor-texto, #ecedef); font: 400 1rem/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif; background: var(--cor-superficie, #18191c); border: 1px solid var(--cor-borda-forte, #3b3e45); border-radius: 10px; } .ds-campo select:focus-visible { outline: 2px solid var(--cor-texto, #ecedef); outline-offset: 2px; }"
+    },
+    {
+      "name": "Régua do mandato",
+      "kind": "custom",
+      "refersTo": "regua-do-mandato",
+      "description": "Elemento assinatura: contagem em serifada, trilho com os anos, prazos das promessas e legenda em texto.",
+      "html": "<figure class=\"ds-regua\"><p class=\"ds-regua-momento\">Faltam 93 dias para a posse</p><div class=\"ds-regua-trilho\" aria-hidden=\"true\"><span class=\"ds-regua-ano\" style=\"--pos: 0\">2027</span><span class=\"ds-regua-ano\" style=\"--pos: 0.25\">2028</span><span class=\"ds-regua-ano\" style=\"--pos: 0.5\">2029</span><span class=\"ds-regua-ano\" style=\"--pos: 0.75\">2030</span><span class=\"ds-regua-prazo\" style=\"--pos: 0.5\">1</span><span class=\"ds-regua-prazo\" style=\"--pos: 0.75\">6</span><span class=\"ds-regua-prazo ds-fim\" style=\"--pos: 1\">23</span></div><figcaption>Mandato de 06/01/2027 a 06/01/2031. Prazos de 30 promessas, marcados acima da régua.</figcaption></figure>",
+      "css": ".ds-regua { margin: 0; color: var(--cor-texto, #ecedef); font: 400 1rem/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif; } .ds-regua-momento { margin: 0 0 8px; font: 600 1.375rem/1.2 'Source Serif 4', Georgia, 'Times New Roman', serif; font-variant-numeric: tabular-nums; } .ds-regua-trilho { position: relative; height: calc(1.125rem + 1.625rem); margin-inline: 2px; } .ds-regua-trilho::before { content: ''; position: absolute; inset: 1.125rem 0 auto; height: 6px; background: var(--cor-superficie-2, #212327); border: 1px solid var(--cor-borda, #2a2c31); border-radius: 999px; } .ds-regua-ano { position: absolute; top: calc(1.125rem + 0.625rem); left: calc(var(--pos) * 100%); padding-left: 4px; color: var(--cor-texto-suave, #a3a7ae); font-size: 0.75rem; font-variant-numeric: tabular-nums; border-left: 1px solid var(--cor-borda-forte, #3b3e45); } .ds-regua-prazo { position: absolute; top: 0; left: calc(var(--pos) * 100%); transform: translateX(-50%); min-width: 1.25rem; padding: 0 0.3rem; font-size: 0.6875rem; font-weight: 600; line-height: 1rem; text-align: center; background: var(--cor-superficie-2, #212327); border: 1px solid var(--cor-borda-forte, #3b3e45); border-radius: 999px; } .ds-regua-prazo.ds-fim { transform: translateX(-100%); } .ds-regua figcaption { margin-top: 4px; color: var(--cor-texto-suave, #a3a7ae); font-size: 0.875rem; } @media (prefers-reduced-motion: no-preference) { .ds-regua-ano, .ds-regua-prazo { animation: ds-pousar 500ms cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--pos) * 600ms); } } @keyframes ds-pousar { from { opacity: 0; translate: 0 -0.375rem; } }"
+    },
+    {
+      "name": "Ícone de status",
+      "kind": "custom",
+      "refersTo": "icone-status",
+      "description": "A forma muda com o status (vazio, um quarto, metade, cheio, x, interrogação); a cor nunca é o único sinal.",
+      "html": "<span class=\"ds-status\" style=\"--cor: #e69f00\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" aria-hidden=\"true\"><circle cx=\"8\" cy=\"8\" r=\"6.25\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/><path d=\"M8 8V1.75A6.25 6.25 0 0 1 14.25 8Z\" fill=\"currentColor\"/></svg>Em andamento: 3 (10%)</span>",
+      "css": ".ds-status { display: inline-flex; align-items: center; gap: 8px; color: var(--cor-texto, #ecedef); font: 400 0.875rem/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif; } .ds-status svg { flex: none; color: var(--cor); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "A Apuração",
+    "overview": "O mandato é lido como uma apuração: uma régua de tempo e números que se conferem na fonte. A página é grafite quase preto, quieta, e o que fala são os títulos serifados e os números. Nada decora: cada elemento mostra um dado, diz de onde ele vem ou leva ao detalhe.\n\nA densidade é de painel de consulta, não de página de campanha. O resumo vem primeiro, em linhas compactas dentro de blocos de borda fina; o detalhe (gráfico, tabela, fonte) fica a um clique. Brasil e São Paulo usam exatamente os mesmos componentes, na mesma ordem, e nunca aparecem lado a lado para comparação de números.\n\nA referência visual escolhida pelo responsável é seuimposto.com (05/10/2026): tema escuro, painéis arredondados, abas em pílula e números grandes. Recusa o portal governamental cinza e a página de links soltos.",
+    "keyCharacteristics": [
+      "Grafite neutro, sem cor de marca; cor só para status de promessa.",
+      "Títulos em Source Serif 4, servida pelo próprio site; interface e números na fonte do aparelho, com algarismos tabulares.",
+      "Blocos com raio de 16 px e borda de 1 px, sem sombra.",
+      "Navegação em pílulas: painel (Brasil | São Paulo) no cabeçalho, seções numa faixa fixa.",
+      "A régua do mandato como elemento assinatura."
+    ],
+    "rules": [
+      {
+        "name": "The Neutral Ground Rule",
+        "body": "Nenhuma cor de marca e nenhuma cor associada a partido. A interface inteira é grafite; a única cor é a do status, e ela nunca aparece sozinha.",
+        "section": "colors"
+      },
+      {
+        "name": "The Same Token Rule",
+        "body": "Componentes usam as variáveis de `src/styles/tokens.css`, nunca cores soltas; o tema claro troca só os valores das variáveis.",
+        "section": "colors"
+      },
+      {
+        "name": "The Serif Speaks First Rule",
+        "body": "A serifada é só para títulos, contagem da régua e citações do plano de governo. Números e rótulos ficam sempre na sans, com algarismos tabulares.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Panel Rule",
+        "body": "Blocos, avisos e campos não têm sombra. Se algo precisa se destacar, troca de tom ou de borda.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** colocar fonte, período e data de atualização ao lado de todo número.",
+      "**Do** usar as mesmas peças, na mesma ordem, nos painéis Brasil e São Paulo.",
+      "**Do** escrever os números com algarismos tabulares e alinhados à direita nas linhas.",
+      "**Do** explicar uma vez por página o que vale para todos os cartões (como o aviso antes da posse), em vez de repetir em cada cartão.",
+      "**Do** conferir contraste e acessibilidade nos dois temas."
+    ],
+    "donts": [
+      "**Don't** usar cor de partido, cor de marca ou foto de candidato.",
+      "**Don't** usar cor de status fora do ícone e da barra do placar, nem sem o nome do status escrito.",
+      "**Don't** colocar sombra em blocos ou borda lateral grossa como destaque.",
+      "**Don't** pôr rótulo pequeno em caixa alta acima dos títulos.",
+      "**Don't** usar emoji ou caractere especial como ícone; ícones são SVG desenhados."
+    ]
+  }
+}

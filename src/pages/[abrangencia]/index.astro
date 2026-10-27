@@ -1,12 +1,31 @@
 ---
 import type { GetStaticPaths } from 'astro';
+import { ABRANGENCIA_DO_CONGRESSO } from '../../../config/congresso';
+import { FUNCOES_EM_DESTAQUE } from '../../../config/gastos';
+import LinhaDoMandato from '../../components/LinhaDoMandato.astro';
+import MiniGrafico from '../../components/MiniGrafico.astro';
+import PlacarDasPromessas from '../../components/PlacarDasPromessas.astro';
 import Base from '../../layouts/Base.astro';
-import { formatarData } from '../../lib/formatar';
+import {
+  anoDoNumero,
+  carregarMedidas,
+  carregarProjetos,
+  resultadoDaMedida,
+} from '../../lib/congresso';
+import { formatarData, formatarValor, hojeEmBrasilia } from '../../lib/formatar';
+import { gastosDoPainel } from '../../lib/gastos';
+import {
+  compararComInicio,
+  indicadoresDoPainel,
+  rotuloComNota,
+  variacaoCurta,
+} from '../../lib/indicadores';
 import { mandatos } from '../../lib/mandatos';
+import { prazosDasPromessas, proximosPrazos, ultimasAtualizacoes } from '../../lib/painel';
+import { carregarPromessas } from '../../lib/promessas';
 import type { Mandato } from '../../lib/schemas';
-import { rotuloFase, secoesDoPainel } from '../../lib/secoes';
 
-// Uma página por mandato de config/mandatos.json: /brasil/, /sp/
+// Visão geral de cada painel: /brasil/, /sp/. Um resumo de cada seção, com link para o detalhe.
 export const getStaticPaths = (() =>
   mandatos.map((mandato) => ({
     params: { abrangencia: mandato.abrangencia },
@@ -18,41 +37,241 @@ interface Props {
 }
 
 const { mandato } = Astro.props;
-const outrasSecoes = secoesDoPainel(mandato.abrangencia).filter((secao) => secao.slug !== '');
+const { abrangencia } = mandato;
 const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
+const noPainel = (caminho: string) => `${raiz}/${abrangencia}/${caminho}`;
+const hoje = hojeEmBrasilia();
+const anoAtual = Number(hoje.slice(0, 4));
+const porcentagem = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 });
+
+const linhasDeIndicadores = indicadoresDoPainel(mandato).flatMap(({ tema, itens }) =>
+  itens.flatMap(({ indicador, arquivo }) => {
+    const ultimo = arquivo?.serie.at(-1);
+    if (!arquivo || !ultimo) return [];
+    const comparacao = compararComInicio(arquivo.serie, indicador, mandato.inicio);
+    return [
+      {
+        indicador,
+        tema,
+        ultimo,
+        valores: arquivo.serie.map((p) => p.valor),
+        variacao: variacaoCurta(indicador, comparacao),
+      },
+    ];
+  }),
+);
+
+const promessas = carregarPromessas(abrangencia);
+const prazos = prazosDasPromessas(promessas, mandato.fim);
+const semPrazo = promessas.filter((p) => p.prazo === null).length;
+const proximas = proximosPrazos(promessas, hoje);
+
+const gastos = gastosDoPainel(abrangencia);
+const anoCompleto = gastos?.total.serie.filter((p) => !p.nota).at(-1);
+const areas =
+  gastos && anoCompleto
+    ? FUNCOES_EM_DESTAQUE.flatMap((funcao) => {
+        const ponto = gastos.funcoes
+          .find((f) => f.exibivel.titulo === funcao)
+          ?.serie.find((p) => p.periodo === anoCompleto.periodo);
+        return ponto
+          ? [{ funcao, valor: ponto.valor, parte: ponto.valor / anoCompleto.valor }]
+          : [];
+      })
+    : [];
+
+const temCongresso = abrangencia === ABRANGENCIA_DO_CONGRESSO;
+const medidas = temCongresso ? carregarMedidas() : null;
+const projetos = temCongresso ? carregarProjetos() : null;
+const doAnoAtual = (itens: { identificacao: string }[]) =>
+  itens.filter((item) => anoDoNumero(item) === anoAtual).length;
+
+const atualizacoes = ultimasAtualizacoes(abrangencia, 4);
 ---
 
-<Base titulo={`Painel ${mandato.nomeAbrangencia} | Painel dos Mandatos`} painel={mandato}>
-  <h1>Painel {mandato.nomeAbrangencia}</h1>
-  <dl class="ficha">
-    <dt>Cargo</dt>
-    <dd>{mandato.cargo}</dd>
-    <dt>Mandato</dt>
-    <dd>
-      {formatarData(mandato.inicio)} a {formatarData(mandato.fim)}
-    </dd>
-    <dt>Pessoa eleita</dt>
-    <dd>
-      {mandato.eleito
-        ? `${mandato.eleito} (${mandato.partido})`
-        : 'A definir: aguardando o resultado oficial do TSE'}
-    </dd>
-    <dt>Base legal das datas</dt>
-    <dd>
-      <a href={mandato.fonteDatas.url}>{mandato.fonteDatas.nome}</a>
-    </dd>
-  </dl>
+<Base
+  titulo={`Painel ${mandato.nomeAbrangencia} | Painel dos Mandatos`}
+  painel={mandato}
+  descricao={`${mandato.cargo}, mandato 2027–2031: promessas, indicadores, gastos e atualizações, com fonte oficial em todo número.`}
+>
+  <section class="painel-cabecalho" aria-labelledby="titulo-painel">
+    <hgroup>
+      <h1 id="titulo-painel">{mandato.nomeAbrangencia}</h1>
+      <p>{mandato.cargo}</p>
+    </hgroup>
+    <dl class="pares">
+      <div>
+        <dt>Pessoa eleita</dt>
+        <dd>
+          {mandato.eleito
+            ? `${mandato.eleito} (${mandato.partido})`
+            : 'A definir: aguardando o resultado oficial do TSE'}
+        </dd>
+      </div>
+      <div>
+        <dt>Base legal das datas</dt>
+        <dd>
+          <a href={mandato.fonteDatas.url}>{mandato.fonteDatas.nome}</a>
+        </dd>
+      </div>
+    </dl>
+    <LinhaDoMandato mandato={mandato} hoje={hoje} prazos={prazos} semPrazo={semPrazo} />
+  </section>
 
-  <h2>Seções deste painel</h2>
-  <ul>
-    {outrasSecoes.map((secao) => (
-      <li>
-        {secao.pronta ? (
-          <a href={`${raiz}/${mandato.abrangencia}/${secao.slug}/`}>{secao.titulo}</a>
-        ) : (
-          `${secao.titulo}: em construção (entra na ${rotuloFase(secao)})`
-        )}
-      </li>
-    ))}
-  </ul>
+  <div class="visao">
+    <section class="bloco bloco-largo" aria-labelledby="bloco-indicadores">
+      <div class="bloco-cabecalho">
+        <h2 id="bloco-indicadores">Indicadores</h2>
+        <a href={noPainel('indicadores/')}>Ver gráficos e fontes</a>
+      </div>
+      <p class="bloco-nota">
+        Último dado de cada indicador. A variação aparece quando sair o primeiro dado do mandato.
+      </p>
+      <ul class="linhas">
+        {linhasDeIndicadores.map((linha) => (
+          <li class="linha">
+            <span class="linha-nome">
+              <a href={noPainel(`indicadores/#${linha.indicador.id}`)}>{linha.indicador.titulo}</a>
+              <span class="linha-detalhe">
+                {linha.tema} · {rotuloComNota(linha.ultimo, linha.indicador, 'longo')}
+              </span>
+            </span>
+            <MiniGrafico valores={linha.valores} />
+            <span class="linha-valor">
+              {formatarValor(linha.ultimo.valor, linha.indicador.unidade, linha.indicador.casas)}
+              {linha.variacao && <small>{linha.variacao} desde a posse</small>}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="bloco" aria-labelledby="bloco-promessas">
+      <div class="bloco-cabecalho">
+        <h2 id="bloco-promessas">Promessas</h2>
+        {promessas.length > 0 && <a href={noPainel('promessas/')}>Ver a lista</a>}
+      </div>
+      {promessas.length === 0 ? (
+        <p class="bloco-nota">
+          As promessas entram depois do resultado oficial da eleição e da revisão humana do plano de
+          governo registrado no TSE.
+        </p>
+      ) : (
+        <>
+          <p class="bloco-nota">{promessas.length} promessas do plano de governo, por status.</p>
+          <PlacarDasPromessas promessas={promessas} />
+          {proximas.length > 0 && (
+            <>
+              <h3>Próximos prazos</h3>
+              <ul class="linhas">
+                {proximas.map((p) => (
+                  <li class="linha">
+                    <span class="linha-nome">
+                      <a href={noPainel(`promessas/${p.id}/`)}>{p.resumo}</a>
+                    </span>
+                    <span class="linha-valor">{formatarData(p.prazo)}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </>
+      )}
+    </section>
+
+    <section class="bloco" aria-labelledby="bloco-gastos">
+      <div class="bloco-cabecalho">
+        <h2 id="bloco-gastos">Gastos</h2>
+        {gastos && <a href={noPainel('gastos/')}>Ver todas as áreas</a>}
+      </div>
+      {gastos && anoCompleto ? (
+        <>
+          <p class="bloco-nota">
+            Despesa liquidada em {anoCompleto.periodo}, em reais de {gastos.referencia} (corrigida
+            pelo IPCA).
+          </p>
+          <ul class="linhas">
+            <li class="linha">
+              <span class="linha-nome">Todas as áreas</span>
+              <span class="linha-valor">{formatarValor(anoCompleto.valor, 'R$', 0)}</span>
+            </li>
+            {areas.map((area) => (
+              <li class="linha">
+                <span class="linha-nome">
+                  {area.funcao}
+                  <span class="linha-detalhe">
+                    {porcentagem.format(area.parte * 100)}% do total
+                  </span>
+                </span>
+                <span class="linha-valor">{formatarValor(area.valor, 'R$', 0)}</span>
+                <span class="barra" aria-hidden="true">
+                  <span style={`--parte: ${area.parte}`}></span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <p class="bloco-nota">Os gastos ainda não foram coletados.</p>
+      )}
+    </section>
+
+    {temCongresso && (
+      <section class="bloco" aria-labelledby="bloco-congresso">
+        <div class="bloco-cabecalho">
+          <h2 id="bloco-congresso">Congresso</h2>
+          <a href={noPainel('congresso/')}>Ver o histórico</a>
+        </div>
+        <p class="bloco-nota">Contagem pelo ano do número oficial; {anoAtual} até hoje.</p>
+        <ul class="linhas">
+          {medidas && (
+            <>
+              <li class="linha">
+                <span class="linha-nome">Medidas provisórias editadas em {anoAtual}</span>
+                <span class="linha-valor">{doAnoAtual(medidas.itens)}</span>
+              </li>
+              <li class="linha">
+                <span class="linha-nome">
+                  Medidas provisórias em tramitação
+                  <span class="linha-detalhe">aguardando a decisão do Congresso</span>
+                </span>
+                <span class="linha-valor">
+                  {medidas.itens.filter((m) => resultadoDaMedida(m) === 'Em tramitação').length}
+                </span>
+              </li>
+            </>
+          )}
+          {projetos && (
+            <li class="linha">
+              <span class="linha-nome">Projetos enviados à Câmara em {anoAtual}</span>
+              <span class="linha-valor">{doAnoAtual(projetos.itens)}</span>
+            </li>
+          )}
+        </ul>
+      </section>
+    )}
+
+    <section
+      class={temCongresso ? 'bloco' : 'bloco bloco-largo'}
+      aria-labelledby="bloco-atualizacoes"
+    >
+      <div class="bloco-cabecalho">
+        <h2 id="bloco-atualizacoes">Últimas atualizações</h2>
+        <a href={`${raiz}/metodologia/`}>Como os dados chegam</a>
+      </div>
+      <ul class="linhas">
+        {atualizacoes.map((a) => (
+          <li class="linha">
+            <span class="linha-nome">
+              <a href={noPainel(a.caminho)}>{a.titulo}</a>
+              <span class="linha-detalhe">Dado mais recente: {a.referencia}</span>
+            </span>
+            <span class="linha-valor">
+              {formatarData(hojeEmBrasilia(new Date(a.atualizadoEm)))}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
 </Base>

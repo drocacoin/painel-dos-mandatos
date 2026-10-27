@@ -1,0 +1,47 @@
+---
+// Ícone de status de promessa: uma forma diferente para cada status (a cor nunca é o único
+// sinal). Desenho próprio, traço de 1,5 px; a cor vem de --cor-do-status (data-status).
+import type { Status } from '../../config/promessas';
+
+interface Props {
+  status: Status;
+}
+
+const { status } = Astro.props;
+---
+
+<svg
+  class="icone-status"
+  data-status={status}
+  viewBox="0 0 16 16"
+  aria-hidden="true"
+  focusable="false"
+>
+  <circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+  {status === 'em-andamento' && <path d="M8 8V1.75A6.25 6.25 0 0 1 14.25 8Z" fill="currentColor" />}
+  {status === 'cumprida-em-parte' && (
+    <path d="M8 1.75a6.25 6.25 0 0 1 0 12.5Z" fill="currentColor" />
+  )}
+  {status === 'cumprida' && <circle cx="8" cy="8" r="6.25" fill="currentColor" />}
+  {status === 'descumprida' && (
+    <path
+      d="M5.6 5.6l4.8 4.8m0-4.8l-4.8 4.8"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+    />
+  )}
+  {status === 'nao-avaliavel' && (
+    <>
+      <path
+        d="M6.3 6.4a1.75 1.75 0 1 1 2.5 1.6c-.5.25-.8.6-.8 1.15v.3"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.4"
+        stroke-linecap="round"
+      />
+      <circle cx="8" cy="11.35" r="0.8" fill="currentColor" />
+    </>
+  )}
+</svg>

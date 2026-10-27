@@ -12,6 +12,7 @@ const INSTITUICOES: Record<string, string> = {
   tse: 'Tribunal Superior Eleitoral',
   infosiga: 'Detran-SP (Infosiga)',
   inep: 'INEP',
+  inpe: 'INPE (PRODES, TerraBrasilis)',
   seade: 'Fundação Seade',
   senado: 'Senado Federal',
   camara: 'Câmara dos Deputados',

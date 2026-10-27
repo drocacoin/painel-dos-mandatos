@@ -1,31 +1,45 @@
 ---
+import ResumoDoPainel from '../components/ResumoDoPainel.astro';
 import Base from '../layouts/Base.astro';
-import { formatarData } from '../lib/formatar';
+import { hojeEmBrasilia } from '../lib/formatar';
 import { mandatos } from '../lib/mandatos';
 
 const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
+const hoje = hojeEmBrasilia();
 ---
 
 <Base titulo="Painel dos Mandatos">
-  <h1>Painel dos Mandatos</h1>
-  <p>
-    Acompanhamento público dos mandatos 2027–2031, com dados oficiais. Cada painel é separado.
-    Escolha um:
-  </p>
-  <ul class="cartoes">
+  <section class="abertura">
+    <h1>Os mandatos de 2027 a 2031, medidos com dados oficiais</h1>
+    <p class="lead">
+      Promessas, indicadores, gastos e Congresso do presidente da República e do governador de São
+      Paulo. Cada número leva à fonte. Os dois painéis são separados.
+    </p>
+  </section>
+
+  <ul class="paineis">
     {mandatos.map((mandato) => (
-      <li class="cartao">
-        <h2>
-          <a href={`${raiz}/${mandato.abrangencia}/`}>Painel {mandato.nomeAbrangencia}</a>
-        </h2>
-        <p>{mandato.cargo}</p>
-        <p>
-          Mandato de {formatarData(mandato.inicio)} a {formatarData(mandato.fim)}
-        </p>
-      </li>
+      <ResumoDoPainel mandato={mandato} hoje={hoje} />
     ))}
   </ul>
-  <p>
-    Como os dados são coletados e conferidos: <a href={`${raiz}/metodologia/`}>metodologia</a>.
-  </p>
+
+  <section aria-labelledby="como-funciona">
+    <h2 id="como-funciona" class="so-leitor">
+      Como o painel funciona
+    </h2>
+    <ul class="como-funciona">
+      <li>
+        <strong>Fonte em todo número.</strong> Cada número mostra a fonte oficial, com link, o
+        período e a data da atualização.
+      </li>
+      <li>
+        <strong>Status só por pessoa.</strong> Nenhum robô muda o status de uma promessa. Cada
+        mudança tem justificativa e fonte.
+      </li>
+      <li>
+        <strong>Coleta diária com travas.</strong> Se uma fonte falha, o dado anterior fica como
+        estava. Detalhes na <a href={`${raiz}/metodologia/`}>metodologia</a>.
+      </li>
+    </ul>
+  </section>
 </Base>

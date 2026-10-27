@@ -1,0 +1,78 @@
+---
+// Resumo de um painel na página inicial. Os dois painéis usam exatamente o mesmo resumo, na
+// mesma ordem (regra de simetria), e nenhum número de um aparece ao lado do outro para comparar.
+import { indicadores } from '../../config/indicadores';
+import { formatarData, formatarValor, hojeEmBrasilia } from '../lib/formatar';
+import { gastosDoPainel } from '../lib/gastos';
+import { ultimasAtualizacoes } from '../lib/painel';
+import { carregarPromessas } from '../lib/promessas';
+import type { Mandato } from '../lib/schemas';
+import LinhaDoMandato from './LinhaDoMandato.astro';
+
+interface Props {
+  mandato: Mandato;
+  hoje: string;
+}
+
+const { mandato, hoje } = Astro.props;
+const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
+const promessas = carregarPromessas(mandato.abrangencia);
+const quantidadeDeIndicadores = indicadores.filter(
+  (i) => i.abrangencia === mandato.abrangencia && !i.apoio,
+).length;
+const gastos = gastosDoPainel(mandato.abrangencia);
+const anoCompleto = gastos?.total.serie.filter((p) => !p.nota).at(-1);
+const atualizacao = ultimasAtualizacoes(mandato.abrangencia, 1)[0];
+---
+
+<li class="resumo">
+  <div>
+    <h2>{mandato.nomeAbrangencia}</h2>
+    <p class="resumo-cargo">{mandato.cargo}</p>
+  </div>
+  <dl class="pares">
+    <div>
+      <dt>Pessoa eleita</dt>
+      <dd>{mandato.eleito ? `${mandato.eleito} (${mandato.partido})` : 'A definir'}</dd>
+    </div>
+  </dl>
+  <LinhaDoMandato mandato={mandato} hoje={hoje} />
+  <dl class="pares">
+    <div>
+      <dt>Promessas acompanhadas</dt>
+      <dd>{promessas.length > 0 ? promessas.length : 'Depois do resultado'}</dd>
+    </div>
+    <div>
+      <dt>Indicadores</dt>
+      <dd>{quantidadeDeIndicadores}</dd>
+    </div>
+    {gastos && anoCompleto && (
+      <div>
+        <dt>Gasto liquidado em {anoCompleto.periodo}</dt>
+        <dd>
+          {formatarValor(anoCompleto.valor, 'R$', 0)}
+          <small class="linha-detalhe">em reais de {gastos.referencia}</small>
+        </dd>
+      </div>
+    )}
+    {atualizacao && (
+      <div>
+        <dt>Dados atualizados em</dt>
+        <dd>{formatarData(hojeEmBrasilia(new Date(atualizacao.atualizadoEm)))}</dd>
+      </div>
+    )}
+  </dl>
+  <a class="botao" href={`${raiz}/${mandato.abrangencia}/`}>
+    Abrir o painel {mandato.nomeAbrangencia}
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M5 12h14m-5-5 5 5-5 5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </a>
+</li>

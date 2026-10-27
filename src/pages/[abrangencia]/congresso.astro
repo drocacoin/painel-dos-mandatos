@@ -9,6 +9,7 @@ import {
   RESULTADOS_DOS_PROJETOS,
 } from '../../../config/congresso';
 import SecaoLegislativa from '../../components/SecaoLegislativa.astro';
+import AvisoAntesDaPosse from '../../components/AvisoAntesDaPosse.astro';
 import Base from '../../layouts/Base.astro';
 import {
   carregarMedidas,
@@ -71,6 +72,7 @@ const contagem = (
     Executivo à Câmara dos Deputados, desde {primeiroAno}. A situação de cada um vem das fontes
     oficiais e é conferida todo dia. As regras estão no fim da página.
   </p>
+  <AvisoAntesDaPosse mandato={mandato} />
 
   {medidas ? (
     <SecaoLegislativa

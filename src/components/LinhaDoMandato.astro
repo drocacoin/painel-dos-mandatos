@@ -1,0 +1,92 @@
+---
+// Régua do mandato: os 4 anos de mandato, o ponto em que estamos e, na versão completa, os
+// prazos das promessas marcados com a quantidade. O texto da legenda diz tudo o que a régua
+// mostra, para quem não vê o desenho. O script recalcula a contagem no dia em que a página
+// é aberta (o site não é gerado todo dia).
+import { formatarData } from '../lib/formatar';
+import type { PrazoNaRegua } from '../lib/painel';
+import type { Mandato } from '../lib/schemas';
+import { momentoDoMandato, posicaoNoMandato, textoDoMomento } from '../lib/tempo';
+
+interface Props {
+  mandato: Mandato;
+  hoje: string;
+  /** Prazos das promessas (versão completa). */
+  prazos?: PrazoNaRegua[];
+  /** Quantas dessas promessas não têm prazo no texto (contam no fim do mandato). */
+  semPrazo?: number;
+}
+
+const { mandato, hoje, prazos = [], semPrazo = 0 } = Astro.props;
+const { inicio, fim } = mandato;
+const momento = momentoDoMandato(inicio, fim, hoje);
+
+// Um traço por ano, no começo do ano (o primeiro, na posse).
+const primeiroAno = Number(inicio.slice(0, 4));
+const anos = Array.from({ length: Number(fim.slice(0, 4)) - primeiroAno }, (_, i) => {
+  const ano = primeiroAno + i;
+  return { ano, pos: i === 0 ? 0 : posicaoNoMandato(`${ano}-01-01`, inicio, fim) };
+});
+
+// Prazos muito próximos (menos de 3% da régua) viram uma marca só, para não se sobreporem.
+const marcas: { pos: number; quantidade: number }[] = [];
+for (const prazo of prazos) {
+  const pos = posicaoNoMandato(prazo.data, inicio, fim);
+  const anterior = marcas.at(-1);
+  if (anterior && pos - anterior.pos < 0.03) {
+    anterior.pos = pos;
+    anterior.quantidade += prazo.quantidade;
+  } else {
+    marcas.push({ pos, quantidade: prazo.quantidade });
+  }
+}
+const alinhamento = (pos: number) => (pos > 0.94 ? 'fim' : pos < 0.06 ? 'inicio' : 'meio');
+
+const plural = (n: number) => (n === 1 ? 'promessa' : 'promessas');
+const textoDosPrazos = prazos
+  .map((p) =>
+    p.data === fim
+      ? `${p.quantidade} no fim do mandato${semPrazo > 0 ? ` (${semPrazo} sem prazo no texto)` : ''}`
+      : `${p.quantidade} até ${formatarData(p.data)}`,
+  )
+  .join('; ');
+const totalDePrazos = prazos.reduce((soma, p) => soma + p.quantidade, 0);
+---
+
+<figure class="linha-mandato" data-regua data-inicio={inicio} data-fim={fim}>
+  <p class="linha-mandato-momento" data-momento>
+    {textoDoMomento(momento, fim)}
+  </p>
+  <div class="linha-mandato-trilho" aria-hidden="true" style={`--decorrido: ${momento.decorrido}`}>
+    <span class="linha-mandato-decorrido"></span>
+    {anos.map((a) => (
+      <span class="linha-mandato-ano" style={`--pos: ${a.pos}`}>
+        {a.ano}
+      </span>
+    ))}
+    {marcas.map((m) => (
+      <span
+        class="linha-mandato-prazo"
+        data-alinhamento={alinhamento(m.pos)}
+        style={`--pos: ${m.pos}`}
+      >
+        {m.quantidade}
+      </span>
+    ))}
+    <span
+      class="linha-mandato-hoje"
+      data-hoje
+      hidden={momento.fase !== 'durante'}
+      style={`--pos: ${momento.decorrido}`}
+    ></span>
+  </div>
+  <figcaption>
+    Mandato de {formatarData(inicio)} a {formatarData(fim)}.
+    {totalDePrazos > 0 &&
+      ` Prazos de ${totalDePrazos} ${plural(totalDePrazos)}, marcados acima da régua: ${textoDosPrazos}.`}
+  </figcaption>
+</figure>
+
+<script>
+  import '../scripts/mandato';
+</script>

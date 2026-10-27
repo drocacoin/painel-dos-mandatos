@@ -1,0 +1,20 @@
+---
+// Aviso único da página enquanto o mandato não começou: explica, uma vez só, por que os
+// cartões ainda não trazem a comparação com o início do mandato nem a marca da posse.
+import { formatarData, hojeEmBrasilia } from '../lib/formatar';
+import type { Mandato } from '../lib/schemas';
+
+interface Props {
+  mandato: Mandato;
+}
+
+const { mandato } = Astro.props;
+---
+
+{hojeEmBrasilia() < mandato.inicio && (
+  <p class="aviso" role="note">
+    O mandato começa em {formatarData(mandato.inicio)}. Até lá, todos os números são de antes da
+    posse. A comparação com o início do mandato e a marca da posse nos gráficos aparecem com o
+    primeiro dado do mandato.
+  </p>
+)}

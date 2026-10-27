@@ -1,7 +1,8 @@
 ---
 // Cartão de um indicador: valor mais recente, comparação com o início do mandato,
 // gráfico com tabela e a linha de fonte (regra 5). Mesmo componente nos dois painéis.
-import { formatarData, formatarValor } from '../lib/formatar';
+// Antes da posse, a falta de comparação é explicada uma vez na página (AvisoAntesDaPosse).
+import { formatarValor, hojeEmBrasilia } from '../lib/formatar';
 import {
   compararComInicio,
   rotuloComNota,
@@ -33,10 +34,13 @@ const variacao = arquivo
         {formatarValor(ultimo.valor, indicador.unidade, indicador.casas)}
       </p>
       <p class="indicador-periodo">{rotuloComNota(ultimo, indicador, 'longo')}</p>
-      <p class="indicador-comparacao">
-        {variacao ??
-          `Comparação com o início do mandato (${formatarData(mandato.inicio)}): aparece quando houver o primeiro dado do mandato.`}
-      </p>
+      {variacao ? (
+        <p class="indicador-comparacao">{variacao}</p>
+      ) : (
+        hojeEmBrasilia() >= mandato.inicio && (
+          <p class="indicador-comparacao">Ainda não há dado do mandato para comparar.</p>
+        )
+      )}
       <p class="indicador-descricao">{indicador.descricao}</p>
       {indicador.nota && <p class="indicador-nota">{indicador.nota}</p>}
       <Grafico indicador={indicador} serie={arquivo.serie} mandato={mandato} />

@@ -20,6 +20,7 @@ export const TEMAS: Tema[] = [
   'Saúde',
   'Educação',
   'Transporte',
+  'Meio ambiente',
 ];
 
 /** Âncora de cada tema na página (#contas-publicas). */
@@ -30,6 +31,7 @@ export const ANCORA_DO_TEMA: Record<Tema, string> = {
   Saúde: 'saude',
   Educação: 'educacao',
   Transporte: 'transporte',
+  'Meio ambiente': 'meio-ambiente',
 };
 
 /** Lê e valida o arquivo de dados do indicador. null = ainda não coletado. */
@@ -87,15 +89,26 @@ export function compararComInicio(
   return { referencia, atual };
 }
 
+/** Variação entre a referência e o ponto atual, no tipo do indicador; null se não há o que comparar. */
+function variacaoDesdeOInicio(indicador: Exibivel, comparacao: Comparacao): number | null {
+  const { referencia, atual } = comparacao;
+  if (!referencia || !atual) return null;
+  if (indicador.variacao !== 'percentual') return atual.valor - referencia.valor;
+  return referencia.valor === 0 ? null : (atual.valor / referencia.valor - 1) * 100;
+}
+
+/** Variação curta, para listas: "+0,4 p.p.", "-3,9%". null se ainda não há o que comparar. */
+export function variacaoCurta(indicador: Exibivel, comparacao: Comparacao): string | null {
+  const variacao = variacaoDesdeOInicio(indicador, comparacao);
+  if (variacao === null) return null;
+  return formatarVariacao(variacao, indicador.variacao, indicador.unidade, indicador.casas);
+}
+
 /** Texto da variação entre a referência e o ponto atual, ou null se ainda não há o que comparar. */
 export function textoDaVariacao(indicador: Exibivel, comparacao: Comparacao): string | null {
   const { referencia, atual } = comparacao;
-  if (!referencia || !atual) return null;
-  let variacao = atual.valor - referencia.valor;
-  if (indicador.variacao === 'percentual') {
-    if (referencia.valor === 0) return null;
-    variacao = (atual.valor / referencia.valor - 1) * 100;
-  }
+  const variacao = variacaoDesdeOInicio(indicador, comparacao);
+  if (!referencia || !atual || variacao === null) return null;
   const { unidade, casas, periodicidade } = indicador;
   const de = `${formatarValor(referencia.valor, unidade, casas)} em ${rotuloPeriodo(referencia.periodo, periodicidade)}`;
   const para = `${formatarValor(atual.valor, unidade, casas)} em ${rotuloPeriodo(atual.periodo, periodicidade)}`;

@@ -82,16 +82,6 @@ export const CRITERIO_DE_SELECAO =
   'Entram os trechos do plano de governo registrado no TSE que trazem um compromisso com alvo verificável: um número, um prazo ou a cobertura total (por exemplo, "todos os municípios").';
 export const REGRA_DO_PRAZO = 'Quando o texto da promessa não traz prazo, vale o fim do mandato.';
 
-// Formas diferentes para cada status: a cor nunca é o único sinal (design system, seção 6).
-export const ICONE_DO_STATUS: Record<Status, string> = {
-  'nao-iniciada': '○',
-  'em-andamento': '◔',
-  'cumprida-em-parte': '◐',
-  cumprida: '●',
-  descumprida: '✕',
-  'nao-avaliavel': '?',
-};
-
 export const TIPOS_DE_FONTE = [
   'plano de governo',
   'debate',

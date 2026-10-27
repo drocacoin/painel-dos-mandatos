@@ -1,0 +1,78 @@
+---
+import { ROTULO_DO_STATUS } from '../../config/promessas';
+import IconeStatus from '../components/IconeStatus.astro';
+import Base from '../layouts/Base.astro';
+import { formatarData } from '../lib/formatar';
+import { mandatos } from '../lib/mandatos';
+import { eventosDasPromessas } from '../lib/mudancas';
+import { carregarPromessas } from '../lib/promessas';
+
+const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
+const eventos = eventosDasPromessas(
+  mandatos.map((mandato) => ({ mandato, promessas: carregarPromessas(mandato.abrangencia) })),
+);
+const dominio = (url: string) => new URL(url).hostname;
+const promessasNoTexto = (n: number) => `${n} ${n === 1 ? 'promessa' : 'promessas'}`;
+---
+
+<Base
+  titulo="O que mudou | Painel dos Mandatos"
+  descricao="Cada mudança de status das promessas, com data, justificativa e fonte."
+>
+  <h1>O que mudou</h1>
+  <p>
+    Cada vez que o status de uma promessa muda, a mudança aparece aqui com a data, a justificativa e
+    a fonte. Os dois painéis estão juntos, do mais recente para o mais antigo. Para receber os
+    avisos num leitor de notícias, use o <a href={`${raiz}/o-que-mudou.xml`}>feed RSS</a>.
+  </p>
+
+  {eventos.length === 0 ? (
+    <p class="aviso" role="note">
+      Nenhuma promessa registrada ainda.
+    </p>
+  ) : (
+    <ol class="lista-eventos">
+      {eventos.map((e) => (
+        <li class="evento">
+          <p class="evento-cabecalho">
+            <time datetime={e.data}>{formatarData(e.data)}</time>
+            <span class="evento-painel">{e.mandato.nomeAbrangencia}</span>
+          </p>
+          {e.tipo === 'registro' ? (
+            <p>
+              <a href={`${raiz}/${e.mandato.abrangencia}/promessas/`}>
+                {promessasNoTexto(e.promessas.length)}
+              </a>{' '}
+              {e.promessas.length === 1
+                ? 'do plano de governo registrada no painel, como'
+                : 'do plano de governo registradas no painel, todas como'}{' '}
+              <IconeStatus status={e.status} /> {ROTULO_DO_STATUS[e.status]}.
+            </p>
+          ) : (
+            <>
+              <p class="evento-titulo">
+                <a href={`${raiz}/${e.mandato.abrangencia}/promessas/${e.promessa.id}/`}>
+                  {e.promessa.id}: {e.promessa.resumo}
+                </a>
+              </p>
+              <p>
+                <IconeStatus status={e.de} /> {ROTULO_DO_STATUS[e.de]} para{' '}
+                <IconeStatus status={e.para} /> <strong>{ROTULO_DO_STATUS[e.para]}</strong>
+              </p>
+              <p class="evento-justificativa">{e.justificativa}</p>
+              <p class="evento-fontes">
+                Fonte:{' '}
+                {e.fontes.map((url, i) => (
+                  <>
+                    {i > 0 && ', '}
+                    <a href={url}>{dominio(url)}</a>
+                  </>
+                ))}
+              </p>
+            </>
+          )}
+        </li>
+      ))}
+    </ol>
+  )}
+</Base>

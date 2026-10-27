@@ -1,11 +1,12 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { ICONE_DO_STATUS, ROTULO_DO_STATUS, STATUS } from '../../../../config/promessas';
+import { ROTULO_DO_STATUS, STATUS } from '../../../../config/promessas';
 import CartaoPromessa from '../../../components/CartaoPromessa.astro';
 import CriteriosDasPromessas from '../../../components/CriteriosDasPromessas.astro';
+import PlacarDasPromessas from '../../../components/PlacarDasPromessas.astro';
 import Base from '../../../layouts/Base.astro';
 import { mandatos } from '../../../lib/mandatos';
-import { carregarPromessas, placar } from '../../../lib/promessas';
+import { carregarPromessas } from '../../../lib/promessas';
 import type { Mandato } from '../../../lib/schemas';
 
 // Uma lista de promessas por painel: /brasil/promessas/, /sp/promessas/
@@ -22,9 +23,7 @@ interface Props {
 const { mandato } = Astro.props;
 const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
 const promessas = carregarPromessas(mandato.abrangencia);
-const contagem = placar(promessas);
 const temas = [...new Set(promessas.map((p) => p.tema))].sort((a, b) => a.localeCompare(b));
-const porcentagem = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
 const promessasNoTexto = (n: number) => `${n} ${n === 1 ? 'promessa' : 'promessas'}`;
 ---
 
@@ -44,23 +43,11 @@ const promessasNoTexto = (n: number) => `${n} ${n === 1 ? 'promessa' : 'promessa
     <>
       <section aria-labelledby="placar">
         <h2 id="placar">Placar: {promessasNoTexto(promessas.length)}</h2>
-        <div class="barra-placar" aria-hidden="true">
-          {contagem
-            .filter((c) => c.quantidade > 0)
-            .map((c) => (
-              <span data-status={c.status} style={`flex-grow: ${c.quantidade}`} />
-            ))}
-        </div>
-        <ul class="lista-placar">
-          {contagem.map((c) => (
-            <li>
-              <span class="selo-icone" data-status={c.status} aria-hidden="true">
-                {ICONE_DO_STATUS[c.status]}
-              </span>{' '}
-              {ROTULO_DO_STATUS[c.status]}: {c.quantidade} ({porcentagem.format(c.percentual)}%)
-            </li>
-          ))}
-        </ul>
+        <PlacarDasPromessas promessas={promessas} />
+        <p>
+          Cada mudança de status fica registrada em <a href={`${raiz}/o-que-mudou/`}>O que mudou</a>
+          , com justificativa e fonte.
+        </p>
       </section>
 
       <section aria-labelledby="lista">
