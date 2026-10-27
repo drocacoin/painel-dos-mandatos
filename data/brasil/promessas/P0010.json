@@ -1,0 +1,27 @@
+{
+  "id": "P0010",
+  "resumo": "Apoiar estados e municípios a universalizar o acesso à água tratada e ao esgoto",
+  "texto": "Continuaremos, no próximo mandato, a perseguir o objetivo de apoiar estados e municípios a universalizar acesso à água tratada e ao esgotamento sanitário, buscando priorizar periferias historicamente negligenciadas.",
+  "tema": "Saneamento",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo BR/2026BR280002542548_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_BR.zip",
+    "data": "2026-08-07",
+    "pagina": 46
+  },
+  "mensuravel": true,
+  "meta": "Acesso universal à água tratada e ao esgotamento sanitário",
+  "indicador": null,
+  "prazo": "2031-01-05",
+  "historico": [
+    {
+      "data": "2026-10-25",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 05/01/2027 (Constituição Federal, art. 82, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

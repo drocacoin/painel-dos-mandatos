@@ -1,0 +1,22 @@
+{
+  "atualizadoEm": "2026-10-26T22:55:33-03:00",
+  "serie": [
+    {
+      "periodo": "2023",
+      "valor": 9064
+    },
+    {
+      "periodo": "2024",
+      "valor": 6518
+    },
+    {
+      "periodo": "2025",
+      "valor": 5731
+    },
+    {
+      "periodo": "2026",
+      "valor": 3335,
+      "nota": "estimativa"
+    }
+  ]
+}

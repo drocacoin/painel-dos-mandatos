@@ -1,0 +1,27 @@
+{
+  "id": "P0014",
+  "resumo": "Atuar no Senado pelo fim da escala 6x1 e pela jornada de 40 horas, sem redução salarial",
+  "texto": "Manteremos nossa ação junto ao Senado Federal para assegurar o fim da escala 6x1 e a redução da jornada de trabalho para 40 horas, sem redução salarial, nos termos aprovados na Câmara dos Deputados.",
+  "tema": "Trabalho",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo BR/2026BR280002542548_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_BR.zip",
+    "data": "2026-08-07",
+    "pagina": 75
+  },
+  "mensuravel": true,
+  "meta": "Fim da escala 6x1 e jornada de 40 horas semanais, sem redução salarial, aprovados no Senado",
+  "indicador": null,
+  "prazo": null,
+  "historico": [
+    {
+      "data": "2026-10-25",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 05/01/2027 (Constituição Federal, art. 82, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

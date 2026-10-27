@@ -1,0 +1,27 @@
+{
+  "id": "P0007",
+  "resumo": "Criar fila única digital por risco clínico, com transporte sanitário em todas as regiões de saúde",
+  "texto": "Aprimoraremos ainda mais a regulação do acesso à atenção especializada, garantindo maior transparência das filas e utilizando inteligência artificial, com fila única digital e ordenada pelo risco clínico, com transporte sanitário em todas as regiões de saúde.",
+  "tema": "Saúde",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo BR/2026BR280002542548_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_BR.zip",
+    "data": "2026-08-07",
+    "pagina": 38
+  },
+  "mensuravel": true,
+  "meta": "Fila única digital ordenada pelo risco clínico e transporte sanitário em todas as regiões de saúde",
+  "indicador": null,
+  "prazo": null,
+  "historico": [
+    {
+      "data": "2026-10-25",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 05/01/2027 (Constituição Federal, art. 82, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

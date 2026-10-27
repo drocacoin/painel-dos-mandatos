@@ -1,0 +1,27 @@
+{
+  "id": "P0011",
+  "resumo": "Reduzir os 11% de municípios sem fibra óptica e ampliar o 5G no campo",
+  "texto": "Vamos reduzir o déficit de fibra óptica que ainda atinge 11% dos municípios e ampliar o 5G no campo, com prioridade para Norte, Nordeste e periferias.",
+  "tema": "Comunicações",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo BR/2026BR280002542548_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_BR.zip",
+    "data": "2026-08-07",
+    "pagina": 55
+  },
+  "mensuravel": true,
+  "meta": "Menos de 11% dos municípios sem fibra óptica e 5G ampliado no campo",
+  "indicador": null,
+  "prazo": null,
+  "historico": [
+    {
+      "data": "2026-10-25",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 05/01/2027 (Constituição Federal, art. 82, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}

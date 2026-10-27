@@ -1,0 +1,27 @@
+{
+  "id": "P0009",
+  "resumo": "Garantir recursos para concluir as obras do Periferia Viva (85 retomadas e 59 selecionadas)",
+  "texto": "Retomamos 85 obras que estavam paralisadas ou em ritmo muito lento e selecionamos outras 59 propostas, que envolvem provimento de infraestrutura, moradia digna, equipamentos e serviços públicos. No próximo mandato, todas estas obras terão recursos assegurados para sua conclusão, para garantir melhores condições de vida às periferias por elas atendidas.",
+  "tema": "Urbanismo",
+  "fonte": {
+    "tipo": "plano de governo",
+    "titulo": "Proposta de governo registrada no TSE (eleições 2026), arquivo BR/2026BR280002542548_01.pdf",
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/proposta_governo/proposta_governo_2026_BR.zip",
+    "data": "2026-08-07",
+    "pagina": 45
+  },
+  "mensuravel": true,
+  "meta": "Recursos assegurados para a conclusão das 85 obras retomadas e das 59 propostas selecionadas",
+  "indicador": null,
+  "prazo": "2031-01-05",
+  "historico": [
+    {
+      "data": "2026-10-25",
+      "status": "nao-iniciada",
+      "justificativa": "Registro inicial. O mandato começa em 05/01/2027 (Constituição Federal, art. 82, com a redação da Emenda Constitucional nº 111/2021).",
+      "fontes": [
+        "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+      ]
+    }
+  ]
+}
