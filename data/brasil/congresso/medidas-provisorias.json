@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-23T15:02:29-03:00",
+  "atualizadoEm": "2026-10-27T15:52:04-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -1959,18 +1959,18 @@
       "codigoMateria": 174900,
       "data": "2026-06-29",
       "ementa": "Abre crédito extraordinário, em favor do Ministério de Minas e Energia, no valor de R$ 550.000.000,00, para o fim que especifica.",
-      "situacao": "AGUARDANDO DESIGNAÇÃO DO RELATOR",
+      "situacao": "SEM EFICÁCIA",
       "deliberacao": null,
-      "tramitando": true
+      "tramitando": false
     },
     {
       "identificacao": "MPV 1373/2026",
       "codigoMateria": 174901,
       "data": "2026-06-29",
       "ementa": "Institui o Programa Extraordinário de Reequilíbrio Financeiro de Tomadores de Crédito Adimplentes - Desenrola Adimplentes e dá outras providências.",
-      "situacao": "AGUARDANDO INSTALAÇÃO DA COMISSÃO",
+      "situacao": "SEM EFICÁCIA",
       "deliberacao": null,
-      "tramitando": true
+      "tramitando": false
     },
     {
       "identificacao": "MPV 1374/2026",
