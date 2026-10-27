@@ -6,8 +6,8 @@
     "cargo": "Presidente da República",
     "inicio": "2027-01-05",
     "fim": "2031-01-05",
-    "eleito": null,
-    "partido": null,
+    "eleito": "Lula",
+    "partido": "PT",
     "fonteDatas": {
       "nome": "Constituição Federal, art. 82, na redação da Emenda Constitucional nº 111/2021",
       "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
