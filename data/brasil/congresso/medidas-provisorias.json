@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-04T17:35:48-03:00",
+  "atualizadoEm": "2026-11-05T17:50:08-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -2031,7 +2031,7 @@
       "codigoMateria": 175261,
       "data": "2026-07-22",
       "ementa": "Altera a Lei nº 15.473, de 22 de julho de 2026, que altera a Lei nº 9.818, de 23 de agosto de 1999, e a Lei nº 12.712, de 30 de agosto de 2012, para fortalecer e modernizar o sistema brasileiro de apoio oficial ao crédito à exportação.",
-      "situacao": "MATÉRIA COM A RELATORIA",
+      "situacao": "APROVADO PARECER NA COMISSÃO",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2203,6 +2203,15 @@
       "data": "2026-10-21",
       "ementa": "Abre crédito extraordinário, em favor do Ministério da Integração e do Desenvolvimento Regional, no valor de R$ 300.000.000,00, para o fim que especifica.",
       "situacao": "PRONTA PARA A PAUTA NA COMISSÃO",
+      "deliberacao": null,
+      "tramitando": true
+    },
+    {
+      "identificacao": "MPV 1399/2026",
+      "codigoMateria": 176208,
+      "data": "2026-11-04",
+      "ementa": "Estabelece alíquotas e normas complementares aplicáveis ao Imposto Seletivo para o ano-calendário de 2027, em Regime de Implementação Gradual",
+      "situacao": "AGUARDANDO DESIGNAÇÃO MEMBROS COMISSÃO",
       "deliberacao": null,
       "tramitando": true
     }
