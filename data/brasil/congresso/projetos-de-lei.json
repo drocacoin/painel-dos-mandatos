@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-03T17:16:41-03:00",
+  "atualizadoEm": "2026-11-06T17:07:20-03:00",
   "itens": [
     {
       "identificacao": "PL 1/2023",
@@ -502,8 +502,8 @@
       "id": 2463130,
       "data": "2024-10-17",
       "ementa": "Altera a Lei nº 9.605, de 12 de fevereiro de 1998, que dispõe sobre as sanções penais e administrativas derivadas de condutas e atividades lesivas ao meio ambiente.",
-      "codSituacao": 903,
-      "situacao": "Aguardando Deliberação"
+      "codSituacao": 907,
+      "situacao": "Aguardando Designação de Relator(a)"
     },
     {
       "identificacao": "PL 4043/2024",
@@ -630,8 +630,8 @@
       "id": 2531613,
       "data": "2025-07-01",
       "ementa": "Institui o Dia Nacional da Consolidação da Independência do Brasil.",
-      "codSituacao": 903,
-      "situacao": "Aguardando Deliberação"
+      "codSituacao": 900,
+      "situacao": "Aguardando Autógrafos na Mesa"
     },
     {
       "identificacao": "PL 3834/2025",
@@ -840,6 +840,22 @@
       "ementa": "Altera o art. 166 da Constituição, para prever a destinação de parcela das programações de execução obrigatória provenientes de emendas parlamentares ao custeio da gratuidade de serviços de transporte público coletivo urbano ou de caráter urbano.",
       "codSituacao": 1200,
       "situacao": "Aguardando Autorização do Despacho"
+    },
+    {
+      "identificacao": "PL 5742/2026",
+      "id": 2650051,
+      "data": "2026-11-03",
+      "ementa": "Dispõe sobre medidas tributárias e aduaneiras referentes à realização da Copa do Mundo Feminina da Fédération Internationale de Football Association – FIFA 2027 na República Federativa do Brasil.",
+      "codSituacao": 905,
+      "situacao": "Aguardando Despacho do Presidente da Câmara dos Deputados"
+    },
+    {
+      "identificacao": "PEC 22/2026",
+      "id": 2651102,
+      "data": "2026-11-05",
+      "ementa": "Altera o Ato das Disposições Constitucionais Transitórias para disciplinar a transição para a cobrança do Imposto Seletivo.",
+      "codSituacao": 905,
+      "situacao": "Aguardando Despacho do Presidente da Câmara dos Deputados"
     }
   ]
 }
