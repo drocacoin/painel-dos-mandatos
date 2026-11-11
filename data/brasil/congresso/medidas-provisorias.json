@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-10T17:37:59-03:00",
+  "atualizadoEm": "2026-11-11T17:21:59-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -1986,7 +1986,7 @@
       "codigoMateria": 174944,
       "data": "2026-07-03",
       "ementa": "Amplia o rol de Carreiras e Planos Especiais de Cargos cujos ocupantes fazem jus à indenização de que trata a Lei nº 12.855, de 2 de setembro de 2013, altera a Lei nº 15.367, de 30 de março de 2026, para admitir que as pessoas de que tratam o art. 6º da Emenda Constitucional nº 79, de 27 de maio de 2014, e o art. 6º da Emenda Constitucional nº 98, de 6 de dezembro de 2017, exerçam o direito de opção de que tratam os art. 52 a art. 54 da referida Lei, e transforma cargos efetivos vagos.",
-      "situacao": "APROVADA",
+      "situacao": "REMETIDA À SANÇÃO",
       "deliberacao": "APROVADO_PLV",
       "tramitando": false
     },
@@ -2004,7 +2004,7 @@
       "codigoMateria": 175190,
       "data": "2026-07-15",
       "ementa": "Autoriza a criação de linhas de crédito para composição de dívidas para liquidação ou amortização de operações de crédito rural e de Cédulas de Produto Rural e autoriza a participação da União em fundo garantidor destinado à cobertura de operações de crédito rural contratadas por produtores rurais afetados por eventos climáticos adversos.",
-      "situacao": "APROVADO PARECER NA COMISSÃO",
+      "situacao": "AGUARDANDO LEITURA",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2031,7 +2031,7 @@
       "codigoMateria": 175261,
       "data": "2026-07-22",
       "ementa": "Altera a Lei nº 15.473, de 22 de julho de 2026, que altera a Lei nº 9.818, de 23 de agosto de 1999, e a Lei nº 12.712, de 30 de agosto de 2012, para fortalecer e modernizar o sistema brasileiro de apoio oficial ao crédito à exportação.",
-      "situacao": "APROVADO PARECER NA COMISSÃO",
+      "situacao": "AGUARDANDO LEITURA",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2067,7 +2067,7 @@
       "codigoMateria": 175449,
       "data": "2026-08-13",
       "ementa": "Abre crédito extraordinário, em favor do Ministério da Integração e do Desenvolvimento Regional, no valor de R$ 360.000.000,00, para o fim que especifica.",
-      "situacao": "PRONTA PARA A PAUTA NA COMISSÃO",
+      "situacao": "APROVADO PARECER NA COMISSÃO",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2076,7 +2076,7 @@
       "codigoMateria": 175455,
       "data": "2026-08-13",
       "ementa": "Abre crédito extraordinário, em favor dos Ministérios do Desenvolvimento Agrário e Agricultura Familiar e do Desenvolvimento e Assistência Social, Família e Combate à Fome, no valor de R$ 924.985.960,00, para os fins que especifica.",
-      "situacao": "PRONTA PARA A PAUTA NA COMISSÃO",
+      "situacao": "APROVADO PARECER NA COMISSÃO",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2121,7 +2121,7 @@
       "codigoMateria": 175758,
       "data": "2026-09-09",
       "ementa": "Abre crédito extraordinário, em favor do Ministério de Minas e Energia, no valor de R$ 6.605.000.000,00, para os fins que especifica.",
-      "situacao": "MATÉRIA COM A RELATORIA",
+      "situacao": "APROVADO PARECER NA COMISSÃO",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2193,7 +2193,7 @@
       "codigoMateria": 176004,
       "data": "2026-10-21",
       "ementa": "Abre crédito extraordinário, em favor de Encargos Financeiros da União, no valor de R$6.494.296.446,00, para o fim que especifica.",
-      "situacao": "MATÉRIA COM A RELATORIA",
+      "situacao": "APROVADO PARECER NA COMISSÃO",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2202,7 +2202,7 @@
       "codigoMateria": 176006,
       "data": "2026-10-21",
       "ementa": "Abre crédito extraordinário, em favor do Ministério da Integração e do Desenvolvimento Regional, no valor de R$ 300.000.000,00, para o fim que especifica.",
-      "situacao": "PRONTA PARA A PAUTA NA COMISSÃO",
+      "situacao": "APROVADO PARECER NA COMISSÃO",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2211,7 +2211,7 @@
       "codigoMateria": 176208,
       "data": "2026-11-04",
       "ementa": "Estabelece alíquotas e normas complementares aplicáveis ao Imposto Seletivo para o ano-calendário de 2027, em Regime de Implementação Gradual",
-      "situacao": "MATÉRIA DESPACHADA",
+      "situacao": "AGUARDANDO INSTALAÇÃO DA COMISSÃO",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2220,7 +2220,7 @@
       "codigoMateria": 176244,
       "data": "2026-11-09",
       "ementa": "Altera a Lei nº 14.237, de 19 de novembro de 2021, para prorrogar o prazo de vigência do Auxílio Gás do Povo.",
-      "situacao": "AGUARDANDO DESIGNAÇÃO MEMBROS COMISSÃO",
+      "situacao": "MATÉRIA DESPACHADA",
       "deliberacao": null,
       "tramitando": true
     }
