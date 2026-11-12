@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-11T17:21:59-03:00",
+  "atualizadoEm": "2026-11-12T17:58:51-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -2004,9 +2004,9 @@
       "codigoMateria": 175190,
       "data": "2026-07-15",
       "ementa": "Autoriza a criação de linhas de crédito para composição de dívidas para liquidação ou amortização de operações de crédito rural e de Cédulas de Produto Rural e autoriza a participação da União em fundo garantidor destinado à cobertura de operações de crédito rural contratadas por produtores rurais afetados por eventos climáticos adversos.",
-      "situacao": "AGUARDANDO LEITURA",
-      "deliberacao": null,
-      "tramitando": true
+      "situacao": "APROVADO O PROJETO DE LEI DE CONVERSÃO",
+      "deliberacao": "APROVADO_PLV",
+      "tramitando": false
     },
     {
       "identificacao": "MPV 1377/2026",
@@ -2067,7 +2067,7 @@
       "codigoMateria": 175449,
       "data": "2026-08-13",
       "ementa": "Abre crédito extraordinário, em favor do Ministério da Integração e do Desenvolvimento Regional, no valor de R$ 360.000.000,00, para o fim que especifica.",
-      "situacao": "APROVADO PARECER NA COMISSÃO",
+      "situacao": "MEDIDA PROVISÓRIA ENVIADA À CÂMARA DOS DEPUTADOS",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2076,7 +2076,7 @@
       "codigoMateria": 175455,
       "data": "2026-08-13",
       "ementa": "Abre crédito extraordinário, em favor dos Ministérios do Desenvolvimento Agrário e Agricultura Familiar e do Desenvolvimento e Assistência Social, Família e Combate à Fome, no valor de R$ 924.985.960,00, para os fins que especifica.",
-      "situacao": "APROVADO PARECER NA COMISSÃO",
+      "situacao": "MEDIDA PROVISÓRIA ENVIADA À CÂMARA DOS DEPUTADOS",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2121,7 +2121,7 @@
       "codigoMateria": 175758,
       "data": "2026-09-09",
       "ementa": "Abre crédito extraordinário, em favor do Ministério de Minas e Energia, no valor de R$ 6.605.000.000,00, para os fins que especifica.",
-      "situacao": "APROVADO PARECER NA COMISSÃO",
+      "situacao": "MEDIDA PROVISÓRIA ENVIADA À CÂMARA DOS DEPUTADOS",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2193,7 +2193,7 @@
       "codigoMateria": 176004,
       "data": "2026-10-21",
       "ementa": "Abre crédito extraordinário, em favor de Encargos Financeiros da União, no valor de R$6.494.296.446,00, para o fim que especifica.",
-      "situacao": "APROVADO PARECER NA COMISSÃO",
+      "situacao": "MEDIDA PROVISÓRIA ENVIADA À CÂMARA DOS DEPUTADOS",
       "deliberacao": null,
       "tramitando": true
     },
@@ -2202,7 +2202,7 @@
       "codigoMateria": 176006,
       "data": "2026-10-21",
       "ementa": "Abre crédito extraordinário, em favor do Ministério da Integração e do Desenvolvimento Regional, no valor de R$ 300.000.000,00, para o fim que especifica.",
-      "situacao": "APROVADO PARECER NA COMISSÃO",
+      "situacao": "MEDIDA PROVISÓRIA ENVIADA À CÂMARA DOS DEPUTADOS",
       "deliberacao": null,
       "tramitando": true
     },
