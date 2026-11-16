@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-12T17:58:51-03:00",
+  "atualizadoEm": "2026-11-16T19:56:18-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -2004,7 +2004,7 @@
       "codigoMateria": 175190,
       "data": "2026-07-15",
       "ementa": "Autoriza a criação de linhas de crédito para composição de dívidas para liquidação ou amortização de operações de crédito rural e de Cédulas de Produto Rural e autoriza a participação da União em fundo garantidor destinado à cobertura de operações de crédito rural contratadas por produtores rurais afetados por eventos climáticos adversos.",
-      "situacao": "APROVADO O PROJETO DE LEI DE CONVERSÃO",
+      "situacao": "REMETIDA À SANÇÃO",
       "deliberacao": "APROVADO_PLV",
       "tramitando": false
     },
@@ -2013,9 +2013,9 @@
       "codigoMateria": 175215,
       "data": "2026-07-16",
       "ementa": "Abre crédito extraordinário, em favor do Ministério da Agricultura e Pecuária, da Advocacia Geral da União, e de Operações Oficiais de Crédito, no valor de R$ 13.285.000.000,00, para os fins que especifica.",
-      "situacao": "MATÉRIA COM A RELATORIA",
+      "situacao": "SEM EFICÁCIA",
       "deliberacao": null,
-      "tramitando": true
+      "tramitando": false
     },
     {
       "identificacao": "MPV 1378/2026",
