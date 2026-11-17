@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-16T19:56:18-03:00",
+  "atualizadoEm": "2026-11-17T18:48:54-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -2014,7 +2014,7 @@
       "data": "2026-07-16",
       "ementa": "Abre crédito extraordinário, em favor do Ministério da Agricultura e Pecuária, da Advocacia Geral da União, e de Operações Oficiais de Crédito, no valor de R$ 13.285.000.000,00, para os fins que especifica.",
       "situacao": "SEM EFICÁCIA",
-      "deliberacao": null,
+      "deliberacao": "PERDA_EFICACIA",
       "tramitando": false
     },
     {
@@ -2031,9 +2031,9 @@
       "codigoMateria": 175261,
       "data": "2026-07-22",
       "ementa": "Altera a Lei nº 15.473, de 22 de julho de 2026, que altera a Lei nº 9.818, de 23 de agosto de 1999, e a Lei nº 12.712, de 30 de agosto de 2012, para fortalecer e modernizar o sistema brasileiro de apoio oficial ao crédito à exportação.",
-      "situacao": "AGUARDANDO LEITURA",
-      "deliberacao": null,
-      "tramitando": true
+      "situacao": "APROVADO O PROJETO DE LEI DE CONVERSÃO",
+      "deliberacao": "APROVADO_PLV",
+      "tramitando": false
     },
     {
       "identificacao": "MPV 1380/2026",
@@ -2157,7 +2157,7 @@
       "codigoMateria": 175870,
       "data": "2026-09-25",
       "ementa": "Altera a Lei nº 14.690, de 3 de outubro de 2023, para instituir a Modalidade Emergencial de Renegociação de Dívidas de Pessoas Físicas Inadimplentes - Desenrola Brasil 3.0 e prever a adoção de medidas de promoção do crédito responsável, altera a Medida Provisória nº 1.373, de 29 de junho de 2026, para estabelecer novo prazo para o Programa Extraordinário de Reequilíbrio Financeiro de Tomadores de Crédito Adimplentes - Desenrola Adimplentes, e dá outras providências.",
-      "situacao": "AGUARDANDO INSTALAÇÃO DA COMISSÃO",
+      "situacao": "MATÉRIA COM A RELATORIA",
       "deliberacao": null,
       "tramitando": true
     },
