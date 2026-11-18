@@ -1,61 +1,65 @@
 {
-  "atualizadoEm": "2026-10-05T07:55:16-03:00",
+  "atualizadoEm": "2026-11-18T18:27:11-03:00",
   "serie": [
     {
       "periodo": "2023-T1",
-      "valor": 4044
+      "valor": 4069
     },
     {
       "periodo": "2023-T2",
-      "valor": 4059
+      "valor": 4084
     },
     {
       "periodo": "2023-T3",
-      "valor": 4125
+      "valor": 4150
     },
     {
       "periodo": "2023-T4",
-      "valor": 4212
+      "valor": 4238
     },
     {
       "periodo": "2024-T1",
-      "valor": 4271
+      "valor": 4297
     },
     {
       "periodo": "2024-T2",
-      "valor": 4306
+      "valor": 4332
     },
     {
       "periodo": "2024-T3",
-      "valor": 4326
+      "valor": 4352
     },
     {
       "periodo": "2024-T4",
-      "valor": 4417
+      "valor": 4443
     },
     {
       "periodo": "2025-T1",
-      "valor": 4307
+      "valor": 4333
     },
     {
       "periodo": "2025-T2",
-      "valor": 4380
+      "valor": 4406
     },
     {
       "periodo": "2025-T3",
-      "valor": 4336
+      "valor": 4362
     },
     {
       "periodo": "2025-T4",
-      "valor": 4466
+      "valor": 4493
     },
     {
       "periodo": "2026-T1",
-      "valor": 4457
+      "valor": 4484
     },
     {
       "periodo": "2026-T2",
-      "valor": 4447
+      "valor": 4474
+    },
+    {
+      "periodo": "2026-T3",
+      "valor": 4543
     }
   ]
 }
