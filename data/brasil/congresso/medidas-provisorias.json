@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-19T18:33:35-03:00",
+  "atualizadoEm": "2026-11-23T21:52:39-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -2023,7 +2023,7 @@
       "data": "2026-07-21",
       "ementa": "Abre crédito extraordinário, em favor do Ministério da Previdência Social, no valor de R$ 547.000.000,00, para o fim que especifica.",
       "situacao": "SEM EFICÁCIA",
-      "deliberacao": null,
+      "deliberacao": "PERDA_EFICACIA",
       "tramitando": false
     },
     {
@@ -2040,9 +2040,9 @@
       "codigoMateria": 175266,
       "data": "2026-07-23",
       "ementa": "Abre crédito extraordinário, em favor do Ministério de Minas e Energia, no valor de R$ 3.330.000.000,00, para o fim que especifica.",
-      "situacao": "MATÉRIA COM A RELATORIA",
+      "situacao": "SEM EFICÁCIA",
       "deliberacao": null,
-      "tramitando": true
+      "tramitando": false
     },
     {
       "identificacao": "MPV 1381/2026",
