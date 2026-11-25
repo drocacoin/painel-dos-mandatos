@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-21T15:02:12-03:00",
+  "atualizadoEm": "2026-11-25T19:30:30-03:00",
   "serie": [
     {
       "periodo": "2023-01",
@@ -7,175 +7,179 @@
     },
     {
       "periodo": "2023-02",
-      "valor": 99.93
+      "valor": 99.99
     },
     {
       "periodo": "2023-03",
-      "valor": 100.22
+      "valor": 100.35
     },
     {
       "periodo": "2023-04",
-      "valor": 100.32
+      "valor": 100.27
     },
     {
       "periodo": "2023-05",
-      "valor": 100.92
+      "valor": 101.04
     },
     {
       "periodo": "2023-06",
-      "valor": 100.87
+      "valor": 100.89
     },
     {
       "periodo": "2023-07",
-      "valor": 100.9
+      "valor": 100.8
     },
     {
       "periodo": "2023-08",
-      "valor": 101.48
+      "valor": 101.35
     },
     {
       "periodo": "2023-09",
-      "valor": 101.83
+      "valor": 101.93
     },
     {
       "periodo": "2023-10",
-      "valor": 101.74
+      "valor": 101.81
     },
     {
       "periodo": "2023-11",
-      "valor": 103.25
+      "valor": 103.3
     },
     {
       "periodo": "2023-12",
-      "valor": 103.83
+      "valor": 103.9
     },
     {
       "periodo": "2024-01",
-      "valor": 103.02
+      "valor": 103.2
     },
     {
       "periodo": "2024-02",
-      "valor": 103.13
+      "valor": 103.15
     },
     {
       "periodo": "2024-03",
-      "valor": 103.31
+      "valor": 103.49
     },
     {
       "periodo": "2024-04",
-      "valor": 103.91
+      "valor": 103.8
     },
     {
       "periodo": "2024-05",
-      "valor": 103.98
+      "valor": 104.06
     },
     {
       "periodo": "2024-06",
-      "valor": 106.74
+      "valor": 106.76
     },
     {
       "periodo": "2024-07",
-      "valor": 105.19
+      "valor": 105.11
     },
     {
       "periodo": "2024-08",
-      "valor": 105.36
+      "valor": 105.07
     },
     {
       "periodo": "2024-09",
-      "valor": 106.27
+      "valor": 106.13
     },
     {
       "periodo": "2024-10",
-      "valor": 106.28
+      "valor": 106.43
     },
     {
       "periodo": "2024-11",
-      "valor": 105.35
+      "valor": 105.4
     },
     {
       "periodo": "2024-12",
-      "valor": 104.12
+      "valor": 103.93
     },
     {
       "periodo": "2025-01",
-      "valor": 105.57
+      "valor": 105.67
     },
     {
       "periodo": "2025-02",
-      "valor": 105.62
+      "valor": 105.75
     },
     {
       "periodo": "2025-03",
-      "valor": 106.29
-    },
-    {
-      "periodo": "2025-04",
-      "valor": 105.72
-    },
-    {
-      "periodo": "2025-05",
-      "valor": 105.46
-    },
-    {
-      "periodo": "2025-06",
-      "valor": 105.79
-    },
-    {
-      "periodo": "2025-07",
       "valor": 106.32
     },
     {
+      "periodo": "2025-04",
+      "valor": 105.96
+    },
+    {
+      "periodo": "2025-05",
+      "valor": 105.57
+    },
+    {
+      "periodo": "2025-06",
+      "valor": 105.74
+    },
+    {
+      "periodo": "2025-07",
+      "valor": 106.28
+    },
+    {
       "periodo": "2025-08",
-      "valor": 106.37
+      "valor": 106.06
     },
     {
       "periodo": "2025-09",
-      "valor": 105.82
+      "valor": 105.76
     },
     {
       "periodo": "2025-10",
-      "valor": 104.71
+      "valor": 105.02
     },
     {
       "periodo": "2025-11",
-      "valor": 104.16
+      "valor": 104.32
     },
     {
       "periodo": "2025-12",
-      "valor": 104.15
+      "valor": 103.94
     },
     {
       "periodo": "2026-01",
-      "valor": 106.73
+      "valor": 106.76
     },
     {
       "periodo": "2026-02",
-      "valor": 107.13
+      "valor": 107.05
     },
     {
       "periodo": "2026-03",
-      "valor": 107.02
+      "valor": 106.75
     },
     {
       "periodo": "2026-04",
-      "valor": 107.89
+      "valor": 107.55
     },
     {
       "periodo": "2026-05",
-      "valor": 107.68
+      "valor": 107.23
     },
     {
       "periodo": "2026-06",
-      "valor": 106.89
+      "valor": 106.71
     },
     {
       "periodo": "2026-07",
-      "valor": 106.82
+      "valor": 106.51
     },
     {
       "periodo": "2026-08",
-      "valor": 107
+      "valor": 106.29
+    },
+    {
+      "periodo": "2026-09",
+      "valor": 104.45
     }
   ]
 }

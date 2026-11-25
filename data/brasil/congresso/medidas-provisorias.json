@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-23T21:52:39-03:00",
+  "atualizadoEm": "2026-11-25T19:32:47-03:00",
   "itens": [
     {
       "identificacao": "MPV 1154/2023",
@@ -2041,7 +2041,7 @@
       "data": "2026-07-23",
       "ementa": "Abre crédito extraordinário, em favor do Ministério de Minas e Energia, no valor de R$ 3.330.000.000,00, para o fim que especifica.",
       "situacao": "SEM EFICÁCIA",
-      "deliberacao": null,
+      "deliberacao": "PERDA_EFICACIA",
       "tramitando": false
     },
     {
@@ -2202,7 +2202,7 @@
       "codigoMateria": 176006,
       "data": "2026-10-21",
       "ementa": "Abre crédito extraordinário, em favor do Ministério da Integração e do Desenvolvimento Regional, no valor de R$ 300.000.000,00, para o fim que especifica.",
-      "situacao": "MEDIDA PROVISÓRIA ENVIADA À CÂMARA DOS DEPUTADOS",
+      "situacao": "AGUARDANDO LEITURA",
       "deliberacao": null,
       "tramitando": true
     },
